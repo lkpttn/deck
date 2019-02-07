@@ -31,7 +31,7 @@ ul.cards {
 ul li.card {
   display: inline-block;
   margin: 0 -50px;
-  position: relative;
+  position: absolute;
   height: 50em;
   width: 30em;
   border-radius: 10px;
@@ -39,6 +39,7 @@ ul li.card {
   box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
   padding: 15px;
   transition: all 0.2s ease;
+  transform-origin: 50% 50%;
 }
 
 .cardback {
@@ -54,9 +55,9 @@ ul li.card {
 }
 
 .previous {
-  transform: rotateY(45deg) scale(0.9, 0.9) translateX(-100px);
+  transform: rotateY(45deg) scale(0.9, 0.9);
 }
 
 .after {
-  transform: rotateY(-45deg) scale(0.9, 0.9) translateX(100px);
+  transform: rotateY(-45deg) scale(0.9, 0.9);
 }

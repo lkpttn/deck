@@ -12,10 +12,13 @@ function selectCard(x) {
     var card = cardList[i];
     if (i < x) {
       card.className = 'card previous';
+      card.style.left = `${30 + i * 2}%`;
     } else if (i === x) {
       card.className = 'card selected';
+      card.style.left = '50%';
     } else {
       card.className = 'card after';
+      card.style.left = `${65 + i * 2}%`;
     }
   }
 }
