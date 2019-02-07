@@ -11,23 +11,11 @@ function selectCard(x) {
   for (let i = 0; i < cardList.length; i++) {
     var card = cardList[i];
     if (i < x) {
-      card.classList.remove('previous');
-      card.classList.remove('selected');
-      card.classList.remove('after');
-
-      card.classList.add('previous');
+      card.className = 'card previous';
     } else if (i === x) {
-      card.classList.remove('previous');
-      card.classList.remove('selected');
-      card.classList.remove('after');
-
-      card.classList.add('selected');
+      card.className = 'card selected';
     } else {
-      card.classList.remove('previous');
-      card.classList.remove('selected');
-      card.classList.remove('after');
-
-      card.classList.add('after');
+      card.className = 'card after';
     }
   }
 }
