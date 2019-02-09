@@ -23,7 +23,7 @@ function selectCard(x) {
   }
 }
 
-selectCard(2);
+// selectCard(2);
 
 // Dynamically choose the rotation point and translation based on how far the card is
 // from the selected card
