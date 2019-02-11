@@ -1,6 +1,6 @@
 html {
   background: #ed553b;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Fira Sans', sans-serif;
   font-size: 10px;
 }
 
@@ -8,13 +8,12 @@ body {
   width: 100%;
   margin: 0 auto;
   perspective: 1200px;
+  color: #ffffff;
 }
 
 header {
   color: #ffffff;
   font-size: 1.5em;
-  font-family: 'Source Sans Pro', sans-serif;
-  padding: 15px;
 }
 
 header h1 {
@@ -34,7 +33,7 @@ header a {
   width: 90%;
   min-height: 700px;
   height: 100vh;
-  max-height: 1000px;
+  max-height: 1100px;
   margin: 0 auto;
   display: flex;
   flex-flow: row wrap;
@@ -47,6 +46,26 @@ header a {
   flex: 2 0px;
   font-size: 1.6em;
   margin: 50px;
+}
+
+.description h2 {
+  font-size: 2em;
+}
+
+pre {
+  position: relative;
+}
+
+pre code {
+  background: #001220;
+  border-radius: 10px;
+  display: block;
+  padding: 20px;
+  height: 400px;
+  max-width: 600px;
+  overflow: scroll;
+  scrollbar-color: #002646 #001220;
+  scrollbar-width: thin;
 }
 
 .item {
@@ -69,34 +88,20 @@ header a {
   border: 20px solid #fff;
 }
 
-.card.back {
-  background: blue;
-  border: 20px solid #fff;
-  transform: rotateY(-180deg) rotateX(15deg);
-  z-index: 1;
-}
-
-.forward {
-  transform: rotateY(180deg) !important;
-}
-
-.backwards {
-  transform: rotateY(0deg) !important;
-}
-
+/* Covers */
 .cover1 {
-  background: green;
+  background: #001628;
 }
 
 .cover2 {
-  background: yellow;
+  background: #12071f;
 }
 .cover3 {
-  background: blue;
+  background: #2f3129;
 }
 
 .cover4 {
-  background: red;
+  background: #281f00;
 }
 
 .gallery-item:nth-child(odd) .container .item {

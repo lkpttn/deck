@@ -7,6 +7,10 @@
       content="width=device-width, shrink-to-fit=0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
     <link rel="stylesheet" type="text/css" href="./assets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Fira+Sans:400,700,900"
+      rel="stylesheet"
+    />
 
     <title>CSS Doodle</title>
   </head>
@@ -19,14 +23,79 @@
       <div class="gallery-item cover1">
         <div class="container">
           <div class="item">
-            <div class="card front">Card</div>
+            <div class="card front"><canvas id="ace">send help</canvas></div>
           </div>
           <div class="description">
-            <h2>The Ace of Spades</h2>
+            <h2>Bergdorf</h2>
             <p>
-              This is the description of the card back. This is the description
-              of the card back. This is the description of the card back.
+              A geometric pattern inspired by old art deco buildings around New
+              York City. Created by drawing concentric lines and shapes with
+              simple step intervals.
             </p>
+            <pre class="">
+            <code>// Bergdorf
+var canvas = document.getElementById('ace');
+var context = canvas.getContext('2d');
+                
+canvas.width = 300;
+canvas.height = 500;
+                
+const width = canvas.width;
+const height = canvas.height;
+const step = 15;
+                
+context.fillStyle = '#001628';
+context.fillRect(0, 0, width, height);
+
+draw();
+
+function draw() {
+  // Circle in the four corners
+  context.beginPath();
+  drawCircles(0, 0, 6);
+  drawCircles(width, 0, 6);
+  drawCircles(width, height, 6);
+  drawCircles(0, height, 6);
+  context.strokeStyle = 'goldenrod';
+  context.stroke();
+
+  // Draw the center circles
+  context.beginPath();
+  drawCircles(width / 2, height / 2, 6);
+  context.moveTo(width / 2 - step * 5, height / 2);
+  context.lineTo(width / 2 - step, height / 2);
+  context.stroke();
+
+  // Draw the diamonds
+  context.beginPath();
+  drawDiamond(4);
+  context.stroke();
+
+  context.beginPath();
+  context.moveTo(0, 0);
+  context.lineTo(width, height);
+  context.lineTo(width, 0);
+  context.lineTo(0, height);
+  context.stroke();
+}
+
+function drawCircles(x, y, n) {
+  for (let i = 1; i < n; i++) {
+    context.arc(x, y, step * i, 0, Math.PI * 2, false);
+  }
+}
+
+function drawDiamond(n) {
+  for (let i = 0; i < n; i++) {
+    context.moveTo(0 + step * i, height / 2);
+    context.lineTo(width / 2, 0 + step * i * 1.5);
+    context.lineTo(width - step * i, height / 2);
+    context.lineTo(width / 2, height - step * i * 1.5);
+    context.lineTo(0 + step * i, height / 2);
+  }
+}
+                </code>
+              </pre>
           </div>
         </div>
       </div>
@@ -91,6 +160,6 @@
       </ul>
     </div> -->
 
-    <script src="./assets/flip.js"></script>
+    <script src="./assets/cards.js"></script>
   </body>
 </html>
