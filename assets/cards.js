@@ -70,19 +70,40 @@ canvas.height = 500;
 
 context.fillStyle = '#000000';
 context.fillRect(0, 0, width, height);
-context.translate(width / 2, height / 2);
+
+const size = 20;
 
 pinwheel();
 
 function pinwheel() {
-  context.strokeStyle = '#555555';
+  var rectWidth = 300;
+  var rectHeight = 300;
+  context.strokeStyle = '#FFFFFF';
+  context.lineWidth = 2;
 
-  for (let i = 0; i < 24; i++) {
-    context.beginPath();
-    for (let j = 0; j < 300; j++) {
-      context.arc(0 - j, 0, 2, 0, Math.PI * 2, false);
-      context.rotate(0.05 * (Math.PI / 180));
-    }
-    context.stroke();
+  context.beginPath();
+  for (let j = 0; j < 8; j++) {
+    let x1 = 0 + j * size + j;
+    let y1 = 0 + j * size + j;
+
+    context.rect(x1, y1, rectWidth, rectHeight);
+    console.log(
+      'Creating a rectangle from ' +
+        x1 +
+        ', ' +
+        y1 +
+        ' with a width of ' +
+        rectWidth +
+        ', and a height of ' +
+        rectHeight,
+    );
+
+    rectWidth = rectWidth - size * 2;
+    rectHeight = rectHeight - size * 2;
+
+    // context.arc(0 - j, 0, 2, 0, Math.PI * 2, false);
+    context.rotate(1 * (Math.PI / 180));
+    context.translate(j, -1 * j);
   }
+  context.stroke();
 }
