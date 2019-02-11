@@ -1,4 +1,4 @@
-// Ace of Spades
+// Bergdorf
 var canvas = document.getElementById('ace');
 var context = canvas.getContext('2d');
 
@@ -58,5 +58,31 @@ function drawDiamond(n) {
     context.lineTo(width - step * i, height / 2);
     context.lineTo(width / 2, height - step * i * 1.5);
     context.lineTo(0 + step * i, height / 2);
+  }
+}
+
+// Pinwheel
+var canvas = document.getElementById('pinwheel');
+var context = canvas.getContext('2d');
+
+canvas.width = 300;
+canvas.height = 500;
+
+context.fillStyle = '#000000';
+context.fillRect(0, 0, width, height);
+context.translate(width / 2, height / 2);
+
+pinwheel();
+
+function pinwheel() {
+  context.strokeStyle = '#555555';
+
+  for (let i = 0; i < 24; i++) {
+    context.beginPath();
+    for (let j = 0; j < 300; j++) {
+      context.arc(0 - j, 0, 2, 0, Math.PI * 2, false);
+      context.rotate(0.05 * (Math.PI / 180));
+    }
+    context.stroke();
   }
 }

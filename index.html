@@ -103,14 +103,43 @@ function drawDiamond(n) {
       <div class="gallery-item cover2">
         <div class="container">
           <div class="item">
-            <div class="card front">Card</div>
+            <div class="card front">
+              <canvas id="pinwheel">send help</canvas>
+            </div>
           </div>
           <div class="description">
-            <h2>The Queen of Hearts</h2>
+            <h2>Pinwheel</h2>
             <p>
-              This is the description of the card back. This is the description
-              of the card back. This is the description of the card back.
+              A swirling pattern drawn by stacking small circles while rotating
+              the whole canvas.
             </p>
+            <pre class="">
+            <code>// Pinwheel
+var canvas = document.getElementById('pinwheel');
+var context = canvas.getContext('2d');
+
+canvas.width = 300;
+canvas.height = 500;
+
+context.fillStyle = '#000000';
+context.fillRect(0, 0, width, height);
+context.translate(width / 2, height / 2);
+
+pinwheel();
+
+function pinwheel() {
+  context.strokeStyle = '#555555';
+
+  for (let i = 0; i < 24; i++) {
+    context.beginPath();
+    for (let j = 0; j < 300; j++) {
+      context.arc(0 - j, 0, 1, 0, Math.PI * 2, false);
+      context.rotate(0.05 * (Math.PI / 180));
+    }
+    context.stroke();
+  }
+}
+</code></pre>
           </div>
         </div>
       </div>
