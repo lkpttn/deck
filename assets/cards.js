@@ -1,96 +1,56 @@
-// Bergdorf
-var canvas = document.getElementById('ace');
-var context = canvas.getContext('2d');
+// Intersection Observer
+// Wrap all this up in a querySelectorAll
+// How can we programmatically detect unique cards?
 
-canvas.width = 300;
-canvas.height = 500;
+// Create the listeners for these ids
+createListener(bergdorf);
+createListener(vertigo);
 
-const width = canvas.width;
-const height = canvas.height;
-
-const step = 15;
-
-context.fillStyle = '#001628';
-context.fillRect(0, 0, width, height);
-
-draw();
-
-function draw() {
-  // Circle in the four corners
-  context.beginPath();
-  drawCircles(0, 0, 6);
-  drawCircles(width, 0, 6);
-  drawCircles(width, height, 6);
-  drawCircles(0, height, 6);
-  context.strokeStyle = 'goldenrod';
-  context.stroke();
-
-  // Draw the center circles
-  context.beginPath();
-  drawCircles(width / 2, height / 2, 6);
-  context.moveTo(width / 2 - step * 5, height / 2);
-  context.lineTo(width / 2 - step, height / 2);
-  context.stroke();
-
-  // Draw the diamonds
-  context.beginPath();
-  drawDiamond(4);
-  context.stroke();
-
-  context.beginPath();
-  context.moveTo(0, 0);
-  context.lineTo(width, height);
-  context.lineTo(width, 0);
-  context.lineTo(0, height);
-  context.stroke();
+function createListener(name) {
+  var cardElement;
+  window.addEventListener(
+    'load',
+    function(event) {
+      cardElement = document.querySelector(`#${name.id}`);
+      createObserver(cardElement);
+    },
+    false,
+  );
 }
 
-function drawCircles(x, y, n) {
-  for (let i = 1; i < n; i++) {
-    context.arc(x, y, step * i, 0, Math.PI * 2, false);
-  }
+function createObserver(target) {
+  var observer;
+
+  var options = {
+    root: null,
+    rootMargin: '0px',
+    threshhold: 0.95,
+  };
+
+  // Call handleIntersect when the threshhold is met?
+  observer = new IntersectionObserver(handleIntersect, options);
+  observer.observe(target);
 }
 
-function drawDiamond(n) {
-  for (let i = 0; i < n; i++) {
-    context.moveTo(0 + step * i, height / 2);
-    context.lineTo(width / 2, 0 + step * i * 1.5);
-    context.lineTo(width - step * i, height / 2);
-    context.lineTo(width / 2, height - step * i * 1.5);
-    context.lineTo(0 + step * i, height / 2);
-  }
+function handleIntersect(entries, observer) {
+  entries.forEach(function(entry) {
+    var name = entry.target.id;
+    if (entry.isIntersecting) {
+      console.log('Successful intersection of ' + name);
+      loadScript(`./assets/${name}.js`, name);
+    }
+  });
 }
 
-// Vertigo
-var canvas = document.getElementById('vertigo');
-var context = canvas.getContext('2d');
-
-canvas.width = 300;
-canvas.height = 500;
-
-context.fillStyle = '#db451f';
-context.fillRect(0, 0, width, height);
-
-vertigo();
-
-function vertigo() {
-  var size = 0;
-  var squareWidth = 1;
-  context.strokeStyle = '#FFFFFF';
-  context.lineWidth = 2;
-
-  context.translate(width / 2, height / 2);
-  for (let i = 0; i < 30; i++) {
-    context.beginPath();
-    context.rect(
-      0 - squareWidth,
-      0 - squareWidth,
-      squareWidth * 2,
-      squareWidth * 2,
-    );
-    context.stroke();
-    context.rotate((2 * Math.PI) / 180);
-    squareWidth = squareWidth + size;
-    size++;
+function loadScript(url, name) {
+  var isLoaded = document.querySelectorAll(`.${name}`);
+  if (isLoaded.length > 0) {
+    return;
   }
+
+  console.log('Adding ' + name);
+  var myScript = document.createElement('script');
+  myScript.src = url;
+  myScript.className = name;
+  document.body.appendChild(myScript);
 }
