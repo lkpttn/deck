@@ -20,7 +20,6 @@ function createListener(name) {
 
 function createObserver(target) {
   var observer;
-
   var options = {
     root: null,
     rootMargin: '0px',
@@ -37,7 +36,7 @@ function handleIntersect(entries, observer) {
     var name = entry.target.id;
     if (entry.isIntersecting) {
       console.log('Successful intersection of ' + name);
-      loadScript(`./assets/${name}.js`, name);
+      loadScript(`./assets/cards/${name}.js`, name);
     }
   });
 }
@@ -49,8 +48,8 @@ function loadScript(url, name) {
   }
 
   console.log('Adding ' + name);
-  var myScript = document.createElement('script');
-  myScript.src = url;
-  myScript.className = name;
-  document.body.appendChild(myScript);
+  var newScript = document.createElement('script');
+  newScript.src = url;
+  newScript.className = name;
+  document.body.appendChild(newScript);
 }
