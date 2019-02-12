@@ -104,39 +104,49 @@ function drawDiamond(n) {
         <div class="container">
           <div class="item">
             <div class="card front">
-              <canvas id="pinwheel">send help</canvas>
+              <canvas id="vertigo">send help</canvas>
             </div>
           </div>
           <div class="description">
-            <h2>Pinwheel</h2>
+            <h2>Vertigo</h2>
             <p>
-              A swirling pattern drawn by stacking small circles while rotating
-              the whole canvas.
+              I named this one Vertigo before going and looking at the poster
+              again, but I like the rectangle theme. Start with a small
+              rectangle in the center, increasing it's size, rotation and
+              distance to the next rectangle with each step.
             </p>
             <pre class="">
-            <code>// Pinwheel
-var canvas = document.getElementById('pinwheel');
+            <code>// Vertigo
+var canvas = document.getElementById('vertigo');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
 canvas.height = 500;
 
-context.fillStyle = '#000000';
+context.fillStyle = '#DB451F';
 context.fillRect(0, 0, width, height);
-context.translate(width / 2, height / 2);
 
-pinwheel();
+vertigo();
 
-function pinwheel() {
-  context.strokeStyle = '#555555';
+function vertigo() {
+  var size = 0;
+  var squareWidth = 1;
+  context.strokeStyle = '#FFFFFF';
+  context.lineWidth = 2;
 
-  for (let i = 0; i < 24; i++) {
+  context.translate(width / 2, height / 2);
+  for (let i = 0; i < 30; i++) {
     context.beginPath();
-    for (let j = 0; j < 300; j++) {
-      context.arc(0 - j, 0, 1, 0, Math.PI * 2, false);
-      context.rotate(0.05 * (Math.PI / 180));
-    }
+    context.rect(
+      0 - squareWidth,
+      0 - squareWidth,
+      squareWidth * 2,
+      squareWidth * 2,
+    );
     context.stroke();
+    context.rotate((2 * Math.PI) / 180);
+    squareWidth = squareWidth + size;
+    size++;
   }
 }
 </code></pre>

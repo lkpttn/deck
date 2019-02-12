@@ -61,49 +61,36 @@ function drawDiamond(n) {
   }
 }
 
-// Pinwheel
-var canvas = document.getElementById('pinwheel');
+// Vertigo
+var canvas = document.getElementById('vertigo');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
 canvas.height = 500;
 
-context.fillStyle = '#000000';
+context.fillStyle = '#db451f';
 context.fillRect(0, 0, width, height);
 
-const size = 20;
+vertigo();
 
-pinwheel();
-
-function pinwheel() {
-  var rectWidth = 300;
-  var rectHeight = 300;
+function vertigo() {
+  var size = 0;
+  var squareWidth = 1;
   context.strokeStyle = '#FFFFFF';
   context.lineWidth = 2;
 
-  context.beginPath();
-  for (let j = 0; j < 8; j++) {
-    let x1 = 0 + j * size + j;
-    let y1 = 0 + j * size + j;
-
-    context.rect(x1, y1, rectWidth, rectHeight);
-    console.log(
-      'Creating a rectangle from ' +
-        x1 +
-        ', ' +
-        y1 +
-        ' with a width of ' +
-        rectWidth +
-        ', and a height of ' +
-        rectHeight,
+  context.translate(width / 2, height / 2);
+  for (let i = 0; i < 30; i++) {
+    context.beginPath();
+    context.rect(
+      0 - squareWidth,
+      0 - squareWidth,
+      squareWidth * 2,
+      squareWidth * 2,
     );
-
-    rectWidth = rectWidth - size * 2;
-    rectHeight = rectHeight - size * 2;
-
-    // context.arc(0 - j, 0, 2, 0, Math.PI * 2, false);
-    context.rotate(1 * (Math.PI / 180));
-    context.translate(j, -1 * j);
+    context.stroke();
+    context.rotate((2 * Math.PI) / 180);
+    squareWidth = squareWidth + size;
+    size++;
   }
-  context.stroke();
 }

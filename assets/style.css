@@ -31,6 +31,7 @@ header a {
 
 .container {
   width: 90%;
+  max-width: 1150px;
   min-height: 700px;
   height: 100vh;
   max-height: 1100px;
@@ -57,14 +58,14 @@ pre {
 }
 
 pre code {
-  background: #001220;
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   display: block;
   padding: 20px;
   height: 400px;
-  max-width: 600px;
   overflow: scroll;
-  scrollbar-color: #002646 #001220;
+  overflow-x: hidden;
+  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.2);
   scrollbar-width: thin;
 }
 
@@ -94,7 +95,7 @@ pre code {
 }
 
 .cover2 {
-  background: #000000;
+  background: #db451f;
 }
 .cover3 {
   background: #12071f;
