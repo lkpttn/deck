@@ -89,22 +89,6 @@ pre code {
   border: 20px solid #fff;
 }
 
-/* Covers */
-.cover1 {
-  background: #001628;
-}
-
-.cover2 {
-  background: #db451f;
-}
-.cover3 {
-  background: #12071f;
-}
-
-.cover4 {
-  background: #281f00;
-}
-
 .gallery-item:nth-child(odd) .container .item {
   transform: rotateZ(-2deg);
   order: 1;
@@ -121,4 +105,20 @@ pre code {
 
 .gallery-item:nth-child(even) .container .description {
   order: 1;
+}
+
+/* Covers */
+.bergdorf {
+  background: #001628;
+}
+
+.vertigo {
+  background: #db451f;
+}
+.cover3 {
+  background: #12071f;
+}
+
+.cover4 {
+  background: #281f00;
 }

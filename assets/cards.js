@@ -42,7 +42,7 @@ function handleIntersect(entries, observer) {
 }
 
 function loadScript(url, name) {
-  var isLoaded = document.querySelectorAll(`.${name}`);
+  var isLoaded = document.querySelectorAll(`.${name}-script`);
   if (isLoaded.length > 0) {
     return;
   }
@@ -50,6 +50,6 @@ function loadScript(url, name) {
   console.log('Adding ' + name);
   var newScript = document.createElement('script');
   newScript.src = url;
-  newScript.className = name;
+  newScript.className = name + '-script';
   document.body.appendChild(newScript);
 }
