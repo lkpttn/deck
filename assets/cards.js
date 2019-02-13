@@ -5,6 +5,7 @@
 // Create the listeners for these ids
 createListener(bergdorf);
 createListener(vertigo);
+createListener(varsarely);
 
 function createListener(name) {
   var cardElement;

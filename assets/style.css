@@ -1,5 +1,5 @@
 html {
-  background: #ed553b;
+  background: #000000;
   font-family: 'Fira Sans', sans-serif;
   font-size: 10px;
 }
@@ -20,13 +20,13 @@ header h1 {
   line-height: 0.5em;
 }
 
+header p {
+  font-size: 1.2em;
+}
+
 header a {
   color: #ffffff;
   text-decoration: underline;
-}
-
-.gallery {
-  background: #fff;
 }
 
 .container {
@@ -40,6 +40,10 @@ header a {
   flex-flow: row wrap;
   align-items: center;
   align-content: center;
+}
+
+.heading {
+  flex-direction: column;
 }
 
 .description {
@@ -85,12 +89,12 @@ pre code {
 }
 
 .card.front {
-  background: #632c65;
+  background: #fff;
   border: 20px solid #fff;
 }
 
 .gallery-item:nth-child(odd) .container .item {
-  transform: rotateZ(-2deg);
+  /* transform: rotateZ(-2deg); */
   order: 1;
 }
 
@@ -99,7 +103,7 @@ pre code {
 }
 
 .gallery-item:nth-child(even) .container .item {
-  transform: rotateZ(2deg);
+  /* transform: rotateZ(2deg); */
   order: 2;
 }
 
@@ -115,10 +119,7 @@ pre code {
 .vertigo {
   background: #db451f;
 }
-.cover3 {
-  background: #12071f;
-}
 
-.cover4 {
-  background: #281f00;
+.varsarely {
+  background: #222222;
 }
