@@ -2,6 +2,9 @@
 // Wrap all this up in a querySelectorAll
 // How can we programmatically detect unique cards?
 
+// TODO:
+// Add the codemirror creation to the creation function for each element
+
 // Create the listeners for these ids
 createListener(bergdorf);
 createListener(vertigo);

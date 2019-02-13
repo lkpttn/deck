@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>The Deck of Wonders</title>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, shrink-to-fit=0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <link rel="stylesheet" type="text/css" href="./assets/style.css" />
+
+    <link rel="stylesheet" type="text/css" href="./assets/styles/style.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Fira+Sans:400,700,900"
       rel="stylesheet"
     />
-
-    <link rel="stylesheet" href="assets/styles/obsidian.css" />
-    <script src="assets/highlight.pack.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-
-    <title>The Deck of Wonders</title>
+    <!-- IMPORT CODEMIRROR https://codemirror.net/doc/manual.html#overview -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/mode/javascript/javascript.js"></script>
+    <link rel="stylesheet" href="./assets/styles/codemirror.css" />
   </head>
   <body>
     <header>
       <div class="container heading">
         <h1>The Deck of Wonders</h1>
-        <p>A weekly gallery of card backs created with javasript <code>canvas</code>.</p>
+        <p>
+          A weekly gallery of card backs created with javasript
+          <code>canvas</code>. Each code block is also editable, feel free to
+          tweak on your own!
+        </p>
       </div>
     </header>
 
@@ -43,71 +45,16 @@
               York City. Created by drawing concentric lines and shapes with
               simple step intervals.
             </p>
-            <pre>
-            <code class="javascript">// Bergdorf
-var canvas = document.getElementById('bergdorf');
-var context = canvas.getContext('2d');
-
-canvas.width = 300;
-canvas.height = 500;
-
-var width = canvas.width;
-var height = canvas.height;
-
-const step = 15;
-
-context.fillStyle = '#001628';
-context.fillRect(0, 0, width, height);
-
-draw();
-
-function draw() {
-  // Circle in the four corners
-  context.beginPath();
-  drawCircles(0, 0, 6);
-  drawCircles(width, 0, 6);
-  drawCircles(width, height, 6);
-  drawCircles(0, height, 6);
-  context.strokeStyle = 'goldenrod';
-  context.stroke();
-
-  // Draw the center circles
-  context.beginPath();
-  drawCircles(width / 2, height / 2, 6);
-  context.moveTo(width / 2 - step * 5, height / 2);
-  context.lineTo(width / 2 - step, height / 2);
-  context.stroke();
-
-  // Draw the diamonds
-  context.beginPath();
-  drawDiamond(4);
-  context.stroke();
-
-  context.beginPath();
-  context.moveTo(0, 0);
-  context.lineTo(width, height);
-  context.lineTo(width, 0);
-  context.lineTo(0, height);
-  context.stroke();
-}
-
-function drawCircles(x, y, n) {
-  for (let i = 1; i < n; i++) {
-    context.arc(x, y, step * i, 0, Math.PI * 2, false);
-  }
-}
-
-function drawDiamond(n) {
-  for (let i = 0; i < n; i++) {
-    context.moveTo(0 + step * i, height / 2);
-    context.lineTo(width / 2, 0 + step * i * 1.5);
-    context.lineTo(width - step * i, height / 2);
-    context.lineTo(width / 2, height - step * i * 1.5);
-    context.lineTo(0 + step * i, height / 2);
-  }
-}              
-                </code>
+            <pre id="bergdorf-js">
+              <script>
+                var BERG = CodeMirror(document.querySelector('#bergdorf-js'), {mode: 'javascript'});
+                fetch('./assets/cards/bergdorf.js')
+                  .then((response) => response.text().then((text) => BERG.setValue(text)));
+                </script>
               </pre>
+            <button id="berg-butt" onclick="eval(BERG.getValue())">
+              Update Preview
+            </button>
           </div>
         </div>
       </div>
@@ -127,44 +74,23 @@ function drawDiamond(n) {
               rectangle in the center, increasing it's size, rotation and
               distance to the next rectangle with each step.
             </p>
-            <pre class="">
-            <code>// Vertigo
-var canvas = document.getElementById('vertigo');
-var context = canvas.getContext('2d');
-
-canvas.width = 300;
-canvas.height = 500;
-
-var width = canvas.width;
-var height = canvas.height;
-
-context.fillStyle = '#db451f';
-context.fillRect(0, 0, width, height);
-
-vertigo();
-
-function vertigo() {
-  var size = 0;
-  var squareWidth = 1;
-  context.strokeStyle = '#FFFFFF';
-  context.lineWidth = 2;
-
-  context.translate(width / 2, height / 2);
-  for (let i = 0; i < 30; i++) {
-    context.beginPath();
-    context.rect(
-      0 - squareWidth,
-      0 - squareWidth,
-      squareWidth * 2,
-      squareWidth * 2,
-    );
-    context.stroke();
-    context.rotate((2 * Math.PI) / 180);
-    squareWidth = squareWidth + size;
-    size++;
-  }
-}           
-</code></pre>
+            <pre id="vertigo-js">
+              <script>
+                  var VERT = CodeMirror(document.querySelector('#vertigo-js'), {mode: 'javascript'});
+                  fetch('./assets/cards/vertigo.js')
+                    .then((response) => response.text().then((text) => VERT.setValue(text)));
+                  </script>
+                </pre>
+            <button id="vert-butt" onclick="eval(VERT.getValue())">
+              Update Preview
+            </button>
+            <button
+              id="vert-butt"
+              onclick="fetch('./assets/cards/vertigo.js')
+            .then((response) => response.text().then((text) => VERT.setValue(text)))"
+            >
+              Reset
+            </button>
           </div>
         </div>
       </div>
@@ -179,109 +105,33 @@ function vertigo() {
           <div class="description">
             <h2>Varsarely</h2>
             <p>
-              Victor Vasarely was a Hungarian-French artist frequently credited as the grandfather of 
-              Op Art, an abstract style that gives the viewer impressions of movement, hidden images, 
-              warping, vibrating patterns and more.
+              Victor Vasarely was a Hungarian-French artist frequently credited
+              as the grandfather of Op Art, an abstract style that gives the
+              viewer impressions of movement, hidden images, warping, vibrating
+              patterns and more.
             </p>
             <p>
-              Our code is little more complex here, we've created a function that will return an array to us, each item is an object
-              coordinates and a boolean value for rotation. We use this information to move our origin point to where we need to draw
-              each square. This makes it easier to rotate our chosen squares since canvas rotations happen from the origin point.
+              Our code is little more complex here, we've created a function
+              that will return an array to us, each item is an object
+              coordinates and a boolean value for rotation. We use this
+              information to move our origin point to where we need to draw each
+              square. This makes it easier to rotate our chosen squares since
+              canvas rotations happen from the origin point.
             </p>
-            <pre>
-            <code>// Varsarely
-var canvas = document.getElementById('varsarely');
-var context = canvas.getContext('2d');
-
-canvas.width = 300;
-canvas.height = 500;
-
-var width = canvas.width;
-var height = canvas.height;
-
-// Calculated sizes to fit our canvas width and height
-var squareSize = 19;
-var gutter = 10;
-
-context.fillStyle = '#000000';
-context.fillRect(0, 0, width, height);
-
-varsarely();
-
-function varsarely() {
-  // This is where we'll do our drawing
-  context.fillStyle = '#ffffff';
-
-  // Make a grid of coordinates for us to work with
-  var points = createGrid();
-
-  points.forEach(point => {
-    const { postion, rotation } = point;
-    const [x, y] = postion;
-
-    // We're actually going to move the canvas origin point to
-    // where our square is going to be
-    context.save();
-    context.translate(x, y);
-    context.beginPath();
-
-    if (rotation) {
-      // If the rotation bool is true, rotate the canvas and
-      // draw the square. We use half sizes here to make sure
-      // the rotation happens at the center of the square
-      context.translate(squareSize / 2, squareSize / 2);
-      context.rotate((45 * Math.PI) / 180);
-      context.rect(
-        (-1 * squareSize) / 2,
-        (-1 * squareSize) / 2,
-        squareSize,
-        squareSize,
-      );
-      context.fill();
-    } else {
-      context.rect(0, 0, squareSize, squareSize);
-      context.fill();
-    }
-
-    // After we're done, restore our origin point, 
-    // rotation, etc for the next square
-    context.restore();
-  });
-}
-
-function createGrid() {
-  // Return an array that contains coordinates for us to
-  // use, and a boolean to rotate some squares
-  var points = [];
-
-  // Nested for loop to create x and y coordinates
-  for (let x = gutter; x < width - gutter; ) {
-    for (let y = gutter; y < height - gutter; ) {
-      // If our random value meets a threshold, return a
-      // true boolean with that square
-      let random = Math.random();
-      let rotate = false;
-      if (random > 0.85) {
-        rotate = true;
-      }
-      points.push({
-        rotation: rotate,
-        postion: [x, y],
-      });
-
-      // We have to cheat a little bit to make the grid fit cleanly
-      y = y + gutter + squareSize - 0.1;
-    }
-    x = x + gutter + squareSize;
-  }
-  return points;
-}                  
-</code></pre>
+            <pre id="varsarely-js">
+              <script>
+                    var VARS = CodeMirror(document.querySelector('#varsarely-js'), {mode: 'javascript'});
+                    fetch('./assets/cards/varsarely.js')
+                      .then((response) => response.text().then((text) => VARS.setValue(text)));
+                    </script>
+                  </pre>
+            <button id="vars-butt" onclick="eval(VARS.getValue())">
+              Update Preview
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </div>
     <!-- End of gallery-->
     <script src="./assets/cards.js"></script>
   </body>

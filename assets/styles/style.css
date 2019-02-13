@@ -59,6 +59,7 @@ header a {
 
 pre {
   position: relative;
+  margin: 0;
 }
 
 pre code {
