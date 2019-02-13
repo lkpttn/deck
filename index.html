@@ -12,6 +12,12 @@
       rel="stylesheet"
     />
 
+    <link rel="stylesheet" href="assets/styles/obsidian.css" />
+    <script src="assets/highlight.pack.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+
     <title>CSS Doodle</title>
   </head>
   <body>
@@ -34,18 +40,19 @@
               York City. Created by drawing concentric lines and shapes with
               simple step intervals.
             </p>
-            <pre class="">
-            <code>// Bergdorf
-var canvas = document.getElementById('ace');
+            <pre>
+            <code class="javascript">// Bergdorf
+var canvas = document.getElementById('bergdorf');
 var context = canvas.getContext('2d');
-                
+
 canvas.width = 300;
 canvas.height = 500;
-                
-const width = canvas.width;
-const height = canvas.height;
+
+var width = canvas.width;
+var height = canvas.height;
+
 const step = 15;
-                
+
 context.fillStyle = '#001628';
 context.fillRect(0, 0, width, height);
 
@@ -95,7 +102,7 @@ function drawDiamond(n) {
     context.lineTo(width / 2, height - step * i * 1.5);
     context.lineTo(0 + step * i, height / 2);
   }
-}
+}              
                 </code>
               </pre>
           </div>
@@ -125,7 +132,10 @@ var context = canvas.getContext('2d');
 canvas.width = 300;
 canvas.height = 500;
 
-context.fillStyle = '#DB451F';
+var width = canvas.width;
+var height = canvas.height;
+
+context.fillStyle = '#db451f';
 context.fillRect(0, 0, width, height);
 
 vertigo();
@@ -150,7 +160,7 @@ function vertigo() {
     squareWidth = squareWidth + size;
     size++;
   }
-}
+}           
 </code></pre>
           </div>
         </div>
