@@ -1,6 +1,22 @@
+@font-face {
+  font-family: 'ISO Regular';
+  src: url('../fonts/ISO-v0.4-Regular-Web.woff2') format('woff2'),
+    url('../fonts/ISO-v0.4-Regular-Web.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ISO Bold';
+  src: url('../fonts/ISO-v0.4-Bold-Web.woff2') format('woff2'),
+    url('../fonts/ISO-v0.4-Bold-Web.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
 html {
   background: #000000;
-  font-family: 'Fira Sans', sans-serif;
+  font-family: 'ISO Regular', sans-serif;
   font-size: 10px;
 }
 
@@ -49,17 +65,20 @@ header a {
 .description {
   order: 2;
   flex: 2 0px;
-  font-size: 1.6em;
+  font-size: 1.8em;
   margin: 50px;
 }
 
 .description h2 {
+  font-family: 'ISO Bold';
   font-size: 2em;
+  margin-bottom: 0;
 }
 
 pre {
   position: relative;
   margin: 0;
+  font-size: 0.8em;
 }
 
 button.update {
@@ -73,7 +92,7 @@ button.update {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 1em;
-  font-family: 'Fira Sans', sans-serif;
+  font-family: 'ISO Bold', monospace;
 }
 
 button.update:hover {
