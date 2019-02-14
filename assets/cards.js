@@ -1,22 +1,42 @@
-// Intersection Observer
-// Wrap all this up in a querySelectorAll
-// How can we programmatically detect unique cards?
+var gallery = document.querySelectorAll('.gallery-item');
+console.log(gallery);
 
-// TODO:
-// Add the codemirror creation to the creation function for each element
+gallery.forEach(item => {
+  var id = item.classList[item.classList.length - 1];
+  var idObject = document.querySelector(`#${id}`);
+  var description = item.children[0].children[1];
 
-// Create the listeners for these ids
-createListener(bergdorf);
-createListener(vertigo);
-createListener(varsarely);
+  // Create the Intersection Observer
+  createListener(idObject);
 
-function createListener(name) {
-  var cardElement;
+  // Create the CodeMirror and buttons
+  createCodeMirror(id, description);
+});
+
+function createCodeMirror(id, descriptionElement) {
+  var mirror = CodeMirror(document.querySelector(`#${id}-js`), {
+    mode: 'javascript',
+  });
+  fetch(`./assets/cards/${id}.js`).then(response =>
+    response.text().then(text => mirror.setValue(text)),
+  );
+
+  // Create buttons
+  var mirrorButton = document.createElement('button');
+  mirrorButton.id = `${id}-button`;
+  mirrorButton.innerHTML = 'Update Preview';
+  mirrorButton.onclick = function() {
+    eval(mirror.getValue());
+  };
+  descriptionElement.appendChild(mirrorButton);
+}
+
+function createListener(object) {
+  console.log('The object is' + object);
   window.addEventListener(
     'load',
     function(event) {
-      cardElement = document.querySelector(`#${name.id}`);
-      createObserver(cardElement);
+      createObserver(object);
     },
     false,
   );

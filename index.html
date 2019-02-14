@@ -35,7 +35,7 @@
         <div class="container">
           <div class="item">
             <div class="card front">
-              <canvas id="bergdorf">send help</canvas>
+              <canvas id="bergdorf">bergdorf</canvas>
             </div>
           </div>
           <div class="description">
@@ -45,16 +45,7 @@
               York City. Created by drawing concentric lines and shapes with
               simple step intervals.
             </p>
-            <pre id="bergdorf-js">
-              <script>
-                var BERG = CodeMirror(document.querySelector('#bergdorf-js'), {mode: 'javascript'});
-                fetch('./assets/cards/bergdorf.js')
-                  .then((response) => response.text().then((text) => BERG.setValue(text)));
-                </script>
-              </pre>
-            <button id="berg-butt" onclick="eval(BERG.getValue())">
-              Update Preview
-            </button>
+            <pre id="bergdorf-js"></pre>
           </div>
         </div>
       </div>
@@ -63,7 +54,7 @@
         <div class="container">
           <div class="item">
             <div class="card front">
-              <canvas id="vertigo">send help</canvas>
+              <canvas id="vertigo">vertigo</canvas>
             </div>
           </div>
           <div class="description">
@@ -74,23 +65,7 @@
               rectangle in the center, increasing it's size, rotation and
               distance to the next rectangle with each step.
             </p>
-            <pre id="vertigo-js">
-              <script>
-                  var VERT = CodeMirror(document.querySelector('#vertigo-js'), {mode: 'javascript'});
-                  fetch('./assets/cards/vertigo.js')
-                    .then((response) => response.text().then((text) => VERT.setValue(text)));
-                  </script>
-                </pre>
-            <button id="vert-butt" onclick="eval(VERT.getValue())">
-              Update Preview
-            </button>
-            <button
-              id="vert-butt"
-              onclick="fetch('./assets/cards/vertigo.js')
-            .then((response) => response.text().then((text) => VERT.setValue(text)))"
-            >
-              Reset
-            </button>
+            <pre id="vertigo-js"></pre>
           </div>
         </div>
       </div>
@@ -118,16 +93,7 @@
               square. This makes it easier to rotate our chosen squares since
               canvas rotations happen from the origin point.
             </p>
-            <pre id="varsarely-js">
-              <script>
-                    var VARS = CodeMirror(document.querySelector('#varsarely-js'), {mode: 'javascript'});
-                    fetch('./assets/cards/varsarely.js')
-                      .then((response) => response.text().then((text) => VARS.setValue(text)));
-                    </script>
-                  </pre>
-            <button id="vars-butt" onclick="eval(VARS.getValue())">
-              Update Preview
-            </button>
+            <pre id="varsarely-js"></pre>
           </div>
         </div>
       </div>
