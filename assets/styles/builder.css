@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'ISO';
+  src: url('../fonts/ISO-v0.4-Regular-Web.woff2') format('woff2'),
+    url('../fonts/ISO-v0.4-Regular-Web.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ISO Bold';
+  src: url('../fonts/ISO-v0.4-Bold-Web.woff2') format('woff2'),
+    url('../fonts/ISO-v0.4-Bold-Web.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
 html {
   width: 100%;
   height: 100%;
@@ -29,7 +45,7 @@ body {
   flex-direction: row;
 
   /* CUSTOMIZE THIS */
-  background: #000000;
+  background: #003eb3;
 }
 
 .card {
@@ -48,9 +64,9 @@ body {
 }
 
 .title {
-  font-family: 'Fira Mono', monospace;
+  font-family: 'ISO Bold', cursive;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.2em;
   font-weight: 100;
   color: #ffffff;
