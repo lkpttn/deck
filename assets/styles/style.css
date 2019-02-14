@@ -119,6 +119,10 @@ button.update:hover {
 }
 
 /* Covers */
+.specialk {
+  background: #003eb3;
+}
+
 .bergdorf {
   background: #001628;
 }

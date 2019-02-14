@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Special K
+var canvas = document.getElementById('specialk');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
