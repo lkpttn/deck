@@ -39,7 +39,7 @@ function varsarely() {
       // draw the square. We use half sizes here to make sure
       // the rotation happens at the center of the square
       context.translate(squareSize / 2, squareSize / 2);
-      context.rotate((45 * Math.PI) / 180);
+      context.rotate((20 * Math.PI) / 180);
       context.rect(
         (-1 * squareSize) / 2,
         (-1 * squareSize) / 2,
@@ -70,7 +70,7 @@ function createGrid() {
       // true boolean with that square
       let random = Math.random();
       let rotate = false;
-      if (random > 0.85) {
+      if (random > 0.8) {
         rotate = true;
       }
       points.push({

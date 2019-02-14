@@ -75,6 +75,7 @@ function initialize(gallery) {
     // Create buttons
     var mirrorButton = document.createElement('button');
     mirrorButton.id = `${id}-button`;
+    mirrorButton.className = 'update';
     mirrorButton.innerHTML = 'Update Preview';
     mirrorButton.onclick = function() {
       eval(mirror.getValue());

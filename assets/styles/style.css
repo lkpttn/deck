@@ -37,7 +37,7 @@ header a {
   max-height: 1100px;
   margin: 0 auto;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   align-items: center;
   align-content: center;
 }
@@ -62,16 +62,22 @@ pre {
   margin: 0;
 }
 
-pre code {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  display: block;
-  padding: 20px;
-  height: 400px;
-  overflow: scroll;
-  overflow-x: hidden;
-  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.2);
-  scrollbar-width: thin;
+button.update {
+  background: #ffffff;
+  color: #222222;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 10px;
+  border: none;
+  margin: 10px 0px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1em;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+button.update:hover {
+  color: #000000;
 }
 
 .item {
