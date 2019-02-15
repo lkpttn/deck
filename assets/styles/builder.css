@@ -45,7 +45,7 @@ body {
   flex-direction: row;
 
   /* CUSTOMIZE THIS */
-  background: #003eb3;
+  background: #eeb600;
 }
 
 .card {
@@ -64,13 +64,12 @@ body {
 }
 
 .title {
-  font-family: 'ISO Bold', cursive;
+  font-family: 'ISO', cursive;
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   font-weight: 100;
   color: #ffffff;
-  height: 10px;
 }
 
 .title.left {
