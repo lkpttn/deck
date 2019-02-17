@@ -117,8 +117,8 @@ header .container {
 }
 
 .description .number {
-  font-family: 'ISO Regular', sans-serif;
-  font-size: 0.7em;
+  float: right;
+  font-size: 0.5em;
 }
 
 .description p {
