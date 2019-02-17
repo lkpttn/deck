@@ -4,8 +4,7 @@ initialize(gallery);
 createList(gallery);
 
 function createList(gallery) {
-  var list = document.createElement('ul');
-  document.getElementById('list').appendChild(list);
+  var list = document.getElementById('list');
 
   gallery.forEach(item => {
     // Make lis here

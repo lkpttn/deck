@@ -25,16 +25,34 @@ body {
   color: #ffffff;
 }
 
-header {
-  color: #ffffff;
+h1 {
+  font-family: 'ISO Bold';
+  text-transform: uppercase;
+  font-size: 2.5em;
+  line-height: 0.5em;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-family: 'ISO Bold', sans-serif;
+  text-transform: uppercase;
+  font-size: 2.5em;
+  margin-bottom: 0;
+}
+
+h3 {
+  font-family: 'ISO Bold', sans-serif;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+p {
   font-size: 1.2em;
 }
 
-header h1 {
-  line-height: 0.5em;
-}
-
-header p {
+header {
+  color: #ffffff;
 }
 
 header a {
@@ -42,16 +60,19 @@ header a {
   text-decoration: underline;
 }
 
-#list ul {
+ul {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-#list ul li {
+ul li {
   flex: 1 1 auto;
-  padding: 15px;
+  font-size: 1.2em;
+  padding-right: 30px;
 }
 
 .container {
@@ -67,8 +88,19 @@ header a {
   align-content: center;
 }
 
+header .container {
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 .heading {
-  flex-direction: column;
+  max-width: 66%;
+  padding: 15px;
+}
+
+.navigation {
+  padding: 15px;
 }
 
 .description {
@@ -85,7 +117,6 @@ header a {
 }
 
 .description p {
-  font-size: 1.2em;
   margin-top: 0;
 }
 
