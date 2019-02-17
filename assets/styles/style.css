@@ -27,7 +27,7 @@ body {
 
 header {
   color: #ffffff;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 header h1 {
@@ -35,12 +35,23 @@ header h1 {
 }
 
 header p {
-  font-size: 1.2em;
 }
 
 header a {
   color: #ffffff;
   text-decoration: underline;
+}
+
+#list ul {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  list-style: none;
+}
+
+#list ul li {
+  flex: 1 1 auto;
+  padding: 15px;
 }
 
 .container {

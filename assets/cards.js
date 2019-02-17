@@ -1,6 +1,23 @@
 var gallery = document.querySelectorAll('.gallery-item');
 
 initialize(gallery);
+createList(gallery);
+
+function createList(gallery) {
+  var list = document.createElement('ul');
+  document.getElementById('list').appendChild(list);
+
+  gallery.forEach(item => {
+    // Make lis here
+    console.log(item);
+
+    let li = document.createElement('li');
+    let name = item.children[0].children[1].children[0].innerHTML;
+    let selector = item.classList[item.classList.length - 1];
+    list.appendChild(li);
+    li.innerHTML = `<a href="#${selector}">${name}</a>`;
+  });
+}
 
 function initialize(gallery) {
   gallery.forEach(item => {
