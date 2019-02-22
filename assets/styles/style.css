@@ -1,21 +1,23 @@
 @font-face {
   font-family: 'ISO Regular';
-  src: url('../fonts/ISO-v0.4-Regular-Web.woff2') format('woff2'),
-    url('../fonts/ISO-v0.4-Regular-Web.woff') format('woff');
+  src: local('ISO v0.5'),
+    url('https://s3.amazonaws.com/lkpttn-font-server/ISOv0.5-Regular.woff')
+      format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'ISO Bold';
-  src: url('../fonts/ISO-v0.4-Bold-Web.woff2') format('woff2'),
-    url('../fonts/ISO-v0.4-Bold-Web.woff') format('woff');
+  src: local('ISO v0.5'),
+    url('https://s3.amazonaws.com/lkpttn-font-server/ISOv0.5-Bold.woff')
+      format('woff');
   font-weight: bold;
   font-style: normal;
 }
 
 html {
-  background: #000000;
+  background: #191618;
   font-family: 'ISO Regular', sans-serif;
 }
 
@@ -56,7 +58,7 @@ header {
 }
 
 header a {
-  color: #ffffff;
+  color: #da3a2d;
   text-decoration: underline;
 }
 
@@ -73,6 +75,11 @@ ul li {
   flex: 1 1 auto;
   font-size: 1.2em;
   padding-right: 30px;
+  color: #ffffff;
+}
+
+ul li a {
+  color: #ffffff;
 }
 
 .container {

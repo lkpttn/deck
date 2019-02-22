@@ -1,15 +1,17 @@
 @font-face {
-  font-family: 'ISO';
-  src: url('../fonts/ISO-v0.4-Regular-Web.woff2') format('woff2'),
-    url('../fonts/ISO-v0.4-Regular-Web.woff') format('woff');
+  font-family: 'ISO Regular';
+  src: local('ISO v0.5'),
+    url('https://s3.amazonaws.com/lkpttn-font-server/ISOv0.5-Regular.woff')
+      format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'ISO Bold';
-  src: url('../fonts/ISO-v0.4-Bold-Web.woff2') format('woff2'),
-    url('../fonts/ISO-v0.4-Bold-Web.woff') format('woff');
+  src: local('ISO v0.5'),
+    url('https://s3.amazonaws.com/lkpttn-font-server/ISOv0.5-Bold.woff')
+      format('woff');
   font-weight: bold;
   font-style: normal;
 }
@@ -64,7 +66,7 @@ body {
 }
 
 .title {
-  font-family: 'ISO', cursive;
+  font-family: 'ISO Bold', cursive;
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 0.2em;
