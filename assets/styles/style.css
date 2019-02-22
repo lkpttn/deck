@@ -19,6 +19,7 @@
 html {
   background: #191618;
   font-family: 'ISO Regular', sans-serif;
+  font-weight: 100;
 }
 
 body {
@@ -195,6 +196,9 @@ button.update:hover {
 }
 
 /* Covers */
+.intotomorrow {
+  background: #23363a;
+}
 .charles {
   background: #eeb600;
 }

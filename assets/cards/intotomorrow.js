@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Into Tomorrow
+var canvas = document.getElementById('intotomorrow');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -32,13 +32,13 @@ function intoTomorrow() {
   for (let i = 0; i < rings; i++) {
     context.beginPath();
     context.ellipse(
-      width / 2,
-      70 + i * step * 7,
-      60 + i * 14,
-      5 + i * 4,
-      0,
-      0,
-      2 * Math.PI,
+      width / 2, // x position
+      70 + i * step * 7, // y position
+      60 + i * 14, // x radius
+      5 + i * 4, // y radius
+      0, // rotation
+      0, // start angle
+      2 * Math.PI, // end angle
     );
     context.stroke();
   }
