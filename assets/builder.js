@@ -8,49 +8,59 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-context.fillStyle = '#23363A';
-context.fillStyle = '#000000';
+context.fillStyle = '#FFFFFF';
 context.fillRect(0, 0, width, height);
+sunrise();
 
-intoTomorrow();
+function sunrise() {
+ var colors = ['#4F94CF', '#E51D20', '#2C416E', '#EE751A', '#FECF1A'];
+ // Create the grid of squares
+ let measure = 50;
+ let widthIterator = width/measure;
+ let heightIterator = height/measure;
 
-function intoTomorrow() {
-  const rings = 7;
-  const step = 10;
+ for (let x = 0; x < widthIterator; x++) {
+   for (let y = 0; y < heightIterator; y++) {
+    // Draw a rectangle
+    makeSun(x * measure, y * measure, colors);
+   }
+ }
 
-  context.strokeStyle = '#F1D9A3';
-
-  // Dashed Line
+ function makeSun(x, y, colors) {
+  context.save();
+  // Background box
   context.beginPath();
-  context.setLineDash([5, 5]);
-  context.moveTo(width / 2, height);
-  context.lineTo(width / 2, 70);
-  context.stroke();
+  context.fillStyle = pick(colors);
+  context.fillRect(x, y, measure, measure);
 
-  // Rings
-  context.setLineDash([]);
-  for (let i = 0; i < rings; i++) {
-    context.beginPath();
-    context.ellipse(
-      width / 2,
-      70 + i * step * 7,
-      60 + i * 14,
-      5 + i * 4,
-      0,
-      0,
-      2 * Math.PI,
-    );
-    context.stroke();
-  }
+  // Draw interior circles
+  // We can alter the translation to get the corner effect, since the next
+  // boxes will be drawn on top of the rest of our circles
+  context.translate(x + measure/2, y + measure/2);
 
-  // Sphere
-  context.beginPath();
-  context.fillStyle = '#E95B1C';
-  context.arc(width / 2, 65, 30, 0, Math.PI * 2, false);
+  // Outer circle
+  context.beginPath()
+  context.arc(0, 0, rangeFloor(15, 25), 0, Math.PI * 2, false);
+  context.fillStyle = pick(colors);
   context.fill();
 
-  // 3D effect
-  context.beginPath();
-  context.ellipse(width / 2, 70, 60, 5, 0, 0, Math.PI);
-  context.stroke();
+  // Inner circle
+  context.beginPath()
+  context.arc(0, 0, rangeFloor(5,10), 0, Math.PI * 2, false);
+  context.fillStyle = pick(colors);
+  context.fill();
+  
+  context.restore();
+ }
+
+ function rangeFloor(min, max) {
+   // Return a random whole number between min and max
+   return Math.floor(Math.random() * (max - min) + min);
+ }
+
+ function pick (array) {
+   // Pick a random item out of an array
+  if (array.length === 0) return undefined;
+  return array[rangeFloor(0, array.length)];
+}
 }
