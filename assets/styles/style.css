@@ -196,6 +196,9 @@ button.update:hover {
 }
 
 /* Covers */
+.sunrise {
+  background: #ee751a;
+}
 .intotomorrow {
   background: #23363a;
 }
