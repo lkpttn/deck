@@ -36,17 +36,17 @@ function sunrise() {
     // Draw interior circles
     // We can alter the translation to get the corner effect, since the next
     // boxes will be drawn on top of the rest of our circles
-    context.translate(x + measure, y + measure);
+    context.translate(x + measure / 2, y + measure / 2);
 
     // Outer circle
     context.beginPath();
-    context.arc(0, 0, rangeFloor(35, 50), 0, Math.PI * 2, false);
+    context.arc(0, 0, rangeFloor(15, 25), 0, Math.PI * 2, false);
     context.fillStyle = pick(colors);
     context.fill();
 
     // Inner circle
     context.beginPath();
-    context.arc(0, 0, rangeFloor(15, 25), 0, Math.PI * 2, false);
+    context.arc(0, 0, rangeFloor(5, 10), 0, Math.PI * 2, false);
     context.fillStyle = pick(colors);
     context.fill();
 
