@@ -88,16 +88,18 @@ ul li a {
   max-width: 1200px;
   min-height: 900px;
   margin: 0 auto;
+  padding-bottom: 50px;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  align-content: center;
+  justify-content: center;
 }
 
-@media screen and (min-width: 1240px) {
+@media screen and (min-width: 1200px) {
   /* Large stuff */
   .container {
     flex-flow: row nowrap;
+    padding: 0;
   }
 }
 
@@ -112,7 +114,7 @@ header .container {
   padding: 15px;
 }
 
-@media screen and (min-width: 1240px) {
+@media screen and (min-width: 1200px) {
   /* Large stuff */
   .heading {
     max-width: 66%;
@@ -125,12 +127,13 @@ header .container {
 
 .item {
   order: 1;
-  flex: 1 0px;
+  flex: 1 0 340px;
   margin-top: 50px;
 }
 
-@media screen and (min-width: 1240px) {
+@media screen and (min-width: 800px) {
   .item {
+    flex: 0 1 340px;
     margin-top: 0px;
   }
 }
@@ -158,14 +161,19 @@ header .container {
 
 .description {
   order: 2;
-  flex: 1;
+  flex: 2;
   max-width: 100%;
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 800px) {
   .description {
-    flex: 2 0px;
-    margin: 50px;
+    margin-left: 50px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .description {
+    flex: 0 0 690px;
   }
 }
 
@@ -184,7 +192,7 @@ pre {
   display: none;
 }
 
-@media screen and (min-width: 1240px) {
+@media screen and (min-width: 1200px) {
   pre {
     display: block;
     position: relative;
@@ -194,24 +202,31 @@ pre {
 }
 
 button.update {
-  background: #ffffff;
-  color: #222222;
-  cursor: pointer;
-  border-radius: 4px;
-  padding: 10px;
-  border: none;
-  margin: 10px 0px;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 1em;
-  font-family: 'ISO Bold', monospace;
+  display: none;
+}
+
+@media screen and (min-width: 1200px) {
+  button.update {
+    display: block;
+    background: #ffffff;
+    color: #222222;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 10px;
+    border: none;
+    margin: 10px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1em;
+    font-family: 'ISO Bold', monospace;
+  }
 }
 
 button.update:hover {
   color: #000000;
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1200px) {
   /* Large stuff */
   .gallery-item:nth-child(odd) .container .item {
     order: 1;
@@ -227,6 +242,8 @@ button.update:hover {
 
   .gallery-item:nth-child(even) .container .description {
     order: 1;
+    margin-left: 0px;
+    margin-right: 50px;
   }
 }
 
