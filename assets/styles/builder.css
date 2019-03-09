@@ -47,7 +47,8 @@ body {
   flex-direction: row;
 
   /* CUSTOMIZE THIS */
-  background: #EE751A;
+  background: rgb(211, 198, 216);
+  /* background: rgb(47, 61, 74); */
 }
 
 .card {

@@ -8,49 +8,100 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-context.fillStyle = '#FFFFFF';
+context.fillStyle = 'rgb(47, 61, 74)';
 context.fillRect(0, 0, width, height);
-sunrise();
+softServe();
 
-function sunrise() {
-  var colors = ['#4F94CF', '#E51D20', '#2C416E', '#EE751A', '#FECF1A'];
-  // Create the grid of squares
-  let measure = 50;
-  let widthIterator = width / measure;
-  let heightIterator = height / measure;
+function softServe() {
+  var squareNum = 250;
+  var subdivideNum = squareNum / 2;
+  var count = 3;
+  var colors = [
+    '#FCEECB', // caramel
+    '#C2AF9C', // chocolate
+    '#FFB5A7', // strawberry
+    '#F5D3EA', // pink
+    '#D3BDE5', // purple
+  ];
 
-  for (let x = 0; x < widthIterator; x++) {
-    for (let y = 0; y < heightIterator; y++) {
-      // Draw a rectangle
-      makeSun(x * measure, y * measure, colors);
+  // var colors = [
+  //   'rgb(47, 61, 74)', // Dark Blue
+  //   'rgb(147, 162, 168)', // Light Blue
+  //   'rgb(172, 84, 64)', // Red
+  //   'rgb(214, 188, 176)', // Pink
+  //   'rgb(98, 104, 65)', // Green
+  // ];
+
+  for (let i = 0; i < count; i++) {
+    for (let j = 0; j < count; j++) {
+      let x = i * squareNum;
+      let y = j * squareNum;
+      bisectSquare(x, y, squareNum, colors);
+
+      // Choose to subdivide again
+      let divide = Math.random();
+      if (divide > 0.4) {
+        for (let k = 0; k < count; k++) {
+          for (let l = 0; l < count; l++) {
+            let x1 = x + k * (squareNum / 2);
+            let y1 = y + l * (squareNum / 2);
+            bisectSquare(x1, y1, subdivideNum, colors);
+
+            // Choose to divide again?
+            let doubleDivide = Math.random();
+            if (doubleDivide > 0.8) {
+              for (let m = 0; m < count; m++) {
+                for (let n = 0; n < count; n++) {
+                  let x2 = x1 + m * (squareNum / 4);
+                  let y2 = y1 + n * (squareNum / 4);
+                  bisectSquare(x2, y2, squareNum / 4, colors);
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 
-  function makeSun(x, y, colors) {
-    context.save();
-    // Background box
+  function bisectSquare(x, y, size, colors) {
+    context.fillStyle = pick(colors);
+    context.fillRect(x, y, x + size, y + size);
+
+    // Choose direction
+    const directions = ['LtR', 'RtL', 'LtRD', 'RtLD'];
+
     context.beginPath();
     context.fillStyle = pick(colors);
-    context.fillRect(x, y, measure, measure);
 
-    // Draw interior circles
-    // We can alter the translation to get the corner effect, since the next
-    // boxes will be drawn on top of the rest of our circles
-    context.translate(x + measure / 2, y + measure / 2);
-
-    // Outer circle
-    context.beginPath();
-    context.arc(0, 0, rangeFloor(15, 25), 0, Math.PI * 2, false);
-    context.fillStyle = pick(colors);
-    context.fill();
-
-    // Inner circle
-    context.beginPath();
-    context.arc(0, 0, rangeFloor(5, 10), 0, Math.PI * 2, false);
-    context.fillStyle = pick(colors);
-    context.fill();
-
-    context.restore();
+    let direction = pick(directions);
+    if (direction === 'LtR') {
+      // Left to right
+      context.moveTo(x, y);
+      context.lineTo(x + size, y + size);
+      context.lineTo(x + size, y);
+      context.fill();
+    } else if (direction === 'RtL') {
+      // Right to left
+      context.moveTo(x + size, y);
+      context.lineTo(x, y + size);
+      context.lineTo(x + size, y + size);
+      context.fill();
+    } else if (direction === 'LtRD') {
+      // Left to Right Down
+      context.moveTo(x, y);
+      context.lineTo(x + size, y + size);
+      context.lineTo(x, y + size);
+      context.fill();
+    } else if ((direction = 'RtLD')) {
+      // Right to Left Down
+      context.moveTo(x + size, y);
+      context.lineTo(x, y + size);
+      context.lineTo(x + size, y + size);
+      context.fill();
+    } else {
+      console.log('No draw');
+    }
   }
 
   function rangeFloor(min, max) {
