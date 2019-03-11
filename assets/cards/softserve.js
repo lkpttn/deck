@@ -1,5 +1,5 @@
-// Soft Server
-var canvas = document.getElementById('card-canvas');
+// Soft Serve
+var canvas = document.getElementById('softserve');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -48,7 +48,7 @@ function softServe() {
             let y1 = y + l * (squareNum / 2);
             bisectSquare(x1, y1, subdivideNum, colors);
 
-            // Choose to subdivide a secon time
+            // Choose to subdivide a second time
             let doubleDivide = Math.random();
             if (doubleDivide > 0.8) {
               for (let m = 0; m < count; m++) {

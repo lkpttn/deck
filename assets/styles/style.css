@@ -248,6 +248,9 @@ button.update:hover {
 }
 
 /* Covers */
+.softserve {
+  background: rgb(211, 198, 216);
+}
 .sunrise {
   background: #ee751a;
 }

@@ -11,6 +11,11 @@ var height = canvas.height;
 context.fillStyle = '#FFFFFF';
 context.fillRect(0, 0, width, height);
 
+// Draw again on a click
+canvas.addEventListener('click', function() {
+  sunrise();
+});
+
 sunrise();
 
 function sunrise() {
