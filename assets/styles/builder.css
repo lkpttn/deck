@@ -69,17 +69,21 @@ body {
   font-family: 'ISO Bold', cursive;
   text-transform: uppercase;
   font-size: 12px;
+  padding-left: 15px;
   letter-spacing: 0.2em;
   font-weight: 100;
   color: #ffffff;
 }
 
 .title.left {
-  transform: rotate(-90deg);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
   order: 1;
 }
 
 .title.right {
-  transform: rotate(90deg);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
   order: 3;
 }
