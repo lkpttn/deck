@@ -1,5 +1,5 @@
 // prisma
-var canvas = document.getElementById('card-canvas');
+var canvas = document.getElementById('prisma');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -37,6 +37,7 @@ function prisma() {
   context.globalCompositeOperation = 'screen';
 
   for (let i = 0; i < 10; i++) {
+    // Repeat the color array once we exceed the length
     let color = colors[i % colors.length];
     clipCircle(rangeFloor(0, width), rangeFloor(0, height), color);
   }
@@ -44,9 +45,11 @@ function prisma() {
   // Functions
   function clipCircle(x, y, color) {
     var radius = 150;
+    // Important to save our place so we can make new clipping masks
     context.save();
     context.beginPath();
     context.arc(x, y, radius, 0, Math.PI * 2, false);
+    // The moneymaker, this constrains our later drawings to the layer we just drew
     context.clip();
 
     context.strokeStyle = color;

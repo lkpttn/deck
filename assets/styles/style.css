@@ -248,6 +248,10 @@ button.update:hover {
 }
 
 /* Covers */
+.prisma {
+  background: #1a1e3f;
+}
+
 .softserve {
   background: rgb(211, 198, 216);
 }
