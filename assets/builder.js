@@ -15,68 +15,48 @@ zig();
 
 function zig() {
   // Bg shapes
+  context.save();
+  context.translate(width / 2, height / 2);
+
+  var halfWidth = width / 2;
+  var halfHeight = height / 2;
+
+  context.rotate((70 * Math.PI) / 180);
+
   context.fillStyle = '#144b89';
   context.beginPath();
-  context.moveTo(0, 175);
-  context.lineTo(width / 2, 225);
-  context.lineTo(width, 175);
-  context.lineTo(width, height);
-  context.lineTo(0, height);
+  context.moveTo(-width, 0);
+  context.lineTo(halfHeight, 0);
+  context.lineTo(width, halfHeight);
+  context.lineTo(-width, height);
   context.fill();
+
+  context.rotate((-10 * Math.PI) / 180);
 
   context.fillStyle = '#336fb2';
   context.beginPath();
-  context.moveTo(0, 220);
-  context.lineTo(width / 2, 250);
-  context.lineTo(width, 220);
-  context.lineTo(width, height);
-  context.lineTo(0, height);
+  context.moveTo(-width, 0);
+  context.lineTo(halfHeight, 0);
+  context.lineTo(width, halfHeight);
+  context.lineTo(-width, height);
   context.fill();
 
-  context.fillStyle = '#4cc1d3';
+  context.rotate((-30 * Math.PI) / 180);
+
+  context.fillStyle = '#354cf4';
   context.beginPath();
-  context.moveTo(0, 250);
-  context.lineTo(width / 2, 270);
-  context.lineTo(width, 250);
-  context.lineTo(width, height);
-  context.lineTo(0, height);
+  context.moveTo(-width, 0);
+  context.lineTo(halfHeight, 0);
+  context.lineTo(width, halfHeight);
+  context.lineTo(-width, height);
   context.fill();
 
-  context.fillStyle = '#aeeff9';
-  context.beginPath();
-  context.moveTo(0, 280);
-  context.lineTo(width / 2, 280);
-  context.lineTo(width, 280);
-  context.lineTo(width, height);
-  context.lineTo(0, height);
-  context.fill();
+  context.restore();
 
   // Circle
   context.beginPath();
   context.fillStyle = 'white';
   context.arc(width / 2, height / 2, 100, 0, Math.PI * 2, false);
   context.clip();
-  context.fill();
-
-  context.translate(width / 2, height / 2);
-  context.rotate((15 * Math.PI) / 180);
-  context.translate((-1 * width) / 2, (-1 * height) / 2);
-
-  context.fillStyle = '#e5b227';
-  context.beginPath();
-  context.moveTo(0, 250);
-  context.lineTo(width / 2, 270);
-  context.lineTo(width, 250);
-  context.lineTo(width, height);
-  context.lineTo(0, height);
-  context.fill();
-
-  context.fillStyle = '#ffd972';
-  context.beginPath();
-  context.moveTo(0, 280);
-  context.lineTo(width / 2, 280);
-  context.lineTo(width, 280);
-  context.lineTo(width, height);
-  context.lineTo(0, height);
   context.fill();
 }
