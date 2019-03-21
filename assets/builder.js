@@ -52,12 +52,15 @@ function zig() {
   context.fill();
 
   // Circle
-  context.globalCompositeOperation = 'difference';
   context.beginPath();
   context.fillStyle = 'white';
   context.arc(width / 2, height / 2, 100, 0, Math.PI * 2, false);
   context.clip();
   context.fill();
+
+  context.translate(width / 2, height / 2);
+  context.rotate((15 * Math.PI) / 180);
+  context.translate((-1 * width) / 2, (-1 * height) / 2);
 
   context.fillStyle = '#e5b227';
   context.beginPath();
@@ -68,12 +71,12 @@ function zig() {
   context.lineTo(0, height);
   context.fill();
 
-  // context.fillStyle = '#ffd972';
-  // context.beginPath();
-  // context.moveTo(0, 280);
-  // context.lineTo(width / 2, 280);
-  // context.lineTo(width, 280);
-  // context.lineTo(width, height);
-  // context.lineTo(0, height);
-  // context.fill();
+  context.fillStyle = '#ffd972';
+  context.beginPath();
+  context.moveTo(0, 280);
+  context.lineTo(width / 2, 280);
+  context.lineTo(width, 280);
+  context.lineTo(width, height);
+  context.lineTo(0, height);
+  context.fill();
 }
