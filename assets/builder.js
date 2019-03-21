@@ -1,4 +1,4 @@
-// prisma
+// Builder
 var canvas = document.getElementById('card-canvas');
 var context = canvas.getContext('2d');
 
@@ -8,64 +8,65 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-context.fillStyle = '#1a1e3f';
+context.fillStyle = '#ffffff';
 context.fillRect(0, 0, width, height);
 
-prisma();
+zig();
 
 // Draw again on a click
 canvas.addEventListener('click', function() {
-  prisma();
+  zig();
 });
 
-function prisma() {
-  var colors = [
-    '#ff4300', // red
-    '#9419FE', // purple
-    '#F5F802', // yellow
-    '#354cf4', // blue
-    '#76FC13', // green
-  ];
-
-  context.globalCompositeOperation = 'source-over';
-  context.fillStyle = '#1a1e3f';
-  context.fillRect(0, 0, width, height);
-
+function zig() {
+  const angles = [30, 60, 90, 120, 150, 180];
+  // const angles = [45, -45];
   // Draw a group of lines
-  context.lineWidth = 2;
-  context.lineCap = 'round';
-  context.globalCompositeOperation = 'screen';
-
-  for (let i = 0; i < 10; i++) {
-    let color = colors[i % colors.length];
-    clipCircle(rangeFloor(0, width), rangeFloor(0, height), color);
+  for (let i = 0; i < 6; i++) {
+    for (let j = 0; j < 4; j++) {
+      drawLines(j * 140, i * 140, angles);
+    }
   }
 
   // Functions
-  function clipCircle(x, y, color) {
-    var radius = 150;
+  function drawLines(x, y, angleArray) {
+    var rotate = (pick(angleArray) * Math.PI) / 180;
+    const width = 150;
+    const height = 200;
+
+    console.log('Drawing at ' + x + ', ' + y + ' with rotation of ' + rotate);
+
     context.save();
-    context.beginPath();
-    context.arc(x, y, radius, 0, Math.PI * 2, false);
-    context.clip();
+    // 0,0 will be where the drawing happens
+    context.translate(x - width / 2, y - height / 2);
 
-    context.strokeStyle = color;
-    drawLines(x - radius, y - radius, 300);
-    context.restore();
-  }
+    // Move to the center and rotate
+    context.translate(width / 2, height / 2);
+    context.rotate(rotate);
+    context.translate((-1 * width) / 2, (-1 * height) / 2);
 
-  function drawLines(x, y, size) {
-    // Draw a bunch of vertical lines
-    for (let i = 0; i < size / 7; i++) {
-      context.beginPath();
-      context.moveTo(x + i * 7, y);
-      context.lineTo(x + i * 7, y + size);
-      context.stroke();
+    // Background rectangles
+    context.fillStyle = '#1a1e3f';
+    context.fillRect(0, 0, width, height);
+
+    context.fillStyle = '#ffffff';
+    context.fillRect(10, 10, width - 20, height - 20);
+
+    context.fillStyle = '#1a1e3f';
+    for (let i = 0; i < 8; i++) {
+      context.fillRect(i * 20, 0, 10, height);
     }
+    context.restore();
   }
 
   function rangeFloor(min, max) {
     // Return a random whole number between min and max
     return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  function pick(array) {
+    // Pick a random item out of an array
+    if (array.length === 0) return undefined;
+    return array[rangeFloor(0, array.length)];
   }
 }
