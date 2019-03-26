@@ -8,55 +8,68 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-context.fillStyle = '#d6f3ff';
+context.fillStyle = '#ffffff';
 context.fillRect(0, 0, width, height);
 
-zig();
+breton();
 
-function zig() {
-  // Bg shapes
-  context.save();
-  context.translate(width / 2, height / 2);
+// Draw again on a click
+canvas.addEventListener('click', function() {
+  breton();
+});
 
-  var halfWidth = width / 2;
-  var halfHeight = height / 2;
+function breton() {
+  const angles = [30, 60, 90, 120, 150, 180];
 
-  context.rotate((70 * Math.PI) / 180);
+  context.fillStyle = '#ffffff';
+  context.fillRect(0, 0, width, height);
 
-  context.fillStyle = '#144b89';
-  context.beginPath();
-  context.moveTo(-width, 0);
-  context.lineTo(halfHeight, 0);
-  context.lineTo(width, halfHeight);
-  context.lineTo(-width, height);
-  context.fill();
+  // Draw a group of lines
+  for (let i = 0; i < 5; i++) {
+    for (let j = 0; j < 3; j++) {
+      drawLines(j * 140, i * 120, angles);
+    }
+  }
 
-  context.rotate((-10 * Math.PI) / 180);
+  // Functions
+  function drawLines(x, y, angleArray) {
+    var rotate = (pick(angleArray) * Math.PI) / 180;
+    const width = 150;
+    const height = 200;
 
-  context.fillStyle = '#336fb2';
-  context.beginPath();
-  context.moveTo(-width, 0);
-  context.lineTo(halfHeight, 0);
-  context.lineTo(width, halfHeight);
-  context.lineTo(-width, height);
-  context.fill();
+    console.log('Drawing at ' + x + ', ' + y + ' with rotation of ' + rotate);
 
-  context.rotate((-30 * Math.PI) / 180);
+    context.save();
+    // 0,0 will be where the drawing happens
+    context.translate(x - width / 2, y - height / 2);
 
-  context.fillStyle = '#354cf4';
-  context.beginPath();
-  context.moveTo(-width, 0);
-  context.lineTo(halfHeight, 0);
-  context.lineTo(width, halfHeight);
-  context.lineTo(-width, height);
-  context.fill();
+    // Move to the center and rotate
+    context.translate(width / 2, height / 2);
+    context.rotate(rotate);
+    context.translate((-1 * width) / 2, (-1 * height) / 2);
 
-  context.restore();
+    // Background rectangles
+    context.fillStyle = '#232957';
+    context.fillRect(0, 0, width, height);
 
-  // Circle
-  context.beginPath();
-  context.fillStyle = 'white';
-  context.arc(width / 2, height / 2, 100, 0, Math.PI * 2, false);
-  context.clip();
-  context.fill();
+    context.fillStyle = '#ffffff';
+    context.fillRect(10, 10, width - 20, height - 20);
+
+    context.fillStyle = '#232957';
+    for (let i = 0; i < 8; i++) {
+      context.fillRect(i * 20, 0, 10, height);
+    }
+    context.restore();
+  }
+
+  function rangeFloor(min, max) {
+    // Return a random whole number between min and max
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  function pick(array) {
+    // Pick a random item out of an array
+    if (array.length === 0) return undefined;
+    return array[rangeFloor(0, array.length)];
+  }
 }

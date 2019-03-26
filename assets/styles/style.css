@@ -248,6 +248,14 @@ button.update:hover {
 }
 
 /* Covers */
+.breton {
+  background: #232957;
+}
+
+.sundial {
+  background: #280e33;
+}
+
 .prisma {
   background: #1a1e3f;
 }
@@ -255,12 +263,15 @@ button.update:hover {
 .softserve {
   background: rgb(211, 198, 216);
 }
+
 .sunrise {
   background: #ee751a;
 }
+
 .intotomorrow {
   background: #23363a;
 }
+
 .charles {
   background: #eeb600;
 }

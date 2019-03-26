@@ -25,9 +25,9 @@ function breton() {
   context.fillRect(0, 0, width, height);
 
   // Draw a group of lines
-  for (let i = 0; i < 6; i++) {
-    for (let j = 0; j < 4; j++) {
-      drawLines(j * 140, i * 140, angles);
+  for (let i = 0; i < 5; i++) {
+    for (let j = 0; j < 3; j++) {
+      drawLines(j * 140, i * 120, angles);
     }
   }
 
@@ -36,8 +36,6 @@ function breton() {
     var rotate = (pick(angleArray) * Math.PI) / 180;
     const width = 150;
     const height = 200;
-
-    console.log('Drawing at ' + x + ', ' + y + ' with rotation of ' + rotate);
 
     context.save();
     // 0,0 will be where the drawing happens
@@ -49,13 +47,13 @@ function breton() {
     context.translate((-1 * width) / 2, (-1 * height) / 2);
 
     // Background rectangles
-    context.fillStyle = '#1a1e3f';
+    context.fillStyle = '#232957';
     context.fillRect(0, 0, width, height);
 
     context.fillStyle = '#ffffff';
     context.fillRect(10, 10, width - 20, height - 20);
 
-    context.fillStyle = '#1a1e3f';
+    context.fillStyle = '#232957';
     for (let i = 0; i < 8; i++) {
       context.fillRect(i * 20, 0, 10, height);
     }
