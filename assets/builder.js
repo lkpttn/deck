@@ -8,68 +8,69 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-context.fillStyle = '#ffffff';
+context.fillStyle = '#013129';
 context.fillRect(0, 0, width, height);
 
-breton();
+circuit();
 
 // Draw again on a click
 canvas.addEventListener('click', function() {
-  breton();
+  circuit();
 });
 
-function breton() {
-  const angles = [30, 60, 90, 120, 150, 180];
-
-  context.fillStyle = '#ffffff';
+function circuit() {
+  // Redraw background
+  context.fillStyle = '#013129';
   context.fillRect(0, 0, width, height);
 
-  // Draw a group of lines
-  for (let i = 0; i < 5; i++) {
-    for (let j = 0; j < 3; j++) {
-      drawLines(j * 140, i * 120, angles);
-    }
+  // Draw the circuit line
+  var numbers = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
+  for (let i = 0; i < 8; i++) {
+    drawLine(10 + i * 50);
   }
 
-  // Functions
-  function drawLines(x, y, angleArray) {
-    var rotate = (pick(angleArray) * Math.PI) / 180;
-    const width = 150;
-    const height = 200;
+  function drawLine(x) {
+    context.beginPath();
+    // loop the drawing until reaching the bottom of the canvas
+    var x = x;
+    context.moveTo(x, 0);
 
-    console.log('Drawing at ' + x + ', ' + y + ' with rotation of ' + rotate);
+    // 1d10 down, 1d10 right, 1d10 down, 1d10 left, until end of page
+    for (let y = 0; y < height; ) {
+      y = y + pick(numbers);
+      context.lineTo(x, y);
 
-    context.save();
-    // 0,0 will be where the drawing happens
-    context.translate(x - width / 2, y - height / 2);
+      // Move left or right
+      // 1d10 right
+      x = x + pick(numbers);
+      context.lineTo(x, y);
 
-    // Move to the center and rotate
-    context.translate(width / 2, height / 2);
-    context.rotate(rotate);
-    context.translate((-1 * width) / 2, (-1 * height) / 2);
+      // 1d10 down
+      y = y + pick(numbers);
+      context.lineTo(x, y);
 
-    // Background rectangles
-    context.fillStyle = '#232957';
-    context.fillRect(0, 0, width, height);
-
-    context.fillStyle = '#ffffff';
-    context.fillRect(10, 10, width - 20, height - 20);
-
-    context.fillStyle = '#232957';
-    for (let i = 0; i < 8; i++) {
-      context.fillRect(i * 20, 0, 10, height);
+      // 1d10 left
+      x = x - pick(numbers);
+      context.lineTo(x, y);
     }
-    context.restore();
-  }
+    context.lineWidth = 16;
+    context.strokeStyle = '#013129';
+    context.stroke();
 
-  function rangeFloor(min, max) {
-    // Return a random whole number between min and max
-    return Math.floor(Math.random() * (max - min) + min);
+    context.lineWidth = 4;
+    context.strokeStyle = '#FAB955';
+    context.stroke();
   }
 
   function pick(array) {
     // Pick a random item out of an array
     if (array.length === 0) return undefined;
     return array[rangeFloor(0, array.length)];
+  }
+
+  function rangeFloor(min, max) {
+    // Return a random whole number between min and max
+    return Math.floor(Math.random() * (max - min) + min);
   }
 }
