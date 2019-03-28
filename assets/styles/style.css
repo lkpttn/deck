@@ -248,6 +248,10 @@ button.update:hover {
 }
 
 /* Covers */
+.circuit {
+  background: #064a3e;
+}
+
 .breton {
   background: #232957;
 }
