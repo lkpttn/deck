@@ -248,6 +248,10 @@ button.update:hover {
 }
 
 /* Covers */
+.klint {
+  background: #bb4a3a;
+}
+
 .circuit {
   background: #064a3e;
 }

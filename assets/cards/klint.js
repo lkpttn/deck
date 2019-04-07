@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Klint
+var canvas = document.getElementById('klint');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
