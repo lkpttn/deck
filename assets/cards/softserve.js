@@ -13,11 +13,6 @@ context.fillRect(0, 0, width, height);
 
 softServe();
 
-// Draw again on a click
-canvas.addEventListener('click', function() {
-  softServe();
-});
-
 function softServe() {
   // How big our base squares are
   var squareNum = 250;

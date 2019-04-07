@@ -13,11 +13,6 @@ context.fillRect(0, 0, width, height);
 
 breton();
 
-// Draw again on a click
-canvas.addEventListener('click', function() {
-  breton();
-});
-
 function breton() {
   const angles = [30, 60, 90, 120, 150, 180];
 

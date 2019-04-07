@@ -13,11 +13,6 @@ context.fillRect(0, 0, width, height);
 
 prisma();
 
-// Draw again on a click
-canvas.addEventListener('click', function() {
-  prisma();
-});
-
 function prisma() {
   var colors = [
     '#ff4300', // red

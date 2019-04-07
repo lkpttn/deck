@@ -13,11 +13,6 @@ context.fillRect(0, 0, width, height);
 
 circuit();
 
-// Draw again on a click
-canvas.addEventListener('click', function() {
-  circuit();
-});
-
 function circuit() {
   // Redraw background
   context.fillStyle = '#013129';

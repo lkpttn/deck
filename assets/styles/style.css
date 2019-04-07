@@ -202,24 +202,18 @@ pre {
 }
 
 button.update {
-  display: none;
-}
-
-@media screen and (min-width: 1200px) {
-  button.update {
-    display: block;
-    background: #ffffff;
-    color: #222222;
-    cursor: pointer;
-    border-radius: 4px;
-    padding: 10px;
-    border: none;
-    margin: 10px 0px;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1em;
-    font-family: 'ISO Bold', monospace;
-  }
+  display: block;
+  background: #ffffff;
+  color: #5c5c5c;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 10px;
+  border: none;
+  margin: 10px 0px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1em;
+  font-family: 'ISO Bold', monospace;
 }
 
 button.update:hover {
