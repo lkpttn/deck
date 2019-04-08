@@ -63,24 +63,32 @@ header a {
   text-decoration: underline;
 }
 
-ul {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  list-style: none;
+ol {
+  list-style: decimal-leading-zero;
+  list-style-position: inside;
   margin: 0;
   padding: 0;
 }
 
-ul li {
-  flex: 1 1 auto;
+ol li {
+  width: 50%;
+  float: left;
   font-size: 1.2em;
-  padding-right: 30px;
   color: #ffffff;
 }
 
-ul li a {
+ol li a {
   color: #ffffff;
+}
+
+@media screen and (min-width: 800px) {
+  /* Medium stuff */
+  ol li {
+    width: 25%;
+    float: left;
+    font-size: 1.2em;
+    color: #ffffff;
+  }
 }
 
 .container {
