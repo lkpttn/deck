@@ -77,10 +77,6 @@ ol li {
   color: #ffffff;
 }
 
-ol li a {
-  color: #ffffff;
-}
-
 @media screen and (min-width: 800px) {
   /* Medium stuff */
   ol li {
@@ -89,6 +85,10 @@ ol li a {
     font-size: 1.2em;
     color: #ffffff;
   }
+}
+
+ol li a {
+  color: #ffffff;
 }
 
 .container {
