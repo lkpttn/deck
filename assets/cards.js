@@ -3,21 +3,21 @@ var gallery = document.querySelectorAll('.gallery-item');
 initialize(gallery);
 createList(gallery);
 
+// Creates the ordered list items for each gallery item
 function createList(gallery) {
   var list = document.getElementById('list');
 
   gallery.forEach(item => {
     // Make lis here
-    console.log(item);
-
     let li = document.createElement('li');
-    let name = item.children[0].children[1].children[0].innerHTML;
-    let selector = item.classList[item.classList.length - 1];
+    let id = item.classList[item.classList.length - 1];
+    let name = document.getElementById(id).dataset.name;
     list.appendChild(li);
-    li.innerHTML = `<a href="#${selector}">${name}</a>`;
+    li.innerHTML = `<a href="#${id}-selector">${name}</a>`;
   });
 }
 
+// Adds the intersectionObserver and codeloading to each gallery item
 function initialize(gallery) {
   gallery.forEach(item => {
     var id = item.classList[item.classList.length - 1];
@@ -34,7 +34,6 @@ function initialize(gallery) {
   // DECLARATIONS *************************************************
 
   function createListener(object) {
-    console.log('The object is' + object);
     window.addEventListener(
       'load',
       function(event) {
