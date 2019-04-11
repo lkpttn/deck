@@ -8,57 +8,115 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-context.fillStyle = '#BB4A3A';
+context.fillStyle = '#CFCAC8';
 context.fillRect(0, 0, width, height);
 
-klint();
+klint2();
 
-function klint() {
-  var centerW = width / 2;
-  var centerH = height / 2;
+function klint2() {
+  var centerX = width / 2;
+  var centerY = height / 2;
 
-  // First half circle
-  context.fillStyle = 'white';
-  context.arc(centerW, centerH, 100, Math.PI / 2, (Math.PI * 3) / 2, false);
-  context.fill();
+  // Colors
+  var white = '#FFFFFF';
+  var grey = '#CFCAC8';
+  var greyRed = '#CCBABA';
+  var yellow = '#B7845B';
+  var red = '#BD8578';
+  var blue = '#6F7CA1';
+  var blackYellow = '#6C5942';
+  var black = '#040200';
 
-  // Black circle
+  // Bottom rect
+  context.fillStyle = black;
+  context.fillRect(0, centerY, width, height);
+
+  // Circles
   context.beginPath();
-  context.fillStyle = 'black';
-  context.arc(centerW, centerH, 65, Math.PI / 2, (Math.PI * 3) / 2, false);
+  context.fillStyle = blackYellow;
+  context.arc(centerX, centerY, 100, 0, Math.PI * 2, false);
   context.fill();
 
-  // Blue circle
   context.beginPath();
-  context.fillStyle = '#6593BD';
-  context.arc(centerW, centerH, 100, (Math.PI * 3) / 2, Math.PI / 2, false);
+  context.fillStyle = greyRed;
+  context.arc(centerX, centerY, 100, Math.PI, Math.PI * 2, false);
   context.fill();
 
-  // Yellow circle
-  context.beginPath();
-  context.fillStyle = '#EBC767';
-  context.arc(centerW, centerH, 65, (Math.PI * 3) / 2, Math.PI / 2, false);
-  context.fill();
+  // Triangles
+  drawEqualTriangle(60, 0, -54, false, white);
 
-  // Red circle
-  context.beginPath();
-  context.fillStyle = '#EF9782';
-  context.arc(centerW, centerH, 35, (Math.PI * 3) / 2, Math.PI / 2, false);
-  context.fill();
+  drawEqualTriangle(60, 0, 54, true, black);
 
-  // Red triangle
-  context.beginPath();
-  context.fillStyle = '#BB4A3A';
-  context.moveTo(centerW, centerH - 5);
-  context.lineTo(centerW, centerH + 5);
-  context.lineTo(centerW - 5, centerH + 5);
-  context.fill();
+  function drawEqualTriangle(side, offsetX, offsetY, tipUp, color) {
+    var h = side * (Math.sqrt(3) / 2);
 
-  // Red triangle
-  context.beginPath();
-  context.fillStyle = 'black';
-  context.moveTo(centerW, centerH - 5);
-  context.lineTo(centerW + 5, centerH + 5);
-  context.lineTo(centerW, centerH + 5);
-  context.fill();
+    context.save();
+    // Offset from the center of the canvas
+    context.translate(centerX + offsetX, centerY + offsetY);
+    context.beginPath();
+
+    // Draw pointing up or down
+    if (tipUp === true) {
+      context.moveTo(0, -h);
+      context.lineTo(-side, h);
+      context.lineTo(side, h);
+      context.lineTo(0, -h);
+      context.fillStyle = color;
+      context.fill();
+      drawBorders(h, side, true);
+    } else if (tipUp === false) {
+      context.moveTo(0, h);
+      context.lineTo(side, -h);
+      context.lineTo(-side, -h);
+      context.lineTo(0, h);
+      context.fillStyle = color;
+      context.fill();
+      drawBorders(h, side, false);
+    }
+
+    context.restore();
+  }
+
+  function drawBorders(h, side, tipUp) {
+    context.lineWidth = 5;
+    context.lineCap = 'round';
+
+    if (tipUp === true) {
+      context.beginPath();
+      context.moveTo(0, -h);
+      context.lineTo(-side, h);
+      context.strokeStyle = yellow;
+      context.stroke();
+
+      context.beginPath();
+      context.moveTo(-side, h);
+      context.lineTo(side, h);
+      context.strokeStyle = red;
+      context.stroke();
+
+      context.beginPath();
+      context.moveTo(side, h);
+      context.lineTo(0, -h);
+      context.strokeStyle = blue;
+      context.stroke();
+    } else if (tipUp === false) {
+      context.beginPath();
+      context.moveTo(0, h);
+      context.lineTo(side, -h);
+      context.strokeStyle = blue;
+      context.stroke();
+
+      context.beginPath();
+      context.moveTo(side, -h);
+      context.lineTo(-side, -h);
+      context.strokeStyle = red;
+      context.stroke();
+
+      context.beginPath();
+      context.moveTo(-side, -h);
+      context.lineTo(0, h);
+      context.strokeStyle = yellow;
+      context.stroke();
+    }
+  }
 }

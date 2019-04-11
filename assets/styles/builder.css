@@ -47,7 +47,8 @@ body {
   flex-direction: row;
 
   /* CUSTOMIZE THIS */
-  background: #bb4a3a;
+  color: #000;
+  background: #ffffff;
 }
 
 .card {
@@ -72,7 +73,6 @@ body {
   padding-left: 15px;
   letter-spacing: 0.2em;
   font-weight: 100;
-  color: #ffffff;
 }
 
 .title.left {
