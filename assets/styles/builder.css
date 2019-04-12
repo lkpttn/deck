@@ -47,8 +47,8 @@ body {
   flex-direction: row;
 
   /* CUSTOMIZE THIS */
-  color: #000;
-  background: #ffffff;
+  color: #fff;
+  background: #a17241;
 }
 
 .card {

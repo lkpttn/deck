@@ -250,6 +250,10 @@ button.update:hover {
 }
 
 /* Covers */
+.klint2 {
+  background: #a17241;
+}
+
 .klint {
   background: #bb4a3a;
 }
