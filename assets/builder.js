@@ -8,98 +8,58 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-klint2();
+context.globalCompositeOperation = 'source-over';
 
-function klint2() {
-  var centerX = width / 2;
-  var centerY = height / 2;
+meteor();
 
+function meteor() {
   // Colors
-  var white = '#FFFFFF';
-  var grey = '#CCCCCC';
-  var greyRed = '#CBADA7';
-  var blackYellow = '#A17241';
-  var black = '#040200';
-  var yellow = '#B7845B';
-  var red = '#BD8578';
-  var blue = '#6F7CA1';
+  var purple = '#21172A';
+  var colors = ['#E8155B', '#FFFFDD', '#FD675B']; // Pink, tan, orange
 
   // Backgrounds
-  context.fillStyle = grey;
-  context.fillRect(0, 0, width, centerY);
+  context.fillStyle = purple;
+  context.fillRect(0, 0, width, height);
 
-  context.fillStyle = black;
-  context.fillRect(0, centerY, width, height);
+  // We rotate the canvas 45 degrees for that cool meteor slant
+  context.translate(width / 2, height / 2);
+  context.rotate((-30 * Math.PI) / 180);
+  context.translate(-width / 2, -height / 2);
 
-  // Circles
-  context.beginPath();
-  context.fillStyle = blackYellow;
-  context.arc(centerX, centerY, 100, 0, Math.PI * 2, false);
-  context.fill();
-
-  context.beginPath();
-  context.fillStyle = greyRed;
-  context.arc(centerX, centerY, 100, Math.PI, Math.PI * 2, false);
-  context.fill();
-
-  // Triangles
-  drawEqualTriangle(60, 0, -54, false, white);
-  drawEqualTriangle(60, 0, 54, true, black);
-
-  // Overlay bg
-  context.globalCompositeOperation = 'multiply';
-  context.fillStyle = '#555555';
-  context.fillRect(0, centerY, width, height);
-
-  function drawEqualTriangle(side, offsetX, offsetY, tipUp, color) {
-    var h = side * (Math.sqrt(3) / 2);
-    // We use this to choose what direction the triangle points
-    var flip = 1;
-
-    // Offset from the center of the canvas
-    context.save();
-    context.translate(centerX + offsetX, centerY + offsetY);
-
-    // Draw pointing up or down
-    if (tipUp === false) {
-      flip = -1;
-    }
-
-    context.beginPath();
-    context.moveTo(0, -h * flip);
-    context.lineTo(-side * flip, h * flip);
-    context.lineTo(side * flip, h * flip);
-    context.lineTo(0, -h * flip);
-    context.fillStyle = color;
-    context.fill();
-    drawBorders(h, side, flip, tipUp);
-    context.restore();
+  // Draw trails
+  for (let i = 0; i < 50; i++) {
+    let x = rangeNearest10(-200, width + 200);
+    let y = rangeNearest10(-100, height + 100);
+    let length = rangeFloor(100, 250);
+    let color = pick(colors);
+    drawMeteor(x, y, length, color);
+    console.log(`Drawing a ${color} meteor at ${x},${y}`);
   }
 
-  function drawBorders(h, side, flip, tipUp) {
-    context.lineWidth = 5;
-    context.lineCap = 'round';
-
-    // We use the same tipUp value to power the
-    // ternanry operator to stroke in the right
-    // order, yellow on the left side.
-
+  function drawMeteor(x, y, trailLength, color) {
     context.beginPath();
-    context.moveTo(0 * flip, -h * flip);
-    context.lineTo(-side * flip, h * flip);
-    context.strokeStyle = tipUp ? yellow : blue;
-    context.stroke();
+    let grd = context.createLinearGradient(x, y, x, x + trailLength);
+    grd.addColorStop(0.1, purple);
+    grd.addColorStop(1, color);
 
-    context.beginPath();
-    context.moveTo(-side * flip, h * flip);
-    context.lineTo(side * flip, h * flip);
-    context.strokeStyle = red;
-    context.stroke();
+    context.fillStyle = grd;
+    context.fillRect(x, y, 1, trailLength);
+  }
 
-    context.beginPath();
-    context.moveTo(side * flip, h * flip);
-    context.lineTo(0, -h * flip);
-    context.strokeStyle = tipUp ? blue : yellow;
-    context.stroke();
+  function rangeFloor(min, max) {
+    // Return a random whole number between min and max
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  function rangeNearest10(min, max) {
+    // Return a random whole number between min and max
+    let num = Math.random() * (max - min) + min;
+    return Math.round(num / 10) * 10;
+  }
+
+  function pick(array) {
+    // Pick a random item out of an array
+    if (array.length === 0) return undefined;
+    return array[rangeFloor(0, array.length)];
   }
 }
