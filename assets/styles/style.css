@@ -250,6 +250,10 @@ button.update:hover {
 }
 
 /* Covers */
+.meteor {
+  background: #21172a;
+}
+
 .klint2 {
   background: #a17241;
 }
