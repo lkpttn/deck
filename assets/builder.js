@@ -8,46 +8,51 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-meteor();
+boxed();
 
-function meteor() {
+function boxed() {
   // Colors
-  var purple = '#21172A';
-  var colors = ['#FCF811', '#FFFFDD', '#FD675B']; // Yellow, tan, orange
+  var yellow = '#FEAC00';
+  var colors = [
+    '#FEAC00',
+    '#FF5630',
+    '#396C7D',
+    '#83757D',
+    '#2C3F54',
+    '#F0F0EC',
+    '#2A2A41',
+    '#766B4F',
+    '#F4AAAB',
+    '#CF3B45',
+  ];
 
   // Backgrounds
-  context.fillStyle = purple;
+  context.fillStyle = yellow;
   context.fillRect(0, 0, width, height);
 
-  // We rotate the canvas 45 degrees for that cool meteor slant
-  context.translate(width / 2, height / 2);
-  context.rotate((-30 * Math.PI) / 180);
-  context.translate(-width / 2, -height / 2);
+  // Double loop to draw boxes
+  for (let i = 0; i < width; ) {
+    let boxWidth = rangeFloor(10, 50);
 
-  // Draw trails
-  for (let i = 0; i < 50; i++) {
-    // Separated out for easy reading
-    // We're drawing meteors left to right at random y coordinates
-    // Randomly picking a width, tail length and small range of colors
-    let x = -100 + i * 15;
-    let y = rangeFloor(-100, height + 100);
-    let width = rangeFloor(1, 4);
-    let length = rangeFloor(100, 250);
-    let color = pick(colors);
-    drawMeteor(x, y, width, length, color);
-  }
+    for (let j = 0; j < height; ) {
+      let boxHeight = rangeFloor(10, 100);
 
-  function drawMeteor(x, y, width, trailLength, color) {
-    context.beginPath();
-    // We draw the gradient bounds from the tip of the meteor to
-    // the end of it's tail
-    let grd = context.createLinearGradient(x, y, x, y + trailLength);
-    grd.addColorStop(0.1, 'rgba(232, 21, 91, 0.1)');
-    grd.addColorStop(1, color);
+      // Randomly add gradients
+      if (Math.random() > 0.7) {
+        let grd = context.createLinearGradient(i, j, i, j + boxHeight);
+        grd.addColorStop(0, pick(colors));
+        grd.addColorStop(1, pick(colors));
+        context.fillStyle = grd;
+      } else {
+        context.fillStyle = pick(colors);
+      }
 
-    // This part actually draws the meteor at the coordinates
-    context.fillStyle = grd;
-    context.fillRect(x, y, width, trailLength);
+      // Draw the boxes
+      context.fillRect(i, j, boxWidth, boxHeight);
+
+      j = j + boxHeight;
+    }
+    i = i + boxWidth;
   }
 
   function rangeFloor(min, max) {
