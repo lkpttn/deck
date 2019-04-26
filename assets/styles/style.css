@@ -54,6 +54,10 @@ p {
   font-size: 1.2em;
 }
 
+p a {
+  color: #ffffff;
+}
+
 header {
   color: #ffffff;
 }
@@ -250,6 +254,9 @@ button.update:hover {
 }
 
 /* Covers */
+.boxer {
+  background: #feac00;
+}
 .meteor {
   background: #21172a;
 }
