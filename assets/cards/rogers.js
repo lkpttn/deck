@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Rogers
+var canvas = document.getElementById('rogers');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -9,10 +9,6 @@ var width = canvas.width;
 var height = canvas.height;
 
 rogers();
-
-canvas.addEventListener('click', function() {
-  rogers();
-});
 
 function rogers() {
   // The counts and multiplier determine how many grid points we have

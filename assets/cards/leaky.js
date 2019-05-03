@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Leaky
+var canvas = document.getElementById('leaky');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -9,10 +9,6 @@ var width = canvas.width;
 var height = canvas.height;
 
 leaky();
-
-canvas.addEventListener('click', function() {
-  leaky();
-});
 
 function leaky() {
   // Backgrounds
@@ -25,7 +21,6 @@ function leaky() {
   // Draw a group of lines
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 6; j++) {
-      console.log('Drawing at ' + j * 50 + ' and ' + i * 50);
       centerRect(
         j * 50,
         i * 50,

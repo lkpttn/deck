@@ -254,6 +254,12 @@ button.update:hover {
 }
 
 /* Covers */
+.rogers {
+  background: #14141f;
+}
+.leaky {
+  background: #0b1961;
+}
 .boxer {
   background: #feac00;
 }
