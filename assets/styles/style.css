@@ -254,6 +254,9 @@ button.update:hover {
 }
 
 /* Covers */
+.gumball {
+  background: #f9c3b6;
+}
 .rogers {
   background: #14141f;
 }

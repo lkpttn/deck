@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Gumball
+var canvas = document.getElementById('gumball');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
