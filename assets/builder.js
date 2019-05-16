@@ -7,18 +7,41 @@ canvas.height = 500;
 
 var width = canvas.width;
 var height = canvas.height;
+var increment = 0;
+var colors = ['#507A4A', '#C0C480', '#FFEAA4', '#FFCDA4', '#FF938D'];
 
-gumball();
+context.translate(width / 2, height / 2);
+context.rotate((30 * Math.PI) / 180);
+context.translate(-width / 2, -height / 2);
 
-function gumball() {
-  context.fillStyle = 'rgb(249, 195, 182)';
-  context.fillRect(0, 0, width, height);
+context.globalCompositeOperation = 'destination-over';
 
-  let grd = context.createLinearGradient(0, height, width, 0);
-  grd.addColorStop(0.1, 'rgb(182, 206, 235)');
-  grd.addColorStop(1, 'rgb(64, 24, 119)');
-  context.fillStyle = grd;
+setInterval(hex, 250);
 
-  context.rotate((30 * Math.PI) / 180);
-  context.fillRect(200, -150, 100, 600);
+function hex() {
+  var x = width / 2;
+  var y = height / 2;
+  context.clearRect(-200, -200, width + 400, height + 400);
+
+  for (let i = 0; i < 15; i++) {
+    drawHex(25 * i, colors[i % colors.length]);
+  }
+
+  let colorHold = colors.pop();
+  colors.unshift(colorHold);
+
+  function drawHex(size, color) {
+    context.beginPath();
+    context.moveTo(x + size * Math.cos(0), y + size * Math.sin(0));
+
+    for (let side = 0; side < 7; side++) {
+      context.lineTo(
+        x + size * Math.cos((side * 2 * Math.PI) / 6),
+        y + size * Math.sin((side * 2 * Math.PI) / 6),
+      );
+    }
+
+    context.fillStyle = color;
+    context.fill();
+  }
 }
