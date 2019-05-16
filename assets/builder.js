@@ -20,12 +20,14 @@ context.globalCompositeOperation = 'destination-over';
 hex();
 
 function hex() {
+  var size = 25;
   var x = width / 2;
   var y = height / 2;
   context.clearRect(-200, -200, width + 400, height + 400);
 
   for (let i = 0; i < 25; i++) {
-    drawHex(rangeFloor(15, 25) * i, colors[i % colors.length]);
+    drawHex(size, colors[i % colors.length]);
+    size = size + rangeFloor(5, 50);
   }
 
   let colorHold = colors.pop();
