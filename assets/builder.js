@@ -16,15 +16,16 @@ context.translate(-width / 2, -height / 2);
 
 context.globalCompositeOperation = 'destination-over';
 
-setInterval(hex, 250);
+// setInterval(hex, 250);
+hex();
 
 function hex() {
   var x = width / 2;
   var y = height / 2;
   context.clearRect(-200, -200, width + 400, height + 400);
 
-  for (let i = 0; i < 15; i++) {
-    drawHex(25 * i, colors[i % colors.length]);
+  for (let i = 0; i < 25; i++) {
+    drawHex(rangeFloor(15, 25) * i, colors[i % colors.length]);
   }
 
   let colorHold = colors.pop();
@@ -40,8 +41,12 @@ function hex() {
         y + size * Math.sin((side * 2 * Math.PI) / 6),
       );
     }
-
     context.fillStyle = color;
     context.fill();
+  }
+
+  function rangeFloor(min, max) {
+    // Return a random whole number between min and max
+    return Math.floor(Math.random() * (max - min) + min);
   }
 }
