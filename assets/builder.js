@@ -7,36 +7,43 @@ canvas.height = 500;
 
 var width = canvas.width;
 var height = canvas.height;
-var increment = 0;
-var colors = ['#507A4A', '#C0C480', '#FFEAA4', '#FFCDA4', '#FF938D'];
 
-context.translate(width / 2, height / 2);
-context.rotate((30 * Math.PI) / 180);
-context.translate(-width / 2, -height / 2);
+var colors = [
+  '#485b23',
+  '#507A4A',
+  '#C0C480',
+  '#FFEAA4',
+  '#FFA56E',
+  '#FFCDA4',
+  '#FF938D',
+];
 
+// Draw underneath the previous shapes
 context.globalCompositeOperation = 'destination-over';
 
-// setInterval(hex, 250);
 hex();
 
 function hex() {
   var size = 25;
   var x = width / 2;
   var y = height / 2;
-  context.clearRect(-200, -200, width + 400, height + 400);
 
-  for (let i = 0; i < 25; i++) {
+  // Rotate our canvas from the center
+  context.translate(width / 2, height / 2);
+  context.rotate((30 * Math.PI) / 180);
+  context.translate(-width / 2, -height / 2);
+
+  for (let i = 0; i < 15; i++) {
+    // Draw slightly increasing hexagons and cycle through the colors
     drawHex(size, colors[i % colors.length]);
-    size = size + rangeFloor(5, 50);
+    size = size + rangeFloor(15, 50);
   }
-
-  let colorHold = colors.pop();
-  colors.unshift(colorHold);
 
   function drawHex(size, color) {
     context.beginPath();
     context.moveTo(x + size * Math.cos(0), y + size * Math.sin(0));
 
+    // Use the trig to find the location of the next coordinate
     for (let side = 0; side < 7; side++) {
       context.lineTo(
         x + size * Math.cos((side * 2 * Math.PI) / 6),
