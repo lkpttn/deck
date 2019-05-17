@@ -254,6 +254,9 @@ button.update:hover {
 }
 
 /* Covers */
+.melon {
+  background: #507a4a;
+}
 .gumball {
   background: #f9c3b6;
 }
