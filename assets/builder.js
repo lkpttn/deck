@@ -10,8 +10,8 @@ var height = canvas.height;
 
 var colors = ['#FF9EE2', '#DE90E8', '#DFABFF', '#AE90E8', '#A59EFF'];
 
-// Draw underneath the previous shapes
-context.globalCompositeOperation = 'destination-over';
+context.fillStyle = '#011628';
+context.fillRect(0, 0, width, height);
 
 hex();
 
@@ -22,14 +22,14 @@ function hex() {
     for (let x = 0; x < 12; x++) {
       if (x % 2 == 0) {
         // Even check
-        drawHex(x * 30, y * 34, size, pick(colors));
+        drawHex(x * 30, y * 34, size);
       } else {
-        drawHex(x * 30, y * 34 + 17, size, pick(colors));
+        drawHex(x * 30, y * 34 + 17, size);
       }
     }
   }
 
-  function drawHex(x, y, size, color) {
+  function drawHex(x, y, size) {
     context.beginPath();
     context.moveTo(x + size * Math.cos(0), y + size * Math.sin(0));
 
@@ -40,8 +40,10 @@ function hex() {
         y + size * Math.sin((side * 2 * Math.PI) / 6),
       );
     }
-    context.fillStyle = color;
-    context.fill();
+
+    context.globalAlpha = Math.random() * 0.7;
+    context.strokeStyle = pick(colors);
+    context.stroke();
   }
 
   function rangeFloor(min, max) {
