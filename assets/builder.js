@@ -8,15 +8,7 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-var colors = [
-  '#485b23',
-  '#507A4A',
-  '#C0C480',
-  '#FFEAA4',
-  '#FFA56E',
-  '#FFCDA4',
-  '#FF938D',
-];
+var colors = ['#FF9EE2', '#DE90E8', '#DFABFF', '#AE90E8', '#A59EFF'];
 
 // Draw underneath the previous shapes
 context.globalCompositeOperation = 'destination-over';
@@ -24,22 +16,20 @@ context.globalCompositeOperation = 'destination-over';
 hex();
 
 function hex() {
-  var size = 25;
-  var x = width / 2;
-  var y = height / 2;
+  var size = 20;
 
-  // Rotate our canvas from the center
-  context.translate(width / 2, height / 2);
-  context.rotate((30 * Math.PI) / 180);
-  context.translate(-width / 2, -height / 2);
-
-  for (let i = 0; i < 15; i++) {
-    // Draw slightly increasing hexagons and cycle through the colors
-    drawHex(size, colors[i % colors.length]);
-    size = size + rangeFloor(15, 50);
+  for (let y = 0; y < 18; y++) {
+    for (let x = 0; x < 12; x++) {
+      if (x % 2 == 0) {
+        // Even check
+        drawHex(x * 30, y * 34, size, pick(colors));
+      } else {
+        drawHex(x * 30, y * 34 + 17, size, pick(colors));
+      }
+    }
   }
 
-  function drawHex(size, color) {
+  function drawHex(x, y, size, color) {
     context.beginPath();
     context.moveTo(x + size * Math.cos(0), y + size * Math.sin(0));
 
@@ -57,5 +47,11 @@ function hex() {
   function rangeFloor(min, max) {
     // Return a random whole number between min and max
     return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  function pick(array) {
+    // Pick a random item out of an array
+    if (array.length === 0) return undefined;
+    return array[rangeFloor(0, array.length)];
   }
 }
