@@ -254,6 +254,9 @@ button.update:hover {
 }
 
 /* Covers */
+.barrier {
+  background: #011628;
+}
 .melon {
   background: #507a4a;
 }
