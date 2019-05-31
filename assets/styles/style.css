@@ -254,6 +254,9 @@ button.update:hover {
 }
 
 /* Covers */
+.sunnyside {
+  background: #ff4b44;
+}
 .barrier {
   background: #011628;
 }
