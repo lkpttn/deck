@@ -18,13 +18,10 @@ function holy() {
   var points = createGrid();
 
   // Backgrounds
-  context.fillStyle = '#282624';
-  context.fillRect(0, 0, width, height);
 
-  // Pick random points
-  // for (let i = 0; i < 100; i++) {
-  //   targets.push(pick(points));
-  // }
+  context.fillStyle = '#282624';
+  // context.fillStyle = '#F7F1E1';
+  context.fillRect(0, 0, width, height);
 
   context.globalCompositeOperation = 'destination-out';
 
@@ -38,16 +35,15 @@ function holy() {
     const color = 'rgba(0,0,0,1.0)';
     context.fillStyle = color;
 
-    // context.beginPath();
-    // context.arc(x, y, (radius * width) / 2, 0, Math.PI * 2, false);
     drawCircle(x, y, radius);
   });
 
   context.globalCompositeOperation = 'destination-over';
 
-  let grd = context.createLinearGradient(0, width / 2, height, width / 2);
+  let grd = context.createLinearGradient(0, 0, width, height);
   grd.addColorStop(0.0, '#FFBB41');
-  grd.addColorStop(1, '#ED7850');
+  grd.addColorStop(0.5, '#6F81D6');
+  grd.addColorStop(1.0, '#ED7850');
 
   context.fillStyle = grd;
   context.fillRect(0, 0, width, height);
