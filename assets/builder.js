@@ -12,13 +12,13 @@ holy();
 
 function holy() {
   // Vars
-  var margin = 10;
-  var radius = 0.03;
+  var margin = 20;
+  var radius = 6;
   var targets = [];
   var points = createGrid();
 
   // Backgrounds
-  context.fillStyle = 'cadetblue';
+  context.fillStyle = '#282624';
   context.fillRect(0, 0, width, height);
 
   // Pick random points
@@ -40,14 +40,14 @@ function holy() {
 
     // context.beginPath();
     // context.arc(x, y, (radius * width) / 2, 0, Math.PI * 2, false);
-    drawCircle(x, y, 5);
+    drawCircle(x, y, radius);
   });
 
   context.globalCompositeOperation = 'destination-over';
 
   let grd = context.createLinearGradient(0, width / 2, height, width / 2);
-  grd.addColorStop(0.0, 'honeydew');
-  grd.addColorStop(1, 'aqua');
+  grd.addColorStop(0.0, '#FFBB41');
+  grd.addColorStop(1, '#ED7850');
 
   context.fillStyle = grd;
   context.fillRect(0, 0, width, height);
@@ -64,7 +64,7 @@ function holy() {
 
   function createGrid() {
     const points = [];
-    const count = 20;
+    const count = 15;
 
     for (let x = 0; x < count; x++) {
       for (let y = 0; y < count; y++) {
