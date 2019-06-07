@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Operator
+var canvas = document.getElementById('operator');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;

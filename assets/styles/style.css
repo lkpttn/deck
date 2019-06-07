@@ -254,6 +254,9 @@ button.update:hover {
 }
 
 /* Covers */
+.operator {
+  background: #1a1917;
+}
 .sunnyside {
   background: #ff4b44;
 }
