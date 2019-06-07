@@ -8,77 +8,63 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-operator();
+builder();
 
-function operator() {
+function builder() {
   // Vars
-  const margin = 30;
-  const radius = 6;
-  const count = 12;
-  var points = createGrid();
+  var step = 10;
+  var lines = [];
+  var margin = 80;
+
+  var colors = ['#FFFFFF'];
 
   // Backgrounds
-  context.fillStyle = '#1a1917';
+  context.fillStyle = '#2a2a2a';
   context.fillRect(0, 0, width, height);
 
-  // Existing content is kept where it doesn't overlap with the shape
-  // aka everything else we draw will punch a hole in the background
-  context.globalCompositeOperation = 'destination-out';
-
-  points.forEach(points => {
-    // Deconstruct into variables
-    // u and v values are between 0..1
-    var u = points[0];
-    var v = points[1];
-
-    // Lerp will distribute the point on our canvas based on
-    // it's value between 0..1
-    var x = lerp(margin, width - margin, u);
-    var y = lerp(margin, height - margin, v);
-
-    // A little bit of rounding to help with subpixel rendering
-    drawCircle(Math.round(x), Math.round(y), radius);
-  });
-
-  // New shapes will be drawn behind the existing content
-  // We use this to draw the gradient behind the layer with holes
-  context.globalCompositeOperation = 'destination-over';
-
-  let grd = context.createLinearGradient(0, 0, width, height);
-  grd.addColorStop(0.0, '#FFBB41');
-  grd.addColorStop(0.5, '#6F81D6');
-  grd.addColorStop(1.0, '#ED7850');
-
-  context.fillStyle = grd;
-  context.fillRect(0, 0, width, height);
-
-  function drawCircle(x, y, radius) {
-    context.save();
-    context.translate(x, y);
-    context.beginPath();
-    context.arc(0, 0, radius, 0, 2 * Math.PI, false);
-    context.lineWidth = 3;
-    context.fill();
-    context.restore();
-  }
-
-  function createGrid() {
-    const points = [];
-
-    // Will return a set of points between 0..1
-    for (let x = 0; x < count; x++) {
-      for (let y = 0; y < count; y++) {
-        const u = count <= 1 ? 0.5 : x / (count - 1);
-        const v = count <= 1 ? 0.5 : y / (count - 1);
-
-        points.push([u, v]);
-      }
+  // Make the lines
+  for (let i = margin; i <= height - margin * 3.5; i += 20) {
+    var line = [];
+    for (let j = 0; j <= height; j += step) {
+      // The absolute value of the point to the center
+      var distanceToCenter = Math.abs(j - height / 2);
+      // Increase the amount of variance closer to the center of the canvas
+      var variance = Math.max(height / 2 - 100 - distanceToCenter, 0);
+      var random = (range(-1, 1) * variance) / 3;
+      var point = { x: i + random, y: j };
+      line.push(point);
     }
-    return points;
+    lines.push(line);
   }
 
-  // Math stuff
-  function lerp(min, max, t) {
-    return min * (1 - t) + max * t;
+  // Draw the lines
+  for (var i = 0; i < lines.length; i++) {
+    context.beginPath();
+    context.moveTo(lines[i][0].x, lines[i][0].y);
+
+    // Learn to understand this
+    for (var j = 0; j < lines[i].length - 2; j++) {
+      var xc = (lines[i][j].x + lines[i][j + 1].x) / 2;
+      var yc = (lines[i][j].y + lines[i][j + 1].y) / 2;
+      context.quadraticCurveTo(lines[i][j].x, lines[i][j].y, xc, yc);
+    }
+
+    // Final closure
+    context.quadraticCurveTo(
+      lines[i][j].x,
+      lines[i][j].y,
+      lines[i][j + 1].x,
+      lines[i][j + 1].y,
+    );
+
+    context.strokeStyle = colors[i % colors.length];
+    context.lineWidth = 4;
+    context.globalAlpha = 0.8;
+    context.stroke();
+  }
+
+  function range(min, max) {
+    // Return a random number between min and max
+    return Math.random() * (max - min) + min;
   }
 }
