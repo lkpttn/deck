@@ -254,6 +254,9 @@ button.update:hover {
 }
 
 /* Covers */
+.atomic {
+  background: #592b1b;
+}
 .operator {
   background: #1a1917;
 }

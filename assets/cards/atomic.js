@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Atomic
+var canvas = document.getElementById('atomic');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -8,13 +8,9 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-leaky();
+atomic();
 
-canvas.addEventListener('click', function() {
-  leaky();
-});
-
-function leaky() {
+function atomic() {
   // Vars
   var margin = 20;
   var radius = 0.03;
@@ -27,6 +23,7 @@ function leaky() {
   context.fillRect(0, 0, width, height);
 
   for (let i = 0; i < 100; i++) {
+    // Randomly add points to our array
     targets.push(pick(points));
   }
 
@@ -34,11 +31,13 @@ function leaky() {
     const u = points[0];
     const v = points[1];
 
+    // Read the Operator.js source for more comments about linear interpolation
     const x = lerp(margin, width - margin, u);
     const y = lerp(margin, height - margin, v);
 
     const color = pick(colors);
 
+    // Draw the line to the point
     context.beginPath();
     context.moveTo(width / 2, height / 2);
     context.lineTo(x, y);
@@ -46,6 +45,7 @@ function leaky() {
     context.strokeStyle = color;
     context.stroke();
 
+    // Draw the circle at the point
     context.beginPath();
     context.arc(x, y, (radius * width) / 4, 0, Math.PI * 2, false);
     context.fillStyle = color;
@@ -56,6 +56,7 @@ function leaky() {
     const points = [];
     const count = 20;
 
+    // Create our grid coordinated between 0..1
     for (let x = 0; x < count; x++) {
       for (let y = 0; y < count; y++) {
         const u = count <= 1 ? 0.5 : x / (count - 1);
