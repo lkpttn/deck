@@ -8,78 +8,65 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-leaky();
+strange();
 
-canvas.addEventListener('click', function() {
-  leaky();
-});
-
-function leaky() {
-  // Vars
-  var margin = 20;
-  var radius = 0.03;
-  var targets = [];
-  var points = createGrid();
-  var colors = ['#D9A25F', '#D98452', '#F25F29', '#BF6B04', '#BF6956'];
-
+function strange() {
   // Backgrounds
-  context.fillStyle = '#592B1B';
+  context.fillStyle = '#000000';
   context.fillRect(0, 0, width, height);
 
-  for (let i = 0; i < 100; i++) {
-    targets.push(pick(points));
+  context.translate(width / 2, height / 2);
+  context.strokeStyle = '#ffffff';
+
+  // Outer arcs
+  drawCircle(140, 2);
+  drawCircle(120, 2);
+  strokes(140, 20, 1, 3);
+
+  drawSquare(170, 75, 2);
+  drawSquare(170, 105, 2);
+
+  // Middle circle
+  drawCircle(70, 1);
+  drawSquare(100, 45, 1);
+  drawSquare(100, 0, 1);
+
+  // Inner
+  drawCircle(40, 1);
+  drawCircle(35, 1);
+  strokes(40, 5, 1, 10);
+  drawSquare(40, 75, 2);
+  drawSquare(40, 105, 2);
+
+  // Draw small lines in a circle at a certain size
+  function strokes(radius, length, thickness, frequency) {
+    context.save();
+    for (let i = 0; i < 360 / frequency; i++) {
+      context.beginPath();
+      context.moveTo(0, -radius);
+      context.lineTo(0, -radius + length);
+      context.lineWidth = thickness;
+      context.stroke();
+      context.rotate((frequency * Math.PI) / 180);
+    }
+    context.restore();
   }
 
-  targets.forEach(points => {
-    const u = points[0];
-    const v = points[1];
-
-    const x = lerp(margin, width - margin, u);
-    const y = lerp(margin, height - margin, v);
-
-    const color = pick(colors);
-
+  function drawCircle(radius, thickness) {
     context.beginPath();
-    context.moveTo(width / 2, height / 2);
-    context.lineTo(x, y);
-    context.lineWidth = (radius * width) / 8;
-    context.strokeStyle = color;
+    context.arc(0, 0, radius, 0, Math.PI * 2, false);
+    context.lineWidth = thickness;
+    context.stroke();
+  }
+
+  function drawSquare(size, rotation, thickness) {
+    context.save();
+    context.rotate((rotation * Math.PI) / 180);
+    context.beginPath();
+    context.rect(-size / 2, -size / 2, size, size);
+    context.lineWidth = thickness;
     context.stroke();
 
-    context.beginPath();
-    context.arc(x, y, (radius * width) / 4, 0, Math.PI * 2, false);
-    context.fillStyle = color;
-    context.fill();
-  });
-
-  function createGrid() {
-    const points = [];
-    const count = 20;
-
-    for (let x = 0; x < count; x++) {
-      for (let y = 0; y < count; y++) {
-        const u = count <= 1 ? 0.5 : x / (count - 1);
-        const v = count <= 1 ? 0.5 : y / (count - 1);
-
-        points.push([u, v]);
-      }
-    }
-    return points;
-  }
-
-  // Math stuff
-  function rangeFloor(min, max) {
-    // Return a random whole number between min and max
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-
-  function pick(array) {
-    // Pick a random item out of an array
-    if (array.length === 0) return undefined;
-    return array[rangeFloor(0, array.length)];
-  }
-
-  function lerp(min, max, t) {
-    return min * (1 - t) + max * t;
+    context.restore();
   }
 }
