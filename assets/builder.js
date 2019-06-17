@@ -8,65 +8,35 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-strange();
+sunflower();
 
-function strange() {
+function sunflower() {
   // Backgrounds
   context.fillStyle = '#000000';
   context.fillRect(0, 0, width, height);
 
-  context.translate(width / 2, height / 2);
-  context.strokeStyle = '#ffffff';
+  context.fillStyle = '#FFFFFF';
+  var circleNumber = 300;
+  var phi = (Math.sqrt(5) + 1) / 2 - 1;
+  var goldenAngle = phi * 2 * Math.PI;
+  var outerRadius = width * 0.45;
+  var innerRadius = 2;
 
-  // Outer arcs
-  drawCircle(140, 2);
-  drawCircle(120, 2);
-  strokes(140, 20, 1, 3);
+  var cx = width / 2;
+  var cy = height / 2;
 
-  drawSquare(170, 75, 2);
-  drawSquare(170, 105, 2);
+  for (var i = 1; i <= circleNumber; ++i) {
+    var ratio = i / circleNumber;
+    var angle = i * goldenAngle;
 
-  // Middle circle
-  drawCircle(70, 1);
-  drawSquare(100, 45, 1);
-  drawSquare(100, 0, 1);
+    // Change the radius of the "outer" circle with each loop
+    var spiralRadius = ratio * outerRadius;
+    var x = cx + Math.cos(angle) * spiralRadius;
+    var y = cy + Math.sin(angle) * spiralRadius;
 
-  // Inner
-  drawCircle(40, 1);
-  drawCircle(35, 1);
-  strokes(40, 5, 1, 10);
-  drawSquare(40, 75, 2);
-  drawSquare(40, 105, 2);
-
-  // Draw small lines in a circle at a certain size
-  function strokes(radius, length, thickness, frequency) {
-    context.save();
-    for (let i = 0; i < 360 / frequency; i++) {
-      context.beginPath();
-      context.moveTo(0, -radius);
-      context.lineTo(0, -radius + length);
-      context.lineWidth = thickness;
-      context.stroke();
-      context.rotate((frequency * Math.PI) / 180);
-    }
-    context.restore();
-  }
-
-  function drawCircle(radius, thickness) {
+    // draw tiny circle at x,y
     context.beginPath();
-    context.arc(0, 0, radius, 0, Math.PI * 2, false);
-    context.lineWidth = thickness;
-    context.stroke();
-  }
-
-  function drawSquare(size, rotation, thickness) {
-    context.save();
-    context.rotate((rotation * Math.PI) / 180);
-    context.beginPath();
-    context.rect(-size / 2, -size / 2, size, size);
-    context.lineWidth = thickness;
-    context.stroke();
-
-    context.restore();
+    context.arc(x, y, innerRadius, 0, 2 * Math.PI, false);
+    context.fill();
   }
 }
