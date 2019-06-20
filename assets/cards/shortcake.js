@@ -1,5 +1,5 @@
 // Shortcake
-var canvas = document.getElementById('card-canvas');
+var canvas = document.getElementById('shortcake');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
