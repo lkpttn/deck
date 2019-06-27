@@ -12,52 +12,40 @@ strange();
 
 function strange() {
   // Backgrounds
-  context.fillStyle = '#011628';
+  context.fillStyle = '#000000';
   context.fillRect(0, 0, width, height);
 
   context.translate(width / 2, height / 2);
 
-  const circlePoints = createCirclePoints(300, 36);
+  const circlePoints = createCirclePoints(120, 8);
+  var colors = [
+    '#FF4748',
+    '#FF6C5B',
+    '#FF9070',
+    '#FFAF86',
+    '#FFCA9D',
+    '#FFDFB4',
+    '#FFF0CC',
+  ];
 
-  // circlePoints.forEach(point => {
-  //   const x = point[0];
-  //   const y = point[1];
-
-  //   context.beginPath();
-  //   context.arc(x, y, 3, 0, Math.PI * 2, false);
-  //   context.fillStyle = '#7D6B7D';
-  //   context.fill();
-  // });
-
-  // Change colors and do it again, 15 points around
-  var innerGradient = context.createRadialGradient(0, 0, 30, 0, 0, 300);
-  innerGradient.addColorStop(0.1, '#FF9EE2');
-  innerGradient.addColorStop(1, '#A59EFF');
-  context.strokeStyle = innerGradient;
+  context.strokeStyle = '#ffffff';
   for (let i = 0; i < circlePoints.length; i++) {
-    drawBetweenPoints(i, i + 15);
+    context.strokeStyle = colors[i % colors.length];
+    drawToPoints(i, circlePoints);
   }
 
-  // Draw a line 11 points around the circle
-  var outerGradient = context.createRadialGradient(0, 0, 30, 0, 0, 200);
-  outerGradient.addColorStop(0.1, '#DFABFF');
-  outerGradient.addColorStop(1, '#AE90E8');
-  context.strokeStyle = outerGradient;
-  for (let i = 0; i < circlePoints.length; i++) {
-    drawBetweenPoints(i, i + 11);
-  }
-
-  function drawBetweenPoints(firstPoint, secondPoint) {
-    let first = firstPoint;
-    let second = secondPoint;
-    if (second > circlePoints.length - 1) {
-      second = second - circlePoints.length;
-      console.log(second);
-    }
+  function drawToPoints(point, array) {
+    let origin = array[point];
 
     context.beginPath();
-    context.moveTo(circlePoints[first][0], circlePoints[first][1]);
-    context.lineTo(circlePoints[second][0], circlePoints[second][1]);
+    context.moveTo(origin[0], origin[1]);
+    // Draw a line to all points in array
+    for (let j = 0; j < circlePoints.length; j++) {
+      let destination = circlePoints[j];
+      context.lineTo(destination[0], destination[1]);
+      context.moveTo(origin[0], origin[1]);
+    }
+
     context.stroke();
   }
 
@@ -78,22 +66,3 @@ function strange() {
     return points;
   }
 }
-
-// PURPLE PINK
-// Change colors and do it again, 15 points around
-//  var innerGradient = context.createRadialGradient(0, 0, 30, 0, 0, 300);
-//  innerGradient.addColorStop(0.1, '#FF9EE2');
-//  innerGradient.addColorStop(1, '#A59EFF');
-//  context.strokeStyle = innerGradient;
-//  for (let i = 0; i < circlePoints.length; i++) {
-//    drawBetweenPoints(i, i + 15);
-//  }
-
-//  // Draw a line 11 points around the circle
-//  var outerGradient = context.createRadialGradient(0, 0, 30, 0, 0, 200);
-//  outerGradient.addColorStop(0.1, '#DFABFF');
-//  outerGradient.addColorStop(1, '#AE90E8');
-//  context.strokeStyle = outerGradient;
-//  for (let i = 0; i < circlePoints.length; i++) {
-//    drawBetweenPoints(i, i + 11);
-//  }
