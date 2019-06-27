@@ -254,6 +254,9 @@ button.update:hover {
 }
 
 /* Covers */
+.shortcake {
+  background: #ffca96;
+}
 .atomic {
   background: #592b1b;
 }
