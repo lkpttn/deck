@@ -20,7 +20,7 @@ function strange() {
   // context.transform(1, 0.1, 0.6, 1, 0, 0);
   // const circlePoints = createCirclePoints(300, 8);
 
-  const circlePoints = createCirclePoints(140, 8);
+  const circlePoints = createCirclePoints(120, 8);
   var colors = [
     '#FF4748',
     '#FF6C5B',
