@@ -12,37 +12,18 @@ strange();
 
 function strange() {
   // Backgrounds
-  context.fillStyle = '#000000';
+  context.fillStyle = '#0D1E34';
   context.fillRect(0, 0, width, height);
 
   context.translate(width / 2, height / 2);
 
-  // context.transform(1, 0.1, 0.6, 1, 0, 0);
-  // const circlePoints = createCirclePoints(300, 8);
-
-  const circlePoints = createCirclePoints(120, 8);
+  const circlePoints = createCirclePoints(140, 8);
   var colors = [
-    '#FF4748',
-    '#FF6C5B',
-    '#FF9070',
-    '#FFAF86',
-    '#FFCA9D',
-    '#FFDFB4',
-    '#FFF0CC',
+    '#FDAC00', // Orange
+    '#EEB720', // Yellow
+    '#55A56C', // Green
+    '#F47579', // Pink
   ];
-
-  circlePoints.forEach((point, i) => {
-    let x = point[0];
-    let y = point[1];
-
-    context.save();
-    context.beginPath();
-    context.globalAlpha = 0.5;
-    context.arc(x, y, 125, 0, Math.PI * 2, false);
-    context.strokeStyle = colors[i % colors.length];
-    context.stroke();
-    context.restore();
-  });
 
   for (let i = 0; i < circlePoints.length; i++) {
     context.strokeStyle = colors[i % colors.length];

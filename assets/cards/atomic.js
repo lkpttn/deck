@@ -16,10 +16,14 @@ function atomic() {
   var radius = 0.03;
   var targets = [];
   var points = createGrid();
-  var colors = ['#D9A25F', '#D98452', '#F25F29', '#BF6B04', '#BF6956'];
+  var colors = [
+    '#FC3A51', // Pink
+    '#0E2431', // Dark Blue
+    '#F5B349', // Orange
+  ];
 
   // Backgrounds
-  context.fillStyle = '#592B1B';
+  context.fillStyle = '#E7D5B7';
   context.fillRect(0, 0, width, height);
 
   for (let i = 0; i < 100; i++) {

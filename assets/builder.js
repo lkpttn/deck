@@ -1,4 +1,4 @@
-// Builder
+// Atomic
 var canvas = document.getElementById('card-canvas');
 var context = canvas.getContext('2d');
 
@@ -8,76 +8,83 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-strange();
+atomic();
 
-function strange() {
-  // Backgrounds
-  context.fillStyle = '#000000';
-  context.fillRect(0, 0, width, height);
-
-  context.translate(width / 2, height / 2);
-
-  // context.transform(1, 0.1, 0.6, 1, 0, 0);
-  // const circlePoints = createCirclePoints(300, 8);
-
-  const circlePoints = createCirclePoints(140, 8);
+function atomic() {
+  // Vars
+  var margin = 20;
+  var radius = 0.03;
+  var targets = [];
+  var points = createGrid();
   var colors = [
-    '#FF4748',
-    '#FF6C5B',
-    '#FF9070',
-    '#FFAF86',
-    '#FFCA9D',
-    '#FFDFB4',
-    '#FFF0CC',
+    '#FC3A51', // Pink
+    '#0E2431', // Dark Blue
+    '#F5B349', // Orange
   ];
 
-  circlePoints.forEach((point, i) => {
-    let x = point[0];
-    let y = point[1];
+  // Backgrounds
+  context.fillStyle = '#E7D5B7';
+  context.fillRect(0, 0, width, height);
 
-    context.save();
+  for (let i = 0; i < 100; i++) {
+    // Randomly add points to our array
+    targets.push(pick(points));
+  }
+
+  targets.forEach(points => {
+    const u = points[0];
+    const v = points[1];
+
+    // Read the Operator.js source for more comments about linear interpolation
+    const x = lerp(margin, width - margin, u);
+    const y = lerp(margin, height - margin, v);
+
+    const color = pick(colors);
+
+    // Draw the line to the point
     context.beginPath();
-    context.globalAlpha = 0.5;
-    context.arc(x, y, 125, 0, Math.PI * 2, false);
-    context.strokeStyle = colors[i % colors.length];
+    context.moveTo(width / 2, height / 2);
+    context.lineTo(x, y);
+    context.lineWidth = (radius * width) / 8;
+    context.strokeStyle = color;
     context.stroke();
-    context.restore();
+
+    // Draw the circle at the point
+    context.beginPath();
+    context.arc(x, y, (radius * width) / 4, 0, Math.PI * 2, false);
+    context.fillStyle = color;
+    context.fill();
   });
 
-  for (let i = 0; i < circlePoints.length; i++) {
-    context.strokeStyle = colors[i % colors.length];
-    drawToPoints(i, circlePoints);
-  }
+  function createGrid() {
+    const points = [];
+    const count = 20;
 
-  function drawToPoints(point, array) {
-    let origin = array[point];
+    // Create our grid coordinated between 0..1
+    for (let x = 0; x < count; x++) {
+      for (let y = 0; y < count; y++) {
+        const u = count <= 1 ? 0.5 : x / (count - 1);
+        const v = count <= 1 ? 0.5 : y / (count - 1);
 
-    context.beginPath();
-    context.moveTo(origin[0], origin[1]);
-    // Draw a line to all points in array
-    for (let j = 0; j < circlePoints.length; j++) {
-      let destination = circlePoints[j];
-      context.lineTo(destination[0], destination[1]);
-      context.moveTo(origin[0], origin[1]);
+        points.push([u, v]);
+      }
     }
-
-    context.stroke();
-  }
-
-  // Create an array of n points around a circle
-  function createCirclePoints(radius, number) {
-    var points = [];
-    for (let i = 0; i < number; i++) {
-      // Calculate the position of each point
-      // The angle is i * (360 / number)
-      let angle = i * (360 / number);
-      let x = radius * Math.cos((-angle * Math.PI) / 180);
-      let y = radius * Math.sin((-angle * Math.PI) / 180);
-
-      // Add point to array
-      points.push([x, y]);
-    }
-    console.log(points);
     return points;
+  }
+
+  // Math stuff
+  function rangeFloor(min, max) {
+    // Return a random whole number between min and max
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  function pick(array) {
+    // Pick a random item out of an array
+    if (array.length === 0) return undefined;
+    return array[rangeFloor(0, array.length)];
+  }
+
+  function lerp(min, max, t) {
+    return min * (1 - t) + max * t;
   }
 }
