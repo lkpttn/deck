@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Corvus
+var canvas = document.getElementById('corvus');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;

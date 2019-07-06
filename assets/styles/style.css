@@ -254,6 +254,9 @@ button.update:hover {
 }
 
 /* Covers */
+.corvus {
+  background: #13233b;
+}
 .pitchperfect {
   background: #011628;
 }
