@@ -1,5 +1,5 @@
 // Pitch Perfect
-var canvas = document.getElementById('pitch-perfect');
+var canvas = document.getElementById('pitchperfect');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -15,11 +15,13 @@ function strange() {
   context.fillStyle = '#011628';
   context.fillRect(0, 0, width, height);
 
+  // Center the canvas
   context.translate(width / 2, height / 2);
 
+  // Create an array of points around a circle
   const circlePoints = createCirclePoints(300, 36);
 
-  // Change colors and do it again, 15 points around
+  // Draw a line 11 points around the circle
   var innerGradient = context.createRadialGradient(0, 0, 30, 0, 0, 300);
   innerGradient.addColorStop(0.1, '#FF9EE2');
   innerGradient.addColorStop(1, '#A59EFF');
@@ -28,7 +30,7 @@ function strange() {
     drawBetweenPoints(i, i + 15);
   }
 
-  // Draw a line 11 points around the circle
+  // Change colors and do it again, 15 points around
   var outerGradient = context.createRadialGradient(0, 0, 30, 0, 0, 200);
   outerGradient.addColorStop(0.1, '#DFABFF');
   outerGradient.addColorStop(1, '#AE90E8');
@@ -37,6 +39,7 @@ function strange() {
     drawBetweenPoints(i, i + 11);
   }
 
+  // Draw a line between two given points
   function drawBetweenPoints(firstPoint, secondPoint) {
     let first = firstPoint;
     let second = secondPoint;

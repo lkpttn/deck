@@ -254,6 +254,9 @@ button.update:hover {
 }
 
 /* Covers */
+.pitchperfect {
+  background: #011628;
+}
 .shortcake {
   background: #ffca96;
 }
