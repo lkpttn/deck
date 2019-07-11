@@ -12,51 +12,80 @@ corvus();
 
 function corvus() {
   // Vars
-  var robinBlue = '#3ce7f0';
-  var darkGold = '#946c22';
-  var darkBlue = '#13233b';
+  var size = 100;
+  var underColors = [
+    '#FF002B', // red
+    '#FFB084', // peach
+    '#007EBE', // sea blue
+    '#FF95BA', // pink
+  ];
 
-  var circleRadius = 130;
+  var overColors = [
+    '#FFB084', // peach
+    '#007EBE', // sea blue
+    '#0035A0', // deep blue
+    '#892F54', // mauve
+  ];
+
+  var circleColors = [
+    '#EEEEEE', // white
+    '#FFFDDD', // lemon
+  ];
 
   // Backgrounds
-  context.fillStyle = robinBlue;
+  context.fillStyle = '#aaa';
   context.fillRect(0, 0, width, height);
 
-  // Move to center
+  // Give us that good color mixing
+  context.globalCompositeOperation = 'hard-light';
+
+  // Move to center, rotate and move back
   context.translate(width / 2, height / 2);
+  context.rotate(Math.PI / 4);
+  context.translate(-width - 15, -height);
 
-  // Make the outer rings
-  for (let i = 0; i < 15; i++) {
-    context.beginPath();
-    context.arc(0, 0, 140 + i * 15, 0, Math.PI * 2, false);
-    context.strokeStyle = darkGold;
-
-    // Change the width on even and odd pairs
-    if (i % 2 == 0) {
-      context.lineWidth = 2;
-    } else {
-      context.lineWidth = 1;
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
+      // Draw the rows slightly offset, and make note of items being even or odd
+      if (i % 2 == 0) {
+        drawSquare(i * size, j * size, size, true);
+      } else {
+        drawSquare(i * size, size / 2 + j * size, size, false);
+      }
     }
-    context.stroke();
   }
 
-  // Inner circle
-  context.beginPath();
-  context.arc(0, 0, circleRadius, 0, Math.PI * 2, false);
-  context.fillStyle = darkBlue;
-  context.fill();
-  context.clip();
+  function drawSquare(x, y, size, orientation) {
+    // Even goes one way, odd goes the other
+    if (orientation) {
+      // First rect
+      context.fillStyle = pick(underColors);
+      context.fillRect(x, y, size, size / 2);
 
-  // Make starfield
-  for (let index = 0; index < 40; index++) {
-    // Make a dot
-    let x = rangeFloor(-circleRadius, circleRadius);
-    let y = rangeFloor(-circleRadius, circleRadius);
-    let innerRadius = rangeFloor(1, 5);
+      // Circle
+      drawCircle(x + size / 2, y + size / 2, size / 2 - 10);
 
+      // Second rect
+      context.fillStyle = pick(overColors);
+      context.fillRect(x, y + size / 2, size, size / 2);
+    } else {
+      // First rect
+      context.fillStyle = pick(underColors);
+      context.fillRect(x, y, size / 2, size);
+
+      // Circle
+      drawCircle(x + size / 2, y + size / 2, size / 2 - 10);
+
+      // Second rect
+      context.fillStyle = pick(overColors);
+      context.fillRect(x + size / 2, y, size / 2, size);
+    }
+  }
+
+  function drawCircle(x, y, radius) {
     context.beginPath();
-    context.fillStyle = darkGold;
-    context.arc(x, y, innerRadius, 0, Math.PI * 2, false);
+    context.fillStyle = pick(circleColors);
+    context.arc(x, y, radius, 0, Math.PI * 2, false);
     context.fill();
   }
 
@@ -64,5 +93,11 @@ function corvus() {
   function rangeFloor(min, max) {
     // Return a random whole number between min and max
     return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  // Pick a random item out of an array
+  function pick(array) {
+    if (array.length === 0) return undefined;
+    return array[rangeFloor(0, array.length)];
   }
 }
