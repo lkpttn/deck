@@ -8,84 +8,73 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-corvus();
+prescription();
 
-function corvus() {
+function prescription() {
   // Vars
-  var size = 100;
-  var underColors = [
-    '#FF002B', // red
-    '#FFB084', // peach
-    '#007EBE', // sea blue
-    '#FF95BA', // pink
-  ];
+  var pills = [];
+  const pillWidth = 30;
+  const gap = 10;
+  let x = 0;
+  let y = 0;
+  let i = 0;
 
-  var overColors = [
-    '#FFB084', // peach
-    '#007EBE', // sea blue
-    '#0035A0', // deep blue
-    '#892F54', // mauve
-  ];
-
-  var circleColors = [
-    '#EEEEEE', // white
-    '#FFFDDD', // lemon
+  var colors = [
+    '#A5FFCF', // Mint
+    '#59FFA7', // Bright Mint
+    '#05C9B1', // Blue
+    '#47CC85', // Medium Mint?
   ];
 
   // Backgrounds
-  context.fillStyle = '#aaa';
+  context.fillStyle = '#2C8053';
   context.fillRect(0, 0, width, height);
 
-  // Give us that good color mixing
-  context.globalCompositeOperation = 'hard-light';
+  context.translate(5, -10);
 
-  // Move to center, rotate and move back
-  context.translate(width / 2, height / 2);
-  context.rotate(Math.PI / 4);
-  context.translate(-width - 15, -height);
+  while (x < width) {
+    // Add vertical pills to an array for each i
+    let tempHeightNumber = height;
+    pills[i] = [];
 
-  for (let i = 0; i < 8; i++) {
-    for (let j = 0; j < 8; j++) {
-      // Draw the rows slightly offset, and make note of items being even or odd
-      if (i % 2 == 0) {
-        drawSquare(i * size, j * size, size, true);
-      } else {
-        drawSquare(i * size, size / 2 + j * size, size, false);
-      }
+    for (let j = 0; 0 < tempHeightNumber; j++) {
+      let length = rangeFloor(50, 150);
+      tempHeightNumber -= length;
+      pills[i].push({
+        x,
+        length,
+      });
     }
+    i++;
+    x += pillWidth;
   }
 
-  function drawSquare(x, y, size, orientation) {
-    // Even goes one way, odd goes the other
-    if (orientation) {
-      // First rect
-      context.fillStyle = pick(underColors);
-      context.fillRect(x, y, size, size / 2);
-
-      // Circle
-      drawCircle(x + size / 2, y + size / 2, size / 2 - 10);
-
-      // Second rect
-      context.fillStyle = pick(overColors);
-      context.fillRect(x, y + size / 2, size, size / 2);
-    } else {
-      // First rect
-      context.fillStyle = pick(underColors);
-      context.fillRect(x, y, size / 2, size);
-
-      // Circle
-      drawCircle(x + size / 2, y + size / 2, size / 2 - 10);
-
-      // Second rect
-      context.fillStyle = pick(overColors);
-      context.fillRect(x + size / 2, y, size / 2, size);
+  // Draw pill sizes
+  for (let i = 0; i < pills.length; i++) {
+    for (let j = 0; j < pills[i].length; j++) {
+      let x = pills[i][j].x;
+      let length = pills[i][j].length;
+      drawRoundRect(x, y, pillWidth - gap, length, 25);
+      // We need to calculate the y position of the next pill
+      // Using the combined length of the previous ones
+      y = y + length + gap;
     }
+    if (y > height) y = 0;
   }
 
-  function drawCircle(x, y, radius) {
+  function drawRoundRect(x, y, width, height, radius) {
+    // Check to see if radius will spill over
+    if (width < 2 * radius) radius = width / 2;
+    if (height < 2 * radius) radius = height / 2;
+
+    // Drawing
     context.beginPath();
-    context.fillStyle = pick(circleColors);
-    context.arc(x, y, radius, 0, Math.PI * 2, false);
+    context.moveTo(x + radius, y);
+    context.arcTo(x + width, y, x + width, y + height, radius);
+    context.arcTo(x + width, y + height, x, y + height, radius);
+    context.arcTo(x, y + height, x, y, radius);
+    context.arcTo(x, y, x + width, y, radius);
+    context.fillStyle = pick(colors);
     context.fill();
   }
 
