@@ -254,6 +254,12 @@ button.update:hover {
 }
 
 /* Covers */
+.chloroplast {
+  background: #2c8053;
+}
+.supplement {
+  background: #ff002b;
+}
 .corvus {
   background: #13233b;
 }

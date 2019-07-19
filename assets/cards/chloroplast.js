@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Chloroplast
+var canvas = document.getElementById('chloroplast');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -8,9 +8,9 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-prescription();
+chloroplast();
 
-function prescription() {
+function chloroplast() {
   // Vars
   var pills = [];
   const pillWidth = 30;
