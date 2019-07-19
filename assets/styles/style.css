@@ -74,20 +74,27 @@ ol {
   padding: 0;
 }
 
+#list {
+  columns: 1 auto;
+}
+
 ol li {
-  width: 50%;
-  float: left;
   font-size: 1.2em;
   color: #ffffff;
+  padding-right: 15px;
 }
+
+@media screen and (min-width: 500px) {
+  /* Medium stuff */
+  #list {
+    columns: 2 auto;
+  }
+
 
 @media screen and (min-width: 800px) {
   /* Medium stuff */
-  ol li {
-    width: 25%;
-    float: left;
-    font-size: 1.2em;
-    color: #ffffff;
+  #list {
+    columns: 4 auto;
   }
 }
 
