@@ -8,89 +8,65 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-prescription();
+strange();
 
-function prescription() {
-  // Vars
-  var pills = [];
-  const pillWidth = 30;
-  const gap = 10;
-  let x = 0;
-  let y = 0;
-  let i = 0;
-
-  var colors = [
-    '#A5FFCF', // Mint
-    '#59FFA7', // Bright Mint
-    '#05C9B1', // Blue
-    '#47CC85', // Medium Mint?
-  ];
-
+function strange() {
   // Backgrounds
-  context.fillStyle = '#2C8053';
+  context.fillStyle = '#000000';
   context.fillRect(0, 0, width, height);
 
-  // Just a tiny offset for aesthetics
-  context.translate(5, -10);
+  context.translate(width / 2, height / 2);
+  context.strokeStyle = '#ffffff';
 
-  while (x < width) {
-    // Add vertical pills to an array for each i
-    let tempHeightNumber = height;
-    pills[i] = [];
+  // Outer arcs
+  drawCircle(140, 2);
+  drawCircle(120, 2);
+  strokes(140, 20, 1, 3);
 
-    for (let j = 0; 0 < tempHeightNumber; j++) {
-      let length = rangeFloor(50, 150);
-      tempHeightNumber -= length;
-      pills[i].push({
-        x,
-        length,
-      });
+  drawSquare(170, 75, 2);
+  drawSquare(170, 105, 2);
+
+  // Middle circle
+  drawCircle(70, 1);
+  drawSquare(100, 45, 1);
+  drawSquare(100, 0, 1);
+
+  // Inner
+  drawCircle(40, 1);
+  drawCircle(35, 1);
+  strokes(40, 5, 1, 10);
+  drawSquare(40, 75, 2);
+  drawSquare(40, 105, 2);
+
+  // Draw small lines in a circle at a certain size
+  function strokes(radius, length, thickness, frequency) {
+    context.save();
+    for (let i = 0; i < 360 / frequency; i++) {
+      context.beginPath();
+      context.moveTo(0, -radius);
+      context.lineTo(0, -radius + length);
+      context.lineWidth = thickness;
+      context.stroke();
+      context.rotate((frequency * Math.PI) / 180);
     }
-
-    // We need to increment our i and x by different amounts
-    i++;
-    x += pillWidth;
+    context.restore();
   }
 
-  // Draw pill sizes
-  for (let i = 0; i < pills.length; i++) {
-    for (let j = 0; j < pills[i].length; j++) {
-      let x = pills[i][j].x;
-      let length = pills[i][j].length;
-      drawRoundRect(x, y, pillWidth - gap, length, 25);
-      // We need to calculate the y position of the next pill
-      // Using the combined length of the previous ones
-      y = y + length + gap;
-    }
-    if (y > height) y = 0;
-  }
-
-  function drawRoundRect(x, y, width, height, radius) {
-    // Check to see if radius will spill over
-    if (width < 2 * radius) radius = width / 2;
-    if (height < 2 * radius) radius = height / 2;
-
-    // Drawing
-    // arcTo allows us to round the edges of our shape
+  function drawCircle(radius, thickness) {
     context.beginPath();
-    context.moveTo(x + radius, y);
-    context.arcTo(x + width, y, x + width, y + height, radius);
-    context.arcTo(x + width, y + height, x, y + height, radius);
-    context.arcTo(x, y + height, x, y, radius);
-    context.arcTo(x, y, x + width, y, radius);
-    context.fillStyle = pick(colors);
-    context.fill();
+    context.arc(0, 0, radius, 0, Math.PI * 2, false);
+    context.lineWidth = thickness;
+    context.stroke();
   }
 
-  // Math stuff
-  function rangeFloor(min, max) {
-    // Return a random whole number between min and max
-    return Math.floor(Math.random() * (max - min) + min);
-  }
+  function drawSquare(size, rotation, thickness) {
+    context.save();
+    context.rotate((rotation * Math.PI) / 180);
+    context.beginPath();
+    context.rect(-size / 2, -size / 2, size, size);
+    context.lineWidth = thickness;
+    context.stroke();
 
-  // Pick a random item out of an array
-  function pick(array) {
-    if (array.length === 0) return undefined;
-    return array[rangeFloor(0, array.length)];
+    context.restore();
   }
 }

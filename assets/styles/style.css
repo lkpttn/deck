@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.strange {
+  background: #000000;
+}
 .chloroplast {
   background: #2c8053;
 }

@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Strange
+var canvas = document.getElementById('strange');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
