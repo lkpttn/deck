@@ -8,65 +8,58 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-strange();
+berlin();
 
-function strange() {
+function berlin() {
+  var colors = [
+    '#FFB713', // Gold
+    '#5200C5', // Purple
+    '#009F45', // Green
+    '#FF3A5C', // Redish
+    '#4646DF', // Blue
+    '#F44918', // Orange
+  ];
+
   // Backgrounds
   context.fillStyle = '#000000';
   context.fillRect(0, 0, width, height);
 
-  context.translate(width / 2, height / 2);
-  context.strokeStyle = '#ffffff';
-
-  // Outer arcs
-  drawCircle(140, 2);
-  drawCircle(120, 2);
-  strokes(140, 20, 1, 3);
-
-  drawSquare(170, 75, 2);
-  drawSquare(170, 105, 2);
-
-  // Middle circle
-  drawCircle(70, 1);
-  drawSquare(100, 45, 1);
-  drawSquare(100, 0, 1);
-
-  // Inner
-  drawCircle(40, 1);
-  drawCircle(35, 1);
-  strokes(40, 5, 1, 10);
-  drawSquare(40, 75, 2);
-  drawSquare(40, 105, 2);
-
-  // Draw small lines in a circle at a certain size
-  function strokes(radius, length, thickness, frequency) {
-    context.save();
-    for (let i = 0; i < 360 / frequency; i++) {
-      context.beginPath();
-      context.moveTo(0, -radius);
-      context.lineTo(0, -radius + length);
-      context.lineWidth = thickness;
-      context.stroke();
-      context.rotate((frequency * Math.PI) / 180);
+  for (let i = 0; i < 20; i++) {
+    if (Math.random() > 0.5) {
+      drawBox(width / 2 + 30, i * 30, 40, 10);
+    } else {
+      drawCircle(width / 2 + 30, i * 30, 10, pick(colors));
     }
-    context.restore();
+
+    if (Math.random() > 0.5) {
+      drawBox(width / 2 - 30, i * 30, 40, 10);
+    } else {
+      drawCircle(width / 2 - 30, i * 30, 10, pick(colors));
+    }
   }
 
-  function drawCircle(radius, thickness) {
+  function drawCircle(x, y, radius, color) {
     context.beginPath();
-    context.arc(0, 0, radius, 0, Math.PI * 2, false);
-    context.lineWidth = thickness;
-    context.stroke();
+    context.fillStyle = color;
+    context.arc(x, y, radius, 0, Math.PI * 2, false);
+    context.fill();
   }
 
-  function drawSquare(size, rotation, thickness) {
-    context.save();
-    context.rotate((rotation * Math.PI) / 180);
+  // Draw from center
+  function drawBox(x, y, width, height) {
     context.beginPath();
-    context.rect(-size / 2, -size / 2, size, size);
-    context.lineWidth = thickness;
-    context.stroke();
+    context.fillStyle = '#CCCCCC';
+    context.fillRect(x - width / 2, y - height / 2, width, height);
+  }
 
-    context.restore();
+  function rangeFloor(min, max) {
+    // Return a random whole number between min and max
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  function pick(array) {
+    // Pick a random item out of an array
+    if (array.length === 0) return undefined;
+    return array[rangeFloor(0, array.length)];
   }
 }
