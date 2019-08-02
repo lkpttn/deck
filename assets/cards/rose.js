@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Rose
+var canvas = document.getElementById('rose');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;

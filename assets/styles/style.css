@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.rose {
+  background: #0D1E34;
+}
 .strange {
   background: #000000;
 }
