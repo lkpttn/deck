@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Zoned
+var canvas = document.getElementById('zoned');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -8,9 +8,9 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-operator();
+zoned();
 
-function operator() {
+function zoned() {
   // Vars
   var grd = context.createLinearGradient(0, 0, width, height);
   grd.addColorStop(0.0, '#E47D7F');

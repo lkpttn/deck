@@ -89,7 +89,7 @@ ol li {
   #list {
     columns: 2 auto;
   }
-
+}
 
 @media screen and (min-width: 800px) {
   /* Medium stuff */
@@ -261,8 +261,11 @@ button.update:hover {
 }
 
 /* Covers */
+.zoned {
+  background: #518696;
+}
 .rose {
-  background: #0D1E34;
+  background: #0d1e34;
 }
 .strange {
   background: #000000;
@@ -367,4 +370,4 @@ button.update:hover {
 
 .varsarely {
   background: #222222;
-}
+}gli
