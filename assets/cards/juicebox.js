@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Juicebox
+var canvas = document.getElementById('juicebox');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -21,20 +21,18 @@ function juicebox() {
     '#F44918', // Orange
   ];
 
-  let grd = context.createLinearGradient(0, height, width, 0);
-  grd.addColorStop(0.1, 'rgb(182, 206, 235)');
-  grd.addColorStop(1, 'rgb(64, 24, 119)');
-
   // Backgrounds
   context.fillStyle = '#FFFFFF';
   context.fillRect(0, 0, width, height);
 
+  // Do the actual drawing
   for (let i = 0; i < size / 5; i++) {
     for (let j = 0; j < size; j++) {
       drawBox(i * size * 2, j * size, size, size, pick(colors));
     }
   }
 
+  // Draw a 3D box from an isometric perspective
   function drawBox(x, y, sideWidth, height, color) {
     // Left side
     context.beginPath();
@@ -88,6 +86,7 @@ function juicebox() {
     return array[rangeFloor(0, array.length)];
   }
 
+  // Takes a color and percentage to spit out a new darker or lighter version
   function shadeColor(color, percent) {
     color = color.substr(1);
     var num = parseInt(color, 16),

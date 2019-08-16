@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.juicebox  {
+  background: #5200c5;
+}
 .zoned {
   background: #518696;
 }
