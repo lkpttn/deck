@@ -8,10 +8,22 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-juicebox();
+berlin();
 
-function juicebox() {
-  var size = 30;
+function berlin() {
+  // The counts and multiplier determine how many grid points we have
+  // and how spaced out they are
+  const countX = 8;
+  const countY = 40;
+  const multiplier = 30;
+  const margin = 40;
+
+  // The grid contains nested arrays of coordinates. Each x array
+  // has objects in in that contain x and y properties like {x: 5, y: 7}
+  const grid = createGrid();
+
+  var symbols = ['—', '▲', '▼', '●'];
+
   var colors = [
     '#FFB713', // Gold
     '#5200C5', // Purple
@@ -21,90 +33,48 @@ function juicebox() {
     '#F44918', // Orange
   ];
 
-  let grd = context.createLinearGradient(0, height, width, 0);
-  grd.addColorStop(0.1, 'rgb(182, 206, 235)');
-  grd.addColorStop(1, 'rgb(64, 24, 119)');
-
   // Backgrounds
-  context.fillStyle = '#FFFFFF';
+  context.fillStyle = '#000000';
   context.fillRect(0, 0, width, height);
 
-  for (let i = 0; i < size / 5; i++) {
-    for (let j = 0; j < size; j++) {
-      drawBox(i * size * 2, j * size, size, size, pick(colors));
+  // Draw a shape at every third point
+  for (let i = 0; i < countX; i++) {
+    for (let j = 0; j < countY; j++) {
+      let point = grid[i][j];
+
+      context.save();
+      context.fillStyle = pick(colors);
+      context.font = `24px "Arial"`;
+      context.translate(point.x, point.y);
+      context.fillText(pick(symbols), 0, 0);
+      context.restore();
     }
   }
 
-  function drawBox(x, y, sideWidth, height, color) {
-    // Left side
-    context.beginPath();
-    context.moveTo(x, y);
-    context.lineTo(x - sideWidth, y - sideWidth * 0.5);
-    context.lineTo(x - sideWidth, y - height - sideWidth * 0.5);
-    context.lineTo(x, y - height);
-    context.closePath();
-    context.fillStyle = shadeColor(color, -10);
-    context.strokeStyle = color;
-    context.stroke();
-    context.fill();
-
-    // Right side
-    context.beginPath();
-    context.moveTo(x, y);
-    context.lineTo(x + sideWidth, y - sideWidth * 0.5);
-    context.lineTo(x + sideWidth, y - height - sideWidth * 0.5);
-    context.lineTo(x, y - height);
-    context.closePath();
-    context.fillStyle = shadeColor(color, 10);
-    context.strokeStyle = shadeColor(color, 50);
-    context.stroke();
-    context.fill();
-
-    // Top side
-    context.beginPath();
-    context.moveTo(x, y - height);
-    context.lineTo(x - sideWidth, y - height - sideWidth * 0.5);
-    context.lineTo(
-      x - sideWidth + sideWidth,
-      y - height - (sideWidth * 0.5 + sideWidth * 0.5),
-    );
-    context.lineTo(x + sideWidth, y - height - sideWidth * 0.5);
-    context.closePath();
-    context.fillStyle = shadeColor(color, 20);
-    context.strokeStyle = shadeColor(color, 60);
-    context.stroke();
-    context.fill();
+  // Functions
+  // Nested for loop to create x and y coordinates
+  function createGrid() {
+    let points = [];
+    for (let x = 0; x < countX; x++) {
+      points[x] = [];
+      for (let y = 0; y < countY; y++) {
+        points[x][y] = {
+          x: margin + x * multiplier,
+          y: margin + y * multiplier,
+        };
+      }
+    }
+    return points;
   }
 
-  // Math stuff
   function rangeFloor(min, max) {
     // Return a random whole number between min and max
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-  // Pick a random item out of an array
   function pick(array) {
+    // Pick a random item out of an array
     if (array.length === 0) return undefined;
     return array[rangeFloor(0, array.length)];
-  }
-
-  function shadeColor(color, percent) {
-    color = color.substr(1);
-    var num = parseInt(color, 16),
-      amt = Math.round(2.55 * percent),
-      R = (num >> 16) + amt,
-      G = ((num >> 8) & 0x00ff) + amt,
-      B = (num & 0x0000ff) + amt;
-    return (
-      '#' +
-      (
-        0x1000000 +
-        (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
-        (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
-        (B < 255 ? (B < 1 ? 0 : B) : 255)
-      )
-        .toString(16)
-        .slice(1)
-    );
   }
 }
