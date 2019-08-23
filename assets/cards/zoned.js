@@ -23,7 +23,7 @@ function zoned() {
   grd2.addColorStop(1.0, '#FCD4A9');
 
   // Backgrounds
-  context.fillStyle = '#518696';
+  context.fillStyle = '#FFFFFF';
   context.fillRect(0, 0, width, height);
 
   drawRings(60, grd, 18);

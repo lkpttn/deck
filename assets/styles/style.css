@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.koinobori {
+  background: #4646df;
+}
 .juicebox  {
   background: #5200c5;
 }
