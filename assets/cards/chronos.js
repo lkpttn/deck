@@ -1,5 +1,5 @@
-// Koinobori
-var canvas = document.getElementById('card-canvas');
+// Chronos
+var canvas = document.getElementById('chronos');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -25,7 +25,6 @@ function chronos() {
   var dayMapped = mapRange(day, 0, 31, 0, 360);
 
   // Backgrounds
-  context.save();
   context.fillStyle = '#090658';
   context.fillRect(0, 0, width, height);
   context.lineWidth = 3;
@@ -39,7 +38,7 @@ function chronos() {
   drawRing(80, 100, degreeToRadian(hourMapped), '#AA51BA', false);
   drawRing(100, 120, degreeToRadian(dayMapped), '#6F429C', false);
 
-  // 3D Effects
+  // 3D Effects - drawing half a ring to simulate overlaps
   drawRing(40, 60, degreeToRadian(secondsMapped), '#F371A9', true);
   drawRing(60, 80, degreeToRadian(minutesMapped), '#D761BE', true);
   drawRing(80, 100, degreeToRadian(hourMapped), '#AA51BA', true);
@@ -59,8 +58,6 @@ function chronos() {
   context.arc(0, 0, 30, 0, Math.PI * 2, false);
   context.fill();
 
-  context.restore();
-
   function drawRing(radiusX, radiusY, rotation, color, half) {
     context.beginPath();
     if (half) {
@@ -76,6 +73,7 @@ function chronos() {
     return (degree * Math.PI) / 180;
   }
 
+  // Map a value from one range to another
   function mapRange(value, inMin, inMax, outMin, outMax) {
     return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
   }

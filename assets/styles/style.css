@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.chronos {
+  background: #090658;
+}
 .koinobori {
   background: #4646df;
 }
