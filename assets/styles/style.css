@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.easterly { 
+  background: #b92a30;
+}
 .chronos {
   background: #090658;
 }

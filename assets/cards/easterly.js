@@ -1,5 +1,5 @@
-// Koinobori
-var canvas = document.getElementById('card-canvas');
+// Easterly
+var canvas = document.getElementById('easterly');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -8,9 +8,9 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-chronos();
+easterly();
 
-function chronos() {
+function easterly() {
   // Vars
   const step = 10;
   const sizes = [125, 150, 175, 200, 225, 250];
@@ -48,7 +48,7 @@ function chronos() {
       let boxHeight = box[i][j].boxHeight;
       let color = colors[i % colors.length];
       nestRects(x, y, 150, boxHeight, 7, color);
-      // We need to calculate the y position of the next pill
+      // We need to calculate the y position of the next box
       // Using the combined length of the previous ones
       y = y + boxHeight;
     }
