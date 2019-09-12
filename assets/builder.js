@@ -8,94 +8,73 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-chronos();
+knots();
 
-function chronos() {
+function knots() {
   // Vars
-  const step = 10;
-  const sizes = [125, 150, 175, 200, 225, 250];
-  var colors = ['#4F94CF', '#b92a30', '#EE751A', '#FECF1A'];
-  var box = [];
-  let x = 0;
-  let y = -40;
-  let i = 0;
+  context.strokeStyle = '#FFFFFF';
+  context.lineWidth = 2;
+  context.shadowColor = 'rgba(66,66,66,0.5)';
+  context.shadowOffsetX = 0;
+  context.shadowOffsetY = 2;
+
+  var orange = '##fcba03';
 
   // Backgrounds
-  context.fillStyle = '#1D495F';
+  context.fillStyle = '#a88c59';
   context.fillRect(0, 0, width, height);
 
-  while (x < width) {
-    // Add boxes to an array for each i
-    let tempHeightNumber = height + 40;
-    box[i] = [];
+  // for (let i = 0; i < 30; i++) {
+  //   var distanceToCenter = Math.abs(i * 10 - width / 2);
+  //   console.log(distanceToCenter);
 
-    for (let j = 0; 0 < tempHeightNumber; j++) {
-      let boxHeight = pick(sizes);
-      tempHeightNumber -= boxHeight;
-      box[i].push({
-        x,
-        boxHeight,
-      });
-    }
-    // We need to increment our i and x by different amounts
-    i++;
-    x += 150;
-  }
+  //   line(i * 10, 0, 150 + i * 5, 150 - i * 5);
+  //   line(300 - i * 10, 0, 150 - i * 5, 150 - i * 5);
 
-  for (let i = 0; i < box.length; i++) {
-    for (let j = 0; j < box[i].length; j++) {
-      let x = box[i][j].x;
-      let boxHeight = box[i][j].boxHeight;
-      let color = colors[i % colors.length];
-      nestRects(x, y, 150, boxHeight, 7, color);
-      // We need to calculate the y position of the next pill
-      // Using the combined length of the previous ones
-      y = y + boxHeight;
-    }
-    if (y >= height) y = -20;
-  }
+  //   // Straight line
+  //   line(i * 10, 0, i * 10, 200 - distanceToCenter);
 
-  function nestRects(x, y, width, height, number, color) {
-    for (let i = 0; i < number; i++) {
-      let currentStep = i * step;
-      context.fillStyle = shadeColor(color, -i * 12);
-      context.fillRect(
-        x + currentStep,
-        y + currentStep,
-        width - currentStep * 2,
-        height - currentStep * 2,
+  //   // Chevron line
+  //   line(i * 10, 350 - distanceToCenter, i * 10, 300 - distanceToCenter);
+
+  //   // Chevron
+  //   // line(0, 50 + i * 10, 150, 150 + i * );
+  // }
+
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 30; j++) {
+      var distanceToCenter = Math.abs(j * 10 - width / 2);
+      // Chevron line
+      line(
+        j * 10,
+        i * 75 - distanceToCenter,
+        j * 10,
+        i * 75 + 50 - distanceToCenter,
+      );
+
+      line(
+        10 + j * 10,
+        50 + i * 75 - distanceToCenter,
+        10 + j * 10 - 20,
+        50 + i * 75 - distanceToCenter,
+      );
+
+      line(
+        10 + j * 10,
+        0 + i * 75 - distanceToCenter,
+        10 + j * 10 - 20,
+        0 + i * 75 - distanceToCenter,
       );
     }
   }
 
-  // Takes a color and percentage to spit out a new darker or lighter version
-  function shadeColor(color, percent) {
-    color = color.substr(1);
-    var num = parseInt(color, 16),
-      amt = Math.round(2.55 * percent),
-      R = (num >> 16) + amt,
-      G = ((num >> 8) & 0x00ff) + amt,
-      B = (num & 0x0000ff) + amt;
-    return (
-      '#' +
-      (
-        0x1000000 +
-        (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
-        (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
-        (B < 255 ? (B < 1 ? 0 : B) : 255)
-      )
-        .toString(16)
-        .slice(1)
-    );
-  }
+  // line(50 + i * 10, 50, 150 + i * 5, 150 - i * 5);
+  // line(250 - i * 10, 50, 150 - i * 5, 150 - i * 5);
 
-  function rangeFloor(min, max) {
-    // Return a random whole number between min and max
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-
-  function pick(array) {
-    if (array.length === 0) return undefined;
-    return array[rangeFloor(0, array.length)];
+  function line(x1, y1, x2, y2) {
+    context.beginPath();
+    context.moveTo(x1, y1);
+    context.lineTo(x2, y2);
+    context.stroke();
   }
 }
