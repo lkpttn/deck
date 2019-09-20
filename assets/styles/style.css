@@ -261,6 +261,12 @@ button.update:hover {
 }
 
 /* Covers */
+.gmt10 {
+  background: #00a758;
+}
+.vdhh {
+  background: #fcba03;
+}
 .easterly { 
   background: #b92a30;
 }
