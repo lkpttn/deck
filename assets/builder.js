@@ -1,4 +1,4 @@
-// Koinobori
+// Builder
 var canvas = document.getElementById('card-canvas');
 var context = canvas.getContext('2d');
 
@@ -8,73 +8,77 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-knots();
+sunset();
 
-function knots() {
+function sunset() {
   // Vars
-  context.strokeStyle = '#FFFFFF';
-  context.lineWidth = 2;
-  context.shadowColor = 'rgba(66,66,66,0.5)';
-  context.shadowOffsetX = 0;
-  context.shadowOffsetY = 2;
-
-  var orange = '##fcba03';
+  const margin = 20;
+  // The different sizes an individual window can be
+  const windowWidths = [20, 36, 50, 73, 120];
+  const windowHeights = [20, 40, 80];
+  var colors = [
+    '#FFD14E', // Yellow
+    '#FF9C00', // Bright Orange
+    '#EB7420', // Orange
+    '#CA0005', // Bright Red
+    '#A40315', // Dark Red
+    '#034B5E', // Dark Blue
+    '#656597', // Light Purple
+    '#46426C', // Dark Purple
+    '#004135', // Dark Green
+    '#ADA6AD', // Purple Grey
+    '#685A54', // Light Brown
+    '#03060B', // Dark Brown
+  ];
+  var backgroundColor = pick(colors);
+  var windowColors = arrayRemove(colors, backgroundColor);
+  console.log(backgroundColor);
+  console.log(windowColors);
 
   // Backgrounds
-  context.fillStyle = '#a88c59';
+  context.fillStyle = backgroundColor;
   context.fillRect(0, 0, width, height);
 
-  // for (let i = 0; i < 30; i++) {
-  //   var distanceToCenter = Math.abs(i * 10 - width / 2);
-  //   console.log(distanceToCenter);
+  // Row of windows
+  // Pick a window size, lerp as many as will fit across the width
 
-  //   line(i * 10, 0, 150 + i * 5, 150 - i * 5);
-  //   line(300 - i * 10, 0, 150 - i * 5, 150 - i * 5);
+  var y = margin;
 
-  //   // Straight line
-  //   line(i * 10, 0, i * 10, 200 - distanceToCenter);
-
-  //   // Chevron line
-  //   line(i * 10, 350 - distanceToCenter, i * 10, 300 - distanceToCenter);
-
-  //   // Chevron
-  //   // line(0, 50 + i * 10, 150, 150 + i * );
-  // }
-
-  for (let i = 0; i < 9; i++) {
-    for (let j = 0; j < 30; j++) {
-      var distanceToCenter = Math.abs(j * 10 - width / 2);
-      // Chevron line
-      line(
-        j * 10,
-        i * 75 - distanceToCenter,
-        j * 10,
-        i * 75 + 50 - distanceToCenter,
+  for (let i = 0; i < 10; i++) {
+    let windowWidth = pick(windowWidths);
+    let windowHeight = pick(windowHeights);
+    for (let j = 0; j < Math.floor(width / windowWidth); j++) {
+      context.fillStyle = pick(windowColors);
+      context.fillRect(
+        margin + j * windowWidth + margin * j,
+        y + margin * i,
+        windowWidth,
+        windowHeight,
       );
+    }
 
-      line(
-        10 + j * 10,
-        50 + i * 75 - distanceToCenter,
-        10 + j * 10 - 20,
-        50 + i * 75 - distanceToCenter,
-      );
-
-      line(
-        10 + j * 10,
-        0 + i * 75 - distanceToCenter,
-        10 + j * 10 - 20,
-        0 + i * 75 - distanceToCenter,
-      );
+    if (y + windowHeight < height - margin) {
+      y += windowHeight;
+    } else {
+      console.log('Overflowing');
     }
   }
 
-  // line(50 + i * 10, 50, 150 + i * 5, 150 - i * 5);
-  // line(250 - i * 10, 50, 150 - i * 5, 150 - i * 5);
+  // Functions
+  function rangeFloor(min, max) {
+    // Return a random whole number between min and max
+    return Math.floor(Math.random() * (max - min) + min);
+  }
 
-  function line(x1, y1, x2, y2) {
-    context.beginPath();
-    context.moveTo(x1, y1);
-    context.lineTo(x2, y2);
-    context.stroke();
+  function pick(array) {
+    // Pick a random item out of an array
+    if (array.length === 0) return undefined;
+    return array[rangeFloor(0, array.length)];
+  }
+
+  function arrayRemove(array, value) {
+    return array.filter(function(element) {
+      return element != value;
+    });
   }
 }
