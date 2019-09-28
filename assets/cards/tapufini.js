@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Tapu Fini
+var canvas = document.getElementById('tapufini');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -43,10 +43,9 @@ function tapufini() {
     '#FECF1A',
   ];
 
-  let x = -50;
+  let x = 0;
 
   while (x < width + 100) {
-    // let color = colors[x % colors.length];
     let color = pick(colors);
     drawSine(x, color);
     x = x + 17;
@@ -58,6 +57,7 @@ function tapufini() {
     let waveY = -10;
     context.beginPath();
     while (waveY < height + 10) {
+      // Draw a very short line to the next point output by the sine function
       let waveX = x + amplitude * Math.sin(waveY / frequency);
       context.lineTo(waveX, waveY);
       waveY++;
