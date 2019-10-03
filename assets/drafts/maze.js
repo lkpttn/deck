@@ -12,31 +12,39 @@ context.scale(2, 2);
 var width = canvas.width;
 var height = canvas.height;
 
-context.fillStyle = '#ffd1ca';
+context.fillStyle = '#055d80';
 context.fillRect(0, 0, width, height);
 
-pomegranate();
+maze();
 
-function pomegranate() {
+function maze() {
   // Vars
-  var count = 40;
-  var margin = 10;
+  var countX = 27;
+  var countY = 45;
+  var margin = 0;
   var points = createGrid();
-  context.filter = `blur(0px)`;
+  var lineLength = 12;
+  context.lineWidth = 3;
 
   points.forEach(points => {
-    const { postion, color, radius } = points;
+    const { postion, color, orientation } = points;
     const [u, v] = postion;
 
     const x = lerp(margin, width - margin, u);
     const y = lerp(margin, height - margin, v);
 
     context.save();
-    context.fillStyle = color;
+    context.strokeStyle = 'rgb(100, 255, 200)';
     context.translate(x, y);
     context.beginPath();
-    context.arc(0, 0, radius, 0, Math.PI * 2, false);
-    context.fill();
+    if (orientation) {
+      context.moveTo(-lineLength, -lineLength);
+      context.lineTo(lineLength, lineLength);
+    } else {
+      context.moveTo(lineLength, -lineLength);
+      context.lineTo(-lineLength, lineLength);
+    }
+    context.stroke();
     context.restore();
   });
 
@@ -45,15 +53,17 @@ function pomegranate() {
     const points = [];
 
     // Will return a set of points between 0..1
-    for (let x = 0; x < count; x++) {
-      for (let y = 0; y < count; y++) {
-        const u = count <= 1 ? 0.5 : x / (count - 1);
-        const v = count <= 1 ? 0.5 : y / (count - 1);
+    for (let x = 0; x < countX; x++) {
+      for (let y = 0; y < countY; y++) {
+        const u = countX <= 1 ? 0.5 : x / (countX - 1);
+        const v = countY <= 1 ? 0.5 : y / (countY - 1);
+
+        var randBoolean = Math.random() < 0.5;
 
         points.push({
-          radius: rangeFloor(15, 40),
-          color: `rgba(${rangeFloor(250, 255)},
-          ${rangeFloor(0, 255)},${rangeFloor(0, 255)},0.2`,
+          orientation: randBoolean,
+          color: `rgba(${rangeFloor(20, 60)},
+          ${rangeFloor(200, 255)},${rangeFloor(100, 250)},1`,
           postion: [u, v],
         });
       }
