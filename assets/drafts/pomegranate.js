@@ -2,8 +2,12 @@
 var canvas = document.getElementById('card-canvas');
 var context = canvas.getContext('2d');
 
-canvas.width = 300;
-canvas.height = 500;
+// New Retina canvas
+canvas.width = 600;
+canvas.height = 1000;
+canvas.style.width = '300px';
+canvas.style.height = '500px';
+context.scale(2, 2);
 
 var width = canvas.width;
 var height = canvas.height;
@@ -15,10 +19,9 @@ pomegranate();
 
 function pomegranate() {
   // Vars
-  var count = 20;
+  var count = 40;
   var margin = 10;
   var points = createGrid();
-  context.filter = `blur(0px)`;
 
   points.forEach(points => {
     const { postion, color, radius } = points;

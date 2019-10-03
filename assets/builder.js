@@ -9,70 +9,48 @@ canvas.style.width = '300px';
 canvas.style.height = '500px';
 context.scale(2, 2);
 
-var width = canvas.width;
-var height = canvas.height;
+var width = canvas.width / 2;
+var height = canvas.height / 2;
 
-context.fillStyle = '#ffd1ca';
+context.fillStyle = '#112F41';
 context.fillRect(0, 0, width, height);
 
-pomegranate();
+blob();
 
-function pomegranate() {
+function blob() {
   // Vars
-  var count = 40;
-  var margin = 10;
-  var points = createGrid();
-  context.filter = `blur(0px)`;
+  var radius = 40;
 
-  points.forEach(points => {
-    const { postion, color, radius } = points;
-    const [u, v] = postion;
+  // Sample circle
+  context.beginPath();
+  context.arc(width / 2, height / 2, radius, 0, Math.PI * 2, false);
+  context.strokeStyle = 'white';
+  context.stroke();
 
-    const x = lerp(margin, width - margin, u);
-    const y = lerp(margin, height - margin, v);
+  for (let i = 0; i < 10; i++) {
+    drawBlob(width / 2, height / 2, 50 + i * 10, Math.random(), Math.random());
+  }
 
-    context.save();
-    context.fillStyle = color;
-    context.translate(x, y);
+  function drawBlob(cx, cy, radius, frequency, magnitude) {
+    // Sample points around a circle
+    const samples = Math.floor(4 * radius + 20);
+
     context.beginPath();
-    context.arc(0, 0, radius, 0, Math.PI * 2, false);
-    context.fill();
-    context.restore();
-  });
+    for (let i = 0; i < samples + 1; i++) {
+      // Finding the angle of a point around the circle
+      let angle = (2 * Math.PI * i) / samples;
 
-  // FUNCTIONS ************************
-  function createGrid() {
-    const points = [];
+      // x/y of an angle
+      let x = Math.cos(angle);
+      let y = Math.sin(angle);
 
-    // Will return a set of points between 0..1
-    for (let x = 0; x < count; x++) {
-      for (let y = 0; y < count; y++) {
-        const u = count <= 1 ? 0.5 : x / (count - 1);
-        const v = count <= 1 ? 0.5 : y / (count - 1);
+      // Change this Math.random to a noise function
+      let deformation = Math.random() * frequency + 1;
+      let circleRadius = radius * (1 + magnitude * deformation);
 
-        points.push({
-          radius: rangeFloor(15, 40),
-          color: `rgba(${rangeFloor(250, 255)},
-          ${rangeFloor(0, 255)},${rangeFloor(0, 255)},0.2`,
-          postion: [u, v],
-        });
-      }
+      // Draw line
+      context.lineTo(cx + circleRadius * x, cy + circleRadius * y);
     }
-    return points;
-  }
-
-  function rangeFloor(min, max) {
-    // Return a random whole number between min and max
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-
-  function pick(array) {
-    // Pick a random item out of an array
-    if (array.length === 0) return undefined;
-    return array[rangeFloor(0, array.length)];
-  }
-
-  function lerp(min, max, t) {
-    return min * (1 - t) + max * t;
+    context.stroke();
   }
 }
