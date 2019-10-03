@@ -8,62 +8,53 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-context.fillStyle = '#112F41';
+context.fillStyle = '#ffd1ca';
 context.fillRect(0, 0, width, height);
 
-context.globalCompositeOperation = 'screen';
-context.lineWidth = 10;
+blob();
 
-tapufini();
-
-function tapufini() {
+function blob() {
   // Vars
-  var amplitude = rangeFloor(10, 20);
-  var frequency = rangeFloor(20, 70);
-  var colors = [
-    '#FFB713',
-    '#009F45',
-    '#FF3A5C',
-    '#4646DF',
-    '#F44918',
-    '#FEAC00',
-    '#FF5630',
-    '#396C7D',
-    '#83757D',
-    '#2C3F54',
-    '#F0F0EC',
-    '#2A2A41',
-    '#766B4F',
-    '#F4AAAB',
-    '#CF3B45',
-    '#4F94CF',
-    '#E51D20',
-    '#2C416E',
-    '#EE751A',
-    '#FECF1A',
-  ];
+  var count = 20;
+  var margin = 10;
+  var points = createGrid();
+  context.filter = `blur(0px)`;
 
-  let x = -50;
+  points.forEach(points => {
+    const { postion, color, radius } = points;
+    const [u, v] = postion;
 
-  while (x < width + 100) {
-    // let color = colors[x % colors.length];
-    let color = pick(colors);
-    drawSine(x, color);
-    x = x + 17;
-  }
+    const x = lerp(margin, width - margin, u);
+    const y = lerp(margin, height - margin, v);
+
+    context.save();
+    context.fillStyle = color;
+    context.translate(x, y);
+    context.beginPath();
+    context.arc(0, 0, radius, 0, Math.PI * 2, false);
+    context.fill();
+    context.restore();
+  });
 
   // FUNCTIONS ************************
+  function createGrid() {
+    const points = [];
 
-  function drawSine(x, color) {
-    let waveY = -10;
-    context.beginPath();
-    while (waveY < height + 10) {
-      let waveX = x + amplitude * Math.sin(waveY / frequency);
-      context.lineTo(waveX, waveY);
-      waveY++;
+    // Will return a set of points between 0..1
+    for (let x = 0; x < count; x++) {
+      for (let y = 0; y < count; y++) {
+        const u = count <= 1 ? 0.5 : x / (count - 1);
+        const v = count <= 1 ? 0.5 : y / (count - 1);
+
+        points.push({
+          radius: rangeFloor(15, 40),
+          color: `rgba(${rangeFloor(250, 255)},
+          ${rangeFloor(0, 255)},${rangeFloor(0, 255)},0.2`,
+          postion: [u, v],
+        });
+      }
     }
-    context.strokeStyle = color;
-    context.stroke();
+    return points;
   }
 
   function rangeFloor(min, max) {
@@ -75,5 +66,9 @@ function tapufini() {
     // Pick a random item out of an array
     if (array.length === 0) return undefined;
     return array[rangeFloor(0, array.length)];
+  }
+
+  function lerp(min, max, t) {
+    return min * (1 - t) + max * t;
   }
 }
