@@ -1,3 +1,6 @@
+import simplex as SimplexNoise from '/modules/simplex-noise.js';
+// https://www.benfrederickson.com/flowers-from-simplex-noise/
+
 // Builder
 var canvas = document.getElementById('card-canvas');
 var context = canvas.getContext('2d');
@@ -19,6 +22,7 @@ blob();
 
 function blob() {
   // Vars
+  var simplex = new SimplexNoise();
   var radius = 40;
 
   // Sample circle
@@ -45,7 +49,7 @@ function blob() {
       let y = Math.sin(angle);
 
       // Change this Math.random to a noise function
-      let deformation = Math.random() * frequency + 1;
+      let deformation = simplex.noise2d(x * frequency, y * frequency) + 1;
       let circleRadius = radius * (1 + magnitude * deformation);
 
       // Draw line
