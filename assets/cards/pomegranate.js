@@ -1,5 +1,5 @@
 // Builder
-var canvas = document.getElementById('card-canvas');
+var canvas = document.getElementById('pomegranate');
 var context = canvas.getContext('2d');
 
 // New Retina canvas

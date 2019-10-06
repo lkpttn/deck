@@ -1,3 +1,6 @@
+import simplex as SimplexNoise from '/modules/simplex-noise.js';
+// https://www.benfrederickson.com/flowers-from-simplex-noise/
+
 // Builder
 var canvas = document.getElementById('card-canvas');
 var context = canvas.getContext('2d');
