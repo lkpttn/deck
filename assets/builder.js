@@ -12,30 +12,63 @@ context.scale(2, 2);
 var width = canvas.width;
 var height = canvas.height;
 
-context.fillStyle = '#ffd1ca';
+context.fillStyle = '#055d80';
 context.fillRect(0, 0, width, height);
 
-pomegranate();
+maze();
 
-function pomegranate() {
+function maze() {
   // Vars
-  var count = 40;
-  var margin = 10;
+  var countX = 16;
+  var countY = 26;
+  var margin = 0;
+  const directions = ['up-left', 'up-right', 'down-left', 'down-right'];
   var points = createGrid();
+  var lineLength = 12;
+
+  context.lineWidth = 3;
 
   points.forEach(points => {
-    const { postion, color, radius } = points;
+    const { postion, color, orientation } = points;
     const [u, v] = postion;
 
     const x = lerp(margin, width - margin, u);
     const y = lerp(margin, height - margin, v);
 
     context.save();
-    context.fillStyle = color;
+    context.strokeStyle = 'rgb(100, 255, 200)';
     context.translate(x, y);
-    context.beginPath();
-    context.arc(0, 0, radius, 0, Math.PI * 2, false);
-    context.fill();
+
+    // context.beginPath();
+    // context.arc(0, 0, 3, 0, Math.PI * 2, false);
+    // context.fillStyle = 'white';
+    // context.fill();
+
+    for (let i = 0; i < 2; i++) {
+      let orientation = pick(directions);
+      context.beginPath();
+      switch (orientation) {
+        case 'up-left':
+          // Top left
+          context.arc(0, 0, 20, Math.PI, (3 * Math.PI) / 2, false);
+          break;
+        case 'up-right':
+          // Top right
+          context.arc(0, 0, 20, (3 * Math.PI) / 2, 0, false);
+          break;
+        case 'down-left':
+          // Bottom left
+          context.arc(0, 0, 20, Math.PI / 2, Math.PI, false);
+          break;
+        case 'down-right':
+          // Bottom right
+          context.arc(0, 0, 20, 0, Math.PI / 2, false);
+          break;
+      }
+      context.strokeStyle = 'lime';
+      context.stroke();
+    }
+
     context.restore();
   });
 
@@ -44,15 +77,13 @@ function pomegranate() {
     const points = [];
 
     // Will return a set of points between 0..1
-    for (let x = 0; x < count; x++) {
-      for (let y = 0; y < count; y++) {
-        const u = count <= 1 ? 0.5 : x / (count - 1);
-        const v = count <= 1 ? 0.5 : y / (count - 1);
-
+    for (let x = 0; x < countX; x++) {
+      for (let y = 0; y < countY; y++) {
+        const u = countX <= 1 ? 0.5 : x / (countX - 1);
+        const v = countY <= 1 ? 0.5 : y / (countY - 1);
         points.push({
-          radius: rangeFloor(15, 40),
-          color: `rgba(${rangeFloor(250, 255)},
-          ${rangeFloor(0, 255)},${rangeFloor(0, 255)},0.2`,
+          color: `rgba(${rangeFloor(20, 60)},
+          ${rangeFloor(200, 255)},${rangeFloor(100, 250)},1`,
           postion: [u, v],
         });
       }
