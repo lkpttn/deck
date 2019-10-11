@@ -3,11 +3,8 @@ var canvas = document.getElementById('card-canvas');
 var context = canvas.getContext('2d');
 
 // New Retina canvas
-canvas.width = 600;
-canvas.height = 1000;
-canvas.style.width = '300px';
-canvas.style.height = '500px';
-context.scale(2, 2);
+canvas.width = 300;
+canvas.height = 500;
 
 var width = canvas.width;
 var height = canvas.height;
@@ -15,35 +12,46 @@ var height = canvas.height;
 context.fillStyle = '#055d80';
 context.fillRect(0, 0, width, height);
 
-maze();
+dropper();
 
-function maze() {
+function dropper() {
   // Vars
-  var countX = 16;
-  var countY = 26;
-  var margin = 0;
+  var countX = 6;
+  var countY = 11;
+  var margin = 50;
+  var size = 40;
   const directions = ['up-left', 'up-right', 'down-left', 'down-right'];
   var points = createGrid();
-  var lineLength = 12;
-
-  context.lineWidth = 3;
+  context.lineWidth = 2;
 
   points.forEach(points => {
-    const { postion, color, orientation } = points;
+    const { postion, color } = points;
     const [u, v] = postion;
 
     const x = lerp(margin, width - margin, u);
     const y = lerp(margin, height - margin, v);
 
     context.save();
-    context.strokeStyle = 'rgb(100, 255, 200)';
+    context.strokeStyle = color;
     context.translate(x, y);
 
+    // Squares
     // context.beginPath();
-    // context.arc(0, 0, 3, 0, Math.PI * 2, false);
-    // context.fillStyle = 'white';
-    // context.fill();
+    // context.rect(-size / 2, -size / 2, size, size);
+    // context.stroke();
 
+    // Lines
+    // context.beginPath();
+    // context.moveTo(0, 0);
+    // let direction = Math.random();
+    // if (direction > 0.4) {
+    //   context.lineTo(0, 20);
+    // } else {
+    //   context.lineTo(-20, 0);
+    // }
+    // context.stroke();
+
+    // Circles
     for (let i = 0; i < 2; i++) {
       let orientation = pick(directions);
       context.beginPath();
@@ -65,7 +73,6 @@ function maze() {
           context.arc(0, 0, 20, 0, Math.PI / 2, false);
           break;
       }
-      context.strokeStyle = 'lime';
       context.stroke();
     }
 
