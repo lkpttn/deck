@@ -1,99 +1,63 @@
+// https://www.benfrederickson.com/flowers-from-simplex-noise/
+
 // Builder
 var canvas = document.getElementById('card-canvas');
 var context = canvas.getContext('2d');
 
-// New Retina canvas
 canvas.width = 300;
 canvas.height = 500;
 
 var width = canvas.width;
 var height = canvas.height;
 
-context.fillStyle = '#055d80';
+context.fillStyle = '#112F41';
 context.fillRect(0, 0, width, height);
 
-dropper();
+blob();
 
-function dropper() {
+function blob() {
   // Vars
-  var countX = 7;
-  var countY = 11;
-  var margin = 0;
-  var size = 50;
-  const directions = ['up-left', 'up-right', 'down-left', 'down-right'];
-  var points = createGrid();
-  context.lineWidth = 2;
+  var simplex = new SimplexNoise();
+  var radius = (0.8 * height) / 2;
+  var circle = { x: width / 4, y: height / 4, radius };
+  var frequency = 2.0;
+  var magnitude = 0.5;
+  var independence = 0.1;
+  var spacing = 0.02;
+  var count = 150;
 
-  points.forEach(points => {
-    const { postion, color } = points;
-    const [u, v] = postion;
+  context.translate(width / 2, height / 2);
+  let current = { ...circle };
+  current.radius /= magnitude + 1;
 
-    const x = lerp(margin, width - margin, u);
-    const y = lerp(margin, height - margin, v);
-
-    context.save();
-    context.strokeStyle = color;
-    context.translate(x, y);
-
-    // Circles
-    for (let i = 0; i < 3; i++) {
-      let orientation = pick(directions);
-      context.beginPath();
-      switch (orientation) {
-        case 'up-left':
-          // Top left
-          context.arc(0, 0, size / 2, Math.PI, (3 * Math.PI) / 2, false);
-          break;
-        case 'up-right':
-          // Top right
-          context.arc(0, 0, size / 2, (3 * Math.PI) / 2, 0, false);
-          break;
-        case 'down-left':
-          // Bottom left
-          context.arc(0, 0, size / 2, Math.PI / 2, Math.PI, false);
-          break;
-        case 'down-right':
-          // Bottom right
-          context.arc(0, 0, size / 2, 0, Math.PI / 2, false);
-          break;
-      }
-      context.stroke();
-    }
-
-    context.restore();
-  });
+  for (let i = 0; i < count; i++) {
+    drawDeformedCircle(current, frequency, magnitude, i * independence);
+    current.radius *= 1 - spacing;
+  }
 
   // FUNCTIONS ************************
-  function createGrid() {
-    const points = [];
+  function drawDeformedCircle(circle, frequency, magnitude, seed) {
+    context.beginPath();
+    const samples = Math.floor(4 * circle.radius + 20);
+    for (let j = 0; j < samples + 1; ++j) {
+      const angle = (2 * Math.PI * j) / samples;
 
-    // Will return a set of points between 0..1
-    for (let x = 0; x < countX; x++) {
-      for (let y = 0; y < countY; y++) {
-        const u = countX <= 1 ? 0.5 : x / (countX - 1);
-        const v = countY <= 1 ? 0.5 : y / (countY - 1);
-        points.push({
-          color: `rgba(${rangeFloor(20, 60)},
-          ${rangeFloor(200, 255)},${rangeFloor(100, 250)},1`,
-          postion: [u, v],
-        });
-      }
+      // Figure out the x/y coordinates for the given angle
+      const x = Math.cos(angle);
+      const y = Math.sin(angle);
+
+      // Randomly deform the radius of the circle at this point
+      const deformation =
+        simplex.noise3D(x * frequency, y * frequency, seed) + 1;
+      const radius = circle.radius * (1 + magnitude * deformation);
+
+      // Extend the circle to this deformed radius
+      context.lineTo(radius * x, radius * y);
     }
-    return points;
-  }
 
-  function rangeFloor(min, max) {
-    // Return a random whole number between min and max
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-
-  function pick(array) {
-    // Pick a random item out of an array
-    if (array.length === 0) return undefined;
-    return array[rangeFloor(0, array.length)];
-  }
-
-  function lerp(min, max, t) {
-    return min * (1 - t) + max * t;
+    context.fillStyle = '#112F41';
+    context.fill();
+    context.strokeStyle = 'rgba(250, 175, 10, .8)';
+    context.stroke();
   }
 }
