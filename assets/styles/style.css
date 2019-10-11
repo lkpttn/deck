@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.dropper {
+  background: #055d80;
+}
 .pomegranate {
   background: #fc7878;
 }

@@ -1,8 +1,7 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Dropper
+var canvas = document.getElementById('dropper');
 var context = canvas.getContext('2d');
 
-// New Retina canvas
 canvas.width = 300;
 canvas.height = 500;
 
@@ -28,6 +27,7 @@ function dropper() {
     const { postion, color } = points;
     const [u, v] = postion;
 
+    // Spread our points out evenly across the canvas
     const x = lerp(margin, width - margin, u);
     const y = lerp(margin, height - margin, v);
 
