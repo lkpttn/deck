@@ -1,5 +1,3 @@
-// https://www.benfrederickson.com/flowers-from-simplex-noise/
-
 // Builder
 var canvas = document.getElementById('card-canvas');
 var context = canvas.getContext('2d');
@@ -10,54 +8,94 @@ canvas.height = 500;
 var width = canvas.width;
 var height = canvas.height;
 
-context.fillStyle = '#112F41';
-context.fillRect(0, 0, width, height);
+gliphy();
 
-blob();
+function gliphy() {
+  var colors = [
+    '#FFB713', // Gold
+    '#5200C5', // Purple
+    '#009F45', // Green
+    '#FF3A5C', // Redish
+    '#4646DF', // Blue
+    '#F44918', // Orange
+  ];
 
-function blob() {
-  // Vars
-  var simplex = new SimplexNoise();
-  var radius = (0.8 * height) / 2;
-  var circle = { x: width / 4, y: height / 4, radius };
-  var frequency = 2.0;
-  var magnitude = 0.5;
-  var independence = 0.1;
-  var spacing = 0.02;
-  var count = 150;
-
+  // Backgrounds
+  context.fillStyle = '#000000';
+  context.fillRect(0, 0, width, height);
   context.translate(width / 2, height / 2);
-  let current = { ...circle };
-  current.radius /= magnitude + 1;
 
-  for (let i = 0; i < count; i++) {
-    drawDeformedCircle(current, frequency, magnitude, i * independence);
-    current.radius *= 1 - spacing;
-  }
+  // Colors
+  var innerGradient = context.createRadialGradient(0, 0, 30, 0, 0, 300);
+  innerGradient.addColorStop(0.1, '#FF9EE2');
+  innerGradient.addColorStop(1, '#A59EFF');
+  context.strokeStyle = innerGradient;
 
-  // FUNCTIONS ************************
-  function drawDeformedCircle(circle, frequency, magnitude, seed) {
-    context.beginPath();
-    const samples = Math.floor(4 * circle.radius + 20);
-    for (let j = 0; j < samples + 1; ++j) {
-      const angle = (2 * Math.PI * j) / samples;
+  // Create an array of points around a circle
+  const circlePoints = createCirclePoints(100, 5);
 
-      // Figure out the x/y coordinates for the given angle
-      const x = Math.cos(angle);
-      const y = Math.sin(angle);
+  // Add a center point
+  circlePoints.push([0, 0]);
+  let lines = [];
 
-      // Randomly deform the radius of the circle at this point
-      const deformation =
-        simplex.noise3D(x * frequency, y * frequency, seed) + 1;
-      const radius = circle.radius * (1 + magnitude * deformation);
+  // Create lines from each point to every other point
+  circlePoints.forEach(point => {
+    for (let i = 0; i < circlePoints.length; i++) {
+      let line = lineBetweenPoints(point, circlePoints[i]);
 
-      // Extend the circle to this deformed radius
-      context.lineTo(radius * x, radius * y);
+      // Store these lines in an array
+      lines.push(line);
+    }
+  });
+
+  lines.forEach(line => {
+    drawLine(line);
+  });
+
+  // FUNCTIONS ********************************************
+
+  // Draw a line between two given points
+  function lineBetweenPoints(firstPoint, secondPoint) {
+    let second = secondPoint;
+    if (second > circlePoints.length - 1) {
+      second = second - circlePoints.length;
+      console.log(second);
     }
 
-    context.fillStyle = '#112F41';
-    context.fill();
-    context.strokeStyle = 'rgba(250, 175, 10, .8)';
-    context.stroke();
+    var line = {
+      start: { x: firstPoint[0], y: firstPoint[1] },
+      end: { x: second[0], y: second[1] },
+      visibility: Math.random() >= 0.75,
+    };
+
+    return line;
+  }
+
+  // Draw a line between two given points
+  function drawLine(line) {
+    const { start, end, visibility } = line;
+
+    if (visibility) {
+      context.beginPath();
+      context.moveTo(start.x, start.y);
+      context.lineTo(end.x, end.y);
+      context.stroke();
+    }
+  }
+
+  // Create an array of n points around a circle
+  function createCirclePoints(radius, number) {
+    var points = [];
+    for (let i = 0; i < number; i++) {
+      // Calculate the position of each point
+      // The angle is i * (360 / number)
+      let angle = i * (360 / number);
+      let x = radius * Math.cos((-angle * Math.PI) / 180);
+      let y = radius * Math.sin((-angle * Math.PI) / 180);
+
+      // Add point to array
+      points.push([x, y]);
+    }
+    return points;
   }
 }
