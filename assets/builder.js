@@ -23,49 +23,74 @@ function gliphy() {
   // Backgrounds
   context.fillStyle = '#000000';
   context.fillRect(0, 0, width, height);
-  context.translate(width / 2, height / 2);
 
   // Colors
   var innerGradient = context.createRadialGradient(0, 0, 30, 0, 0, 300);
   innerGradient.addColorStop(0.1, '#FF9EE2');
   innerGradient.addColorStop(1, '#A59EFF');
   context.strokeStyle = innerGradient;
+  context.lineWidth = 2;
 
-  // Create an array of points around a circle
-  const circlePoints = createCirclePoints(100, 5);
+  for (let i = 0; i < 5; i++) {
+    context.save();
+    drawGlyph(width / 2, 90 + i * 80, 30, 5);
+    context.restore();
+  }
 
-  // Add a center point
-  circlePoints.push([0, 0]);
-  let lines = [];
+  function drawGlyph(x, y, radius, sides) {
+    context.translate(x, y);
+    let circlePoints = createCirclePoints(radius, sides);
+    var lines = [];
 
-  // Create lines from each point to every other point
-  circlePoints.forEach(point => {
+    // Create lines to points on each side and to center
     for (let i = 0; i < circlePoints.length; i++) {
-      let line = lineBetweenPoints(point, circlePoints[i]);
+      let nextPoint;
+      if (i + 1 > circlePoints.length - 1) {
+        nextPoint = circlePoints[0];
+      } else {
+        nextPoint = circlePoints[i + 1];
+      }
 
-      // Store these lines in an array
+      let line = lineBetweenPoints(circlePoints[i], nextPoint);
       lines.push(line);
-    }
-  });
 
-  lines.forEach(line => {
-    drawLine(line);
-  });
+      let centerLine = lineBetweenPoints(circlePoints[i], [0, 0]);
+      lines.push(centerLine);
+    }
+
+    lines.forEach(line => {
+      drawLine(line);
+    });
+  }
+
+  // // Create lines to points on each side and to center
+  // for (let i = 0; i < circlePoints.length; i++) {
+  //   let nextPoint;
+  //   if (i + 1 > circlePoints.length - 1) {
+  //     nextPoint = circlePoints[0];
+  //   } else {
+  //     nextPoint = circlePoints[i + 1];
+  //   }
+
+  //   let line = lineBetweenPoints(circlePoints[i], nextPoint);
+  //   lines.push(line);
+
+  //   let centerLine = lineBetweenPoints(circlePoints[i], [0, 0]);
+  //   lines.push(centerLine);
+  // }
+
+  // lines.forEach(line => {
+  //   drawLine(line);
+  // });
 
   // FUNCTIONS ********************************************
 
   // Draw a line between two given points
   function lineBetweenPoints(firstPoint, secondPoint) {
-    let second = secondPoint;
-    if (second > circlePoints.length - 1) {
-      second = second - circlePoints.length;
-      console.log(second);
-    }
-
     var line = {
       start: { x: firstPoint[0], y: firstPoint[1] },
-      end: { x: second[0], y: second[1] },
-      visibility: Math.random() >= 0.75,
+      end: { x: secondPoint[0], y: secondPoint[1] },
+      visibility: Math.random() >= 0.5,
     };
 
     return line;
