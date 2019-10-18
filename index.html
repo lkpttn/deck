@@ -52,19 +52,42 @@
     </header>
 
     <div class="gallery">
+      <div class="gallery-item glyphy" id="glyphy-selector">
+        <div class="container">
+          <div class="item">
+            <div class="card front">
+              <canvas id="glyphy" data-name="Glyphy">Glyphy</canvas>
+            </div>
+          </div>
+          <div class="description">
+            <h2>Glyphy</h2>
+            <p>
+              Runic scribbles are easy, if you can take apart some polygons.
+              Here we're drawing segments on a pentagon with a connector in the
+              middle. Each line connects to it's neighbor and has a chance to be
+              visible. Change the number of sides in the drawGlyph function see
+              different shapes and patterns!
+            </p>
+            <pre id="glyphy-js"></pre>
+          </div>
+        </div>
+      </div>
+
       <div class="gallery-item dropper" id="dropper-selector">
         <div class="container">
           <div class="item">
             <div class="card front">
-              <canvas id="dropper" data-name="Dropper"
-                >Dropper</canvas
-              >
+              <canvas id="dropper" data-name="Dropper">Dropper</canvas>
             </div>
           </div>
           <div class="description">
             <h2>Dropper</h2>
             <p>
-              This concept was originally "what if you had a maze and it was squiggly?" but has evolved a bit into this looping pattern. We're still using linear interpolation to space our items evenly across the canvas and make sure our tiling is seamless. Use the Update Preview button to draw a new card! 
+              This concept was originally "what if you had a maze and it was
+              squiggly?" but has evolved a bit into this looping pattern. We're
+              still using linear interpolation to space our items evenly across
+              the canvas and make sure our tiling is seamless. Use the Update
+              Preview button to draw a new card!
             </p>
             <pre id="dropper-js"></pre>
           </div>

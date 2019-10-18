@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.glyphy {
+  background: #0D1440;
+}
 .dropper {
   background: #055d80;
 }

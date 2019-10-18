@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Glyphy
+var canvas = document.getElementById('glyphy');
 var context = canvas.getContext('2d');
 
 canvas.width = 300;
@@ -11,22 +11,13 @@ var height = canvas.height;
 gliphy();
 
 function gliphy() {
-  var colors = [
-    '#FFB713', // Gold
-    '#5200C5', // Purple
-    '#009F45', // Green
-    '#FF3A5C', // Redish
-    '#4646DF', // Blue
-    '#F44918', // Orange
-  ];
-
   // Backgrounds
   context.fillStyle = '#0D1440';
   context.fillRect(0, 0, width, height);
 
   // Colors
   context.strokeStyle = '#BF1736';
-  context.lineWidth = 2;
+  context.lineWidth = 3;
 
   for (let i = 0; i < 5; i++) {
     context.save();
@@ -67,7 +58,7 @@ function gliphy() {
     var line = {
       start: { x: firstPoint[0], y: firstPoint[1] },
       end: { x: secondPoint[0], y: secondPoint[1] },
-      visibility: Math.random() >= 0.6,
+      visibility: Math.random() >= 0.65,
     };
 
     return line;
