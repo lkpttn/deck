@@ -261,8 +261,11 @@ button.update:hover {
 }
 
 /* Covers */
+.sortie {
+  background: #2c2e3d;
+}
 .glyphy {
-  background: #0D1440;
+  background: #0d1440;
 }
 .dropper {
   background: #055d80;
@@ -279,7 +282,7 @@ button.update:hover {
 .vdhh {
   background: #fcba03;
 }
-.easterly { 
+.easterly {
   background: #b92a30;
 }
 .chronos {
@@ -288,7 +291,7 @@ button.update:hover {
 .koinobori {
   background: #4646df;
 }
-.juicebox  {
+.juicebox {
   background: #5200c5;
 }
 .zoned {
@@ -400,4 +403,4 @@ button.update:hover {
 
 .varsarely {
   background: #222222;
-}gli
+}
