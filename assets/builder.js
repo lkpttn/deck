@@ -9,55 +9,79 @@ canvas.style.width = '300px';
 canvas.style.height = '500px';
 context.scale(2, 2);
 
-var width = canvas.width;
-var height = canvas.height;
+var width = canvas.width / 2;
+var height = canvas.height / 2;
 
-sortie();
+skull();
 
-function sortie() {
+function skull() {
   // Vars
-  const lineWidth = 2;
-  var x = 0;
-  var y = 60 + rangeFloor(-30, 30);
+  var centerX = width / 2;
+  var centerY = height / 2;
+  var cornerRadius = 20;
+
+  // Set faux rounded corners
+  context.lineJoin = 'round';
+  context.lineWidth = cornerRadius;
 
   // Backgrounds
-  context.fillStyle = '#2C2E3D';
+  context.fillStyle = '#FFF';
   context.fillRect(0, 0, width, height);
 
-  // Make a line of lines
-  while (x < width + lineWidth) {
-    // Draw lines with the same variation at three different y coordinates
-    drawLine(x, y, 140 + rangeFloor(10, 60));
-    drawLine(x, 140 + y, 240 + rangeFloor(10, 60));
-    drawLine(x, 340 + y, 340 + rangeFloor(10, 60));
-    x = x + lineWidth;
-    y = y + rangeFloor(-9, 10);
+  // Left eye
+  fillCircle(0, 0, 125, 'black');
+
+  // Right eye
+  fillCircle(300, 0, 125, 'black');
+
+  // Nose
+  // cornerRadius = 30;
+  context.beginPath();
+  context.moveTo(centerX - 60, centerY + 35);
+  context.lineTo(centerX, centerY - 60);
+  context.lineTo(centerX + 60, centerY + 35);
+  context.closePath();
+  context.strokeStyle = 'black';
+  context.fillStyle = 'black';
+  context.stroke();
+  context.fill();
+
+  // Mouth
+  roundedRect(0, 400, 500, 200, 'black');
+  fillCircle(0, 430, 75, 'black');
+  fillCircle(width, 430, 75, 'black');
+  roundedRect(68, 388, 164, 20, 'white');
+  roundedRect(68, 450, 164, 200, 'white');
+
+  // Teeth
+  for (let i = 0; i < 3; i++) {
+    roundedRect(88 + i * 50, 465, 25, 45, 'black');
   }
 
-  function drawLine(x, y, length) {
-    // Create a gradient that spans the length of the line
-    let grd = context.createLinearGradient(x, y, x, y + length);
-    grd.addColorStop(0.1, '#FFFFFF');
-    grd.addColorStop(0.3, '#84BFB1');
-    grd.addColorStop(0.5, '#468E7F');
-    grd.addColorStop(0.8, '#2C2E3D');
+  // Overlay
+  context.globalCompositeOperation = 'multiply';
+  context.fillStyle = '#f2f2f2';
+  context.fillRect(centerX, 0, width / 2, height);
 
+  // FUNCTIONS ************
+  function fillCircle(x, y, radius, color) {
     context.beginPath();
-    context.moveTo(x, y);
-    context.lineTo(x, height);
-    context.strokeStyle = grd;
-    context.lineWidth = lineWidth;
+    context.arc(x, y, radius, 0, Math.PI * 2, false);
+    context.fillStyle = color;
+    context.fill();
+  }
+
+  function roundedRect(x, y, width, height, color) {
+    context.beginPath();
+    context.rect(
+      x + cornerRadius / 2,
+      y + cornerRadius / 2,
+      width - cornerRadius,
+      height - cornerRadius,
+    );
+    context.fillStyle = color;
+    context.strokeStyle = color;
+    context.fill();
     context.stroke();
-  }
-
-  function rangeFloor(min, max) {
-    // Return a random whole number between min and max
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-
-  function pick(array) {
-    // Pick a random item out of an array
-    if (array.length === 0) return undefined;
-    return array[rangeFloor(0, array.length)];
   }
 }
