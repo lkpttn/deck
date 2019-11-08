@@ -1,5 +1,5 @@
 // Builder
-var canvas = document.getElementById('card-canvas');
+var canvas = document.getElementById('dream');
 var context = canvas.getContext('2d');
 
 // New Retina canvas
@@ -12,9 +12,9 @@ context.scale(2, 2);
 var width = canvas.width / 2;
 var height = canvas.height / 2;
 
-astro();
+dream();
 
-function astro() {
+function dream() {
   // Vars
   const margin = 30;
   var countX = 5;

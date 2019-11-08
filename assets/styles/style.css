@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.dream {
+  background: #faacd3;
+}
 .threespooky {
   background: #000000;
 }
