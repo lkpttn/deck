@@ -12,118 +12,89 @@ context.scale(2, 2);
 var width = canvas.width / 2;
 var height = canvas.height / 2;
 
-astro();
+pinski();
 
-function astro() {
+function pinski() {
   // Vars
-  const margin = 30;
-  var countX = 5;
-  var countY = 10;
-  var points = createGrid();
-
-  var darkPink = '#B57CA2';
-  var pink = '#FAACD3';
-  var cream = '#FEF2E5';
+  context.lineWidth = 2;
+  context.strokeStyle = '#FFF';
 
   // Backgrounds
-  context.fillStyle = pink;
+  context.fillStyle = '#000';
   context.fillRect(0, 0, width, height);
 
-  context.scale(1.3, 1.3);
-  context.translate(-100, 0);
-  context.rotate((Math.PI / 180) * -17);
+  // calcSierCurve(height, 9, 'white', { x: -height / 4, y: 0 });
+  // calcSierCurve(height, 8, 'white', { x: -height / 4, y: 0 });
 
-  points.forEach(points => {
-    // Deconstruct into variables
-    // u and v values are between 0..1
-    const { postion, shape } = points;
-    const [u, v] = postion;
+  calcSierCurve(width, 8, 'white', { x: 0, y: 0 });
+  calcSierCurve(width, 4, 'white', { x: 0, y: 300 });
 
-    // Lerp will distribute the point on our canvas based on
-    // it's value between 0..1
-    var x = lerp(margin, width - margin, u);
-    var y = lerp(margin, height - margin, v);
+  function calcSierCurve(length, iterations, color, offset = { x: 0, y: 0 }) {
+    // We need two triangles to move through
+    // Each triangle is a set of points based of offset
+    const triangle1 = [
+      { x: 0, y: length },
+      { x: 0, y: 0 },
+      { x: length, y: 0 },
+    ].map(p => translate(p, offset));
+    const triangle2 = [
+      { x: length, y: 0 },
+      { x: length, y: length },
+      { x: 0, y: length },
+    ].map(p => translate(p, offset));
 
-    // A little bit of rounding to help with subpixel rendering
-    // drawCircle(Math.round(x), Math.round(y), radius);
-    if (shape === 'Star') {
-      drawStar(x, y, 15, 4, cream);
-    } else if (shape === 'Moon') {
-      drawCrescent(x, y, 15, darkPink);
-    }
-  });
+    // We need to divide the two initial triangles a number of times equal to the iterations
+    const half1 = subdivideTriangle(triangle1, iterations);
+    const half2 = subdivideTriangle(triangle2, iterations);
 
-  function drawStar(x, y, outer, inner, color) {
-    var angle = Math.PI / 4;
-
-    context.fillStyle = color;
+    // Make one point array and draw them
+    const points = [...half1, ...half2];
     context.beginPath();
-
-    for (var i = 0; i < 2 * 4; i++) {
-      var r = i & 1 ? inner : outer;
-      var point_x = x + Math.cos(i * angle) * r;
-      var point_y = y + Math.sin(i * angle) * r;
-
-      if (!i) context.moveTo(point_x, point_y);
-      else context.lineTo(point_x, point_y);
-    }
-
-    context.closePath();
-    context.fill();
+    context.strokeStyle = color;
+    points.forEach((p, i) => {
+      const n = points[(i + 1) % points.length];
+      // This helps close the shape
+      context.moveTo(p.x, p.y);
+      context.lineTo(n.x, n.y);
+    });
+    context.stroke();
   }
 
-  function drawCrescent(x, y, radius, color) {
-    context.fillStyle = color;
-    context.beginPath();
-    context.arc(x, y, radius, 0, Math.PI * 2, false);
-    context.fill();
-
-    context.fillStyle = pink;
-    context.beginPath();
-    context.arc(
-      x + radius / 2,
-      y - radius / 2.5,
-      radius,
-      0,
-      Math.PI * 2,
-      false,
-    );
-    context.fill();
-  }
-
-  function createGrid() {
+  function subdivideTriangle(position, iterations = 1) {
+    const [p1, p2, p3] = position;
     const points = [];
 
-    // Will return a set of points between 0..1
-    for (let x = 0; x < countX; x++) {
-      for (let y = 0; y < countY; y++) {
-        const u = countX <= 1 ? 0.5 : x / (countX - 1);
-        const v = countY <= 1 ? 0.5 : y / (countY - 1);
-        let shape;
-        if ((isEven(y) && isEven(x)) || (isOdd(y) && isOdd(x))) {
-          shape = 'Star';
-        } else {
-          shape = 'Moon';
-        }
-        points.push({
-          shape: shape, // Star or moon
-          postion: [u, v],
-        });
-      }
+    // Center of triangle
+    const center = triangleCenter(...position);
+    if (iterations == 0) {
+      // If no more iterations, return center
+      points.push(center);
+    } else {
+      // Make two right angle triangles and add points
+      const subTriangle1 = [p1, midpoint(p1, p3), p2];
+      const subTriangle2 = [p2, midpoint(p1, p3), p3];
+      points.push(...subdivideTriangle(subTriangle1, iterations - 1));
+      points.push(...subdivideTriangle(subTriangle2, iterations - 1));
     }
+
     return points;
   }
 
-  // Math stuff
-  function lerp(min, max, t) {
-    return min * (1 - t) + max * t;
+  function translate({ x, y }, { x: xt, y: yt }) {
+    return {
+      x: x + xt,
+      y: y + yt,
+    };
   }
 
-  function isEven(n) {
-    return n % 2 == 0;
+  // Calculate the center of a triangle
+  function triangleCenter(a1, a2, a3) {
+    const x = (a1.x + a2.x + a3.x) / 3;
+    const y = (a1.y + a2.y + a3.y) / 3;
+    return { x, y };
   }
 
-  function isOdd(n) {
-    return Math.abs(n % 2) == 1;
+  function midpoint(a, b) {
+    return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
   }
 }
