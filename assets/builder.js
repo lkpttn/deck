@@ -19,15 +19,25 @@ function pinski() {
   context.lineWidth = 2;
   context.strokeStyle = '#FFF';
 
+  var orange = '#FF5310';
+  var lightOrange = '#AB3200';
+
   // Backgrounds
-  context.fillStyle = '#000';
+  context.fillStyle = orange;
   context.fillRect(0, 0, width, height);
 
-  // calcSierCurve(height, 9, 'white', { x: -height / 4, y: 0 });
-  // calcSierCurve(height, 8, 'white', { x: -height / 4, y: 0 });
+  // Pattern
+  // calcSierCurve(height, 9, lightOrange, { x: -100, y: 0 });
+  // calcSierCurve(height, 7, lightOrange, { x: -100, y: 0 });
 
-  calcSierCurve(width, 8, 'white', { x: 0, y: 0 });
-  calcSierCurve(width, 4, 'white', { x: 0, y: 300 });
+  // Heraldry
+  calcSierCurve(width / 2, 3, lightOrange, { x: 0, y: 0 });
+  calcSierCurve(width / 2, 6, lightOrange, { x: width / 2, y: 0 });
+
+  calcSierCurve(width / 2, 4, lightOrange, { x: width / 2, y: 150 });
+  calcSierCurve(width / 2, 5, lightOrange, { x: 0, y: 150 });
+
+  calcSierCurve(width, 9, lightOrange, { x: 0, y: 300 });
 
   function calcSierCurve(length, iterations, color, offset = { x: 0, y: 0 }) {
     // We need two triangles to move through
