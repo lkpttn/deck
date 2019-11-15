@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Sierpinski
+var canvas = document.getElementById('pinski');
 var context = canvas.getContext('2d');
 
 // New Retina canvas
