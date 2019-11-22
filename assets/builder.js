@@ -12,98 +12,98 @@ context.scale(2, 2);
 var width = canvas.width / 2;
 var height = canvas.height / 2;
 
-pinski();
+spiro();
 
-function pinski() {
+function spiro() {
   // Vars
   context.lineWidth = 2;
   context.strokeStyle = '#FFF';
 
-  var orange = '#FF5310';
-  var lightOrange = '#AB3200';
+  const countX = 4;
+  const countY = 6;
+  const margin = 45;
+  var colors = ['#F2D857', '#F2BA52', '#D99C52', '#F28B50'];
+  var points = createGrid();
 
   // Backgrounds
-  context.fillStyle = orange;
+  context.fillStyle = '#200F8C';
   context.fillRect(0, 0, width, height);
 
-  // Pattern
-  calcSierCurve(height, 9, lightOrange, { x: -100, y: 0 });
-  calcSierCurve(height, 7, lightOrange, { x: -100, y: 0 });
+  points.forEach(points => {
+    // Deconstruct into variables
+    // u and v values are between 0..1
+    var u = points[0];
+    var v = points[1];
 
-  // Heraldry
-  // Swap these out with the above lines for a new design
-  // calcSierCurve(width / 2, 3, lightOrange, { x: 0, y: 0 });
-  // calcSierCurve(width / 2, 6, lightOrange, { x: width / 2, y: 0 });
-  // calcSierCurve(width / 2, 4, lightOrange, { x: width / 2, y: 150 });
-  // calcSierCurve(width / 2, 5, lightOrange, { x: 0, y: 150 });
-  // calcSierCurve(width, 9, lightOrange, { x: 0, y: 300 });
+    // Lerp will distribute the point on our canvas based on
+    // it's value between 0..1
+    var x = lerp(margin, width - margin, u);
+    var y = lerp(margin, height - margin, v);
 
-  function calcSierCurve(length, iterations, color, offset = { x: 0, y: 0 }) {
-    // We need two triangles to move through
-    // Each triangle is a set of points based of offset
-    const triangle1 = [
-      { x: 0, y: length },
-      { x: 0, y: 0 },
-      { x: length, y: 0 },
-    ].map(p => translate(p, offset));
-    const triangle2 = [
-      { x: length, y: 0 },
-      { x: length, y: length },
-      { x: 0, y: length },
-    ].map(p => translate(p, offset));
+    let outerCircle = rangeFloor(10, 20);
+    let innerCircle = rangeFloor(4, 10);
+    let ratio = rangeFloor(4, 15);
 
-    // We need to divide the two initial triangles a number of times equal to the iterations
-    const half1 = subdivideTriangle(triangle1, iterations);
-    const half2 = subdivideTriangle(triangle2, iterations);
+    // A little bit of rounding to help with subpixel rendering
+    drawSpirograph(x, y, outerCircle, innerCircle, ratio, pick(colors));
+  });
 
-    // Make one point array and draw them
-    const points = [...half1, ...half2];
+  function drawSpirograph(
+    centerX,
+    centerY,
+    radiusOuter,
+    radiusInner,
+    ratio,
+    color,
+  ) {
     context.beginPath();
+    context.moveTo(centerX + radiusOuter + radiusInner, centerY);
+
+    // Draw line segements around a circle
+    for (let theta = 0; theta <= Math.PI * 2; theta += 0.01) {
+      let x =
+        centerX +
+        radiusOuter * Math.cos(theta) +
+        radiusInner * Math.cos(theta * ratio);
+      let y =
+        centerY +
+        radiusOuter * Math.sin(theta) +
+        radiusInner * Math.sin(theta * ratio);
+      context.lineTo(x, y);
+    }
+
     context.strokeStyle = color;
-    points.forEach((p, i) => {
-      const n = points[(i + 1) % points.length];
-      // This helps close the shape
-      context.moveTo(p.x, p.y);
-      context.lineTo(n.x, n.y);
-    });
     context.stroke();
   }
 
-  function subdivideTriangle(position, iterations = 1) {
-    const [p1, p2, p3] = position;
+  function createGrid() {
     const points = [];
 
-    // Center of triangle
-    const center = triangleCenter(...position);
-    if (iterations == 0) {
-      // If no more iterations, return center
-      points.push(center);
-    } else {
-      // Make two right angle triangles and add points
-      const subTriangle1 = [p1, midpoint(p1, p3), p2];
-      const subTriangle2 = [p2, midpoint(p1, p3), p3];
-      points.push(...subdivideTriangle(subTriangle1, iterations - 1));
-      points.push(...subdivideTriangle(subTriangle2, iterations - 1));
-    }
+    // Will return a set of points between 0..1
+    for (let x = 0; x < countX; x++) {
+      for (let y = 0; y < countY; y++) {
+        const u = countX <= 1 ? 0.5 : x / (countX - 1);
+        const v = countY <= 1 ? 0.5 : y / (countY - 1);
 
+        points.push([u, v]);
+      }
+    }
     return points;
   }
 
-  function translate({ x, y }, { x: xt, y: yt }) {
-    return {
-      x: x + xt,
-      y: y + yt,
-    };
+  // Math stuff
+  function lerp(min, max, t) {
+    return min * (1 - t) + max * t;
   }
 
-  // Calculate the center of a triangle
-  function triangleCenter(a1, a2, a3) {
-    const x = (a1.x + a2.x + a3.x) / 3;
-    const y = (a1.y + a2.y + a3.y) / 3;
-    return { x, y };
+  function rangeFloor(min, max) {
+    // Return a random whole number between min and max
+    return Math.floor(Math.random() * (max - min) + min);
   }
 
-  function midpoint(a, b) {
-    return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+  function pick(array) {
+    // Pick a random item out of an array
+    if (array.length === 0) return undefined;
+    return array[rangeFloor(0, array.length)];
   }
 }
