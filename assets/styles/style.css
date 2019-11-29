@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.emissary {
+  background: #711d15;
+}
 .anthozoa {
   background: #200f8c;
 }
