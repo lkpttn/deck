@@ -52,39 +52,83 @@
     </header>
 
     <div class="gallery">
-        <div class="gallery-item emissary" id="emissary-selector">
-            <div class="container">
-              <div class="item">
-                <div class="card front">
-                  <canvas id="emissary" data-name="Emissary">Emissary</canvas>
-                </div>
-              </div>
-              <div class="description">
-                <h2>Emissary</h2>
-                <p>
-                  Sometimes it's a very simple piece of math that sparks an idea and this week it was just the very simple equations for finding a point on a circle. What happens if you find more than one point? What happens if you find points on just a section of a circle? All of these questions stack up to make a neat little image. You can adjust the numbers on your own, and click Update Preview to see more variants!
-                </p>
-                <pre id="emissary-js"></pre>
-              </div>
+      <div class="gallery-item datamosh" id="datamosh-selector">
+        <div class="container">
+          <div class="item">
+            <div class="card front">
+              <canvas id="datamosh" data-name="Datamosh">Datamosh</canvas>
             </div>
           </div>
+          <div class="description">
+            <h2>Datamosh</h2>
+            <p>
+              Datamosh is by far the most complicated card we've put together,
+              fully implementing some pixel sorting functions. Pixel sorting is
+              an effect created by rearranging pixels in columns or rows based
+              on some criteria like brightness or amount of a color.
+            </p>
+            <p>
+              We're reading all the image data into a giant array where every
+              four values represents a pixels R,G,B and alpha values. From there
+              we add them all up and compare to a neighbor to see if it meets a
+              threshold. When this effect is magnified across the entire canvas
+              we get these great lines of sorted pixels.
+            </p>
+            <p>
+              You can change the threshold, strength, number of loops and image
+              in the first function to create your own outputs. Have fun!
+            </p>
+            <pre id="datamosh-js"></pre>
+          </div>
+        </div>
+      </div>
 
-        <div class="gallery-item anthozoa" id="anthozoa-selector">
-            <div class="container">
-              <div class="item">
-                <div class="card front">
-                  <canvas id="anthozoa" data-name="Anthozoa">Anthozoa</canvas>
-                </div>
-              </div>
-              <div class="description">
-                <h2>Anthozoa</h2>
-                <p>
-                  Last night was the third Plotter People NYC meetup, and I got a short explainer on modern spirographs from <a href="https://twitter.com/ox/" target="_blank">Artem</a>. I remember them from the little plastic gears in my grandparent's house and it turns out they're still fun in the digital world. I love the tiny variants, I thought it looked like a little coral reef or collection of germs. You can play with the radius of the circle and ratio to make your own graphs. 
-                </p>
-                <pre id="anthozoa-js"></pre>
-              </div>
+      <div class="gallery-item emissary" id="emissary-selector">
+        <div class="container">
+          <div class="item">
+            <div class="card front">
+              <canvas id="emissary" data-name="Emissary">Emissary</canvas>
             </div>
           </div>
+          <div class="description">
+            <h2>Emissary</h2>
+            <p>
+              Sometimes it's a very simple piece of math that sparks an idea and
+              this week it was just the very simple equations for finding a
+              point on a circle. What happens if you find more than one point?
+              What happens if you find points on just a section of a circle? All
+              of these questions stack up to make a neat little image. You can
+              adjust the numbers on your own, and click Update Preview to see
+              more variants!
+            </p>
+            <pre id="emissary-js"></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item anthozoa" id="anthozoa-selector">
+        <div class="container">
+          <div class="item">
+            <div class="card front">
+              <canvas id="anthozoa" data-name="Anthozoa">Anthozoa</canvas>
+            </div>
+          </div>
+          <div class="description">
+            <h2>Anthozoa</h2>
+            <p>
+              Last night was the third Plotter People NYC meetup, and I got a
+              short explainer on modern spirographs from
+              <a href="https://twitter.com/ox/" target="_blank">Artem</a>. I
+              remember them from the little plastic gears in my grandparent's
+              house and it turns out they're still fun in the digital world. I
+              love the tiny variants, I thought it looked like a little coral
+              reef or collection of germs. You can play with the radius of the
+              circle and ratio to make your own graphs.
+            </p>
+            <pre id="anthozoa-js"></pre>
+          </div>
+        </div>
+      </div>
 
       <div class="gallery-item pinski" id="pinski-selector">
         <div class="container">
@@ -98,13 +142,22 @@
             <p>
               I never made it to a sufficiently advanced math class to learn
               about fractals. But thanks to
-              <a href="https://twitter.com/piratefsh/status/1186091226392616961" target="_blank"
+              <a
+                href="https://twitter.com/piratefsh/status/1186091226392616961"
+                target="_blank"
                 >Sher Minn</a
               >
-              I was able to learn about the <a href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_curve" target="_blank">Sierpiński curve</a>. It's wonderful!
-              It's a space filling curve, which I understand to mean that it can
-              calculate how to fill a space no matter how many times you
-              subdivide it. This leads to some beautiful patterns, which I've stacked on top of each other here. You can play with the iteration depth of the main function to see different patterns.
+              I was able to learn about the
+              <a
+                href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_curve"
+                target="_blank"
+                >Sierpiński curve</a
+              >. It's wonderful! It's a space filling curve, which I understand
+              to mean that it can calculate how to fill a space no matter how
+              many times you subdivide it. This leads to some beautiful
+              patterns, which I've stacked on top of each other here. You can
+              play with the iteration depth of the main function to see
+              different patterns.
             </p>
             <pre id="pinski-js"></pre>
           </div>

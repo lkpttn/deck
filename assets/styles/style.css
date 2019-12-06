@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.datamosh {
+  background: #5a6b46;
+}
 .emissary {
   background: #711d15;
 }

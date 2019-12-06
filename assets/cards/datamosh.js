@@ -1,17 +1,18 @@
-// Builder
+// Datamosh
 // Pixelsorting, cobbled together from these sources
 // https://github.com/larixk/sort/blob/master/js/script.js
 // https://codepen.io/muradkhan101/pen/qVNrOO
 
-var canvas = document.getElementById('card-canvas');
-var context = canvas.getContext('2d');
+// We have to keep this one unique among cards
+var sortedCanvas = document.getElementById('datamosh');
+var sortedContext = sortedCanvas.getContext('2d');
 
 // Had to use regular canvas
-canvas.width = 300;
-canvas.height = 500;
+sortedCanvas.width = 300;
+sortedCanvas.height = 500;
 
-var width = canvas.width;
-var height = canvas.height;
+var width = sortedCanvas.width;
+var height = sortedCanvas.height;
 
 // Configuration stuff
 let imageSize = 500;
@@ -48,10 +49,10 @@ function loadImage(url, callback) {
     maxRow = (height - 1) * rowWidth;
 
     // Draw original canvas
-    context.drawImage(this, 0, 0, width, height);
+    sortedContext.drawImage(this, 0, 0, width, height);
 
     // Set up for drawing sorted context
-    imageData = context.getImageData(0, 0, width, height);
+    imageData = sortedContext.getImageData(0, 0, width, height);
     imageDataArray = imageData.data;
     callback();
   };
@@ -70,11 +71,11 @@ function draw() {
   // Only draw() a number of times equal to loops
   if (loopCount < loops) {
     iterate();
-    context.putImageData(imageData, 0, 0);
+    sortedContext.putImageData(imageData, 0, 0);
     window.requestAnimationFrame(draw);
   } else {
     // Do sharpen
-    sharpen(context, canvas.width, canvas.height, 0.7);
+    sharpen(sortedContext, sortedCanvas.width, sortedCanvas.height, 0.7);
     // sortingContext.putImageData(imageData, 0, 0);
     console.log('Done sorting');
   }
@@ -198,5 +199,5 @@ function sharpen(ctx, w, h, mix) {
     }
   }
 
-  context.putImageData(dstData, 0, 0);
+  sortedContext.putImageData(dstData, 0, 0);
 }
