@@ -1,4 +1,4 @@
-// Builder
+// Kaleidoscope
 var canvas = document.getElementById('card-canvas');
 var context = canvas.getContext('2d');
 
@@ -29,13 +29,14 @@ function kaleidoscope() {
   context.rotate(Math.PI / 6);
   context.translate(-width / 2 - 100, -height / 2 - 100);
 
-  for (let i = 0; i < 10; i++) {
-    for (let j = 0; j < 10; j++) {
+  for (let i = 0; i < 15; i++) {
+    for (let j = 0; j < 15; j++) {
       // Draw the rows slightly offset
       if (i % 2 == 0) {
         drawHex(i * size * 1.5, j * size * 1.7, size, colors);
       } else {
-        drawHex(i * size * 1.5, 43 + j * size * 1.7, size, colors);
+        // For some reason, you gotta move it over by 85% of size. Math
+        drawHex(i * size * 1.5, size * 0.85 + j * size * 1.7, size, colors);
       }
     }
   }

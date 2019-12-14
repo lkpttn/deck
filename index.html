@@ -52,6 +52,34 @@
     </header>
 
     <div class="gallery">
+      <div class="gallery-item kaleidoscope" id="kaleidoscope-selector">
+        <div class="container">
+          <div class="item">
+            <div class="card front">
+              <canvas id="kaleidoscope" data-name="Kaleidoscope"
+                >Kaleidoscope</canvas
+              >
+            </div>
+          </div>
+          <div class="description">
+            <h2>Kaleidoscope</h2>
+            <p>
+              I was honestly a little suprised it took me this long to get
+              around to this visual effect, most commonly known as rhombile
+              tiling. For such a simple looking effect, there's a lot of ways to
+              implement it and we're doing it a little bit cheaty.
+            </p>
+            <p>
+              Instead of calculating pure 60° rhombi, we're tiling hexagons and
+              the subdiving them to make little rhombus slices. People have been
+              making this pattern since at least the 11th century, so they've
+              developed all sorts of clever ways to do the math.
+            </p>
+            <pre id="kaleidoscope-js"></pre>
+          </div>
+        </div>
+      </div>
+
       <div class="gallery-item datamosh" id="datamosh-selector">
         <div class="container">
           <div class="item">

@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.kaleidoscope {
+  background: #7f5d90;
+}
 .datamosh {
   background: #5a6b46;
 }
