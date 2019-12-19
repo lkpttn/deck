@@ -12,74 +12,67 @@ context.scale(2, 2);
 var width = canvas.width / 2;
 var height = canvas.height / 2;
 
-kaleidoscope();
+walker();
 
 // Take pixels into array (collection)
-function kaleidoscope() {
+function walker() {
   // Variables
-  let size = 50;
-  var colors = [
-    '#7F5D90', // purple
-    '#E3805E', // orange
-    '#FEE962', // yellow
-  ];
+  let x = width / 2;
+  let y = height / 2;
+  let frame = 0;
+  const stepSize = 10;
+  const angles = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2];
+  const colors = ['#241e44', '#25315e', '#3a5c85', '#56a1bf', '#97dbd2'];
+  let animation = true;
 
-  // Rotate from the center, then offset the canvas a bit
-  context.translate(width / 2, height / 2);
-  context.rotate(Math.PI / 6);
-  context.translate(-width / 2 - 100, -height / 2 - 100);
+  // Backgrounds
+  context.fillStyle = '#19102e';
+  context.fillRect(0, 0, width, height);
 
-  for (let i = 0; i < 10; i++) {
-    for (let j = 0; j < 10; j++) {
-      // Draw the rows slightly offset
-      if (i % 2 == 0) {
-        drawHex(i * size * 1.5, j * size * 1.7, size, colors);
-      } else {
-        drawHex(i * size * 1.5, 43 + j * size * 1.7, size, colors);
-      }
+  draw();
+
+  canvas.addEventListener('click', function(event) {
+    if (animation == true) {
+      animation = false;
+    } else if (animation == false) {
+      animation = true;
+      draw();
     }
-  }
+  });
 
-  function drawHex(x, y, size, colors) {
-    // Draw the background (and top right)
+  function draw() {
+    if (animation == false) {
+      return;
+    }
+    let angle = pick(angles);
+    x += Math.cos(angle) * stepSize;
+    y += Math.sin(angle) * stepSize;
+
+    // Turn around if you hit the edge of the canvas
+    if (x < 0) x = 0;
+    if (x > width) x = width;
+    if (y < 0) y = 0;
+    if (y > height) y = height;
+
     context.beginPath();
-    context.moveTo(x + size * Math.cos(0), y + size * Math.sin(0));
-
-    // Use the trig to find the location of the next coordinate
-    for (let side = 0; side < 6; side++) {
-      context.lineTo(
-        x + size * Math.cos((side * 2 * Math.PI) / 6),
-        y + size * Math.sin((side * 2 * Math.PI) / 6),
-      );
-    }
-    context.fillStyle = colors[0];
+    context.arc(x, y, 2, 0, Math.PI * 2, false);
+    context.fillStyle = colors[frame % colors.length];
     context.fill();
 
-    subdivideHex('bottom', colors[1]);
-    subdivideHex('left', colors[2]);
+    frame += 1;
 
-    function subdivideHex(area, color) {
-      // Draw a shape on sides 0,1,2 or sides 3,4,5
-      var side;
-      var limit;
-      if (area === 'bottom') {
-        side = 0;
-        limit = 3;
-      } else if (area === 'left') {
-        side = 2;
-        limit = 5;
-      }
-      context.beginPath();
-      context.moveTo(x, y);
-      for (let i = side; i < limit; i++) {
-        context.lineTo(
-          x + size * Math.cos((i * 2 * Math.PI) / 6),
-          y + size * Math.sin((i * 2 * Math.PI) / 6),
-        );
-      }
-      context.lineTo(x, y);
-      context.fillStyle = color;
-      context.fill();
-    }
+    requestAnimationFrame(draw);
+  }
+
+  // MATH
+  function rangeFloor(min, max) {
+    // Return a random whole number between min and max
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  function pick(array) {
+    // Pick a random item out of an array
+    if (array.length === 0) return undefined;
+    return array[rangeFloor(0, array.length)];
   }
 }
