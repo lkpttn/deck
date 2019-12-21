@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.walker {
+  background: #19102e;
+}
 .kaleidoscope {
   background: #7f5d90;
 }

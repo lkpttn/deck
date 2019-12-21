@@ -1,5 +1,5 @@
 // Kaleidoscope
-var canvas = document.getElementById('card-canvas');
+var canvas = document.getElementById('kaleidoscope');
 var context = canvas.getContext('2d');
 
 // New Retina canvas

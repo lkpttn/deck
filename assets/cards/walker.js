@@ -1,16 +1,17 @@
 // Builder
-var canvas = document.getElementById('card-canvas');
-var context = canvas.getContext('2d');
+// Unique canvas names for special cards
+var walkerCanvas = document.getElementById('walker');
+var walkerContext = walkerCanvas.getContext('2d');
 
 // New Retina canvas
-canvas.width = 600;
-canvas.height = 1000;
-canvas.style.width = '300px';
-canvas.style.height = '500px';
-context.scale(2, 2);
+walkerCanvas.width = 600;
+walkerCanvas.height = 1000;
+walkerCanvas.style.width = '300px';
+walkerCanvas.style.height = '500px';
+walkerContext.scale(2, 2);
 
-var width = canvas.width / 2;
-var height = canvas.height / 2;
+var width = walkerCanvas.width / 2;
+var height = walkerCanvas.height / 2;
 
 walker();
 
@@ -24,8 +25,8 @@ function walker() {
   const colors = ['#241e44', '#25315e', '#3a5c85', '#56a1bf', '#97dbd2'];
 
   // Backgrounds
-  context.fillStyle = '#19102e';
-  context.fillRect(0, 0, width, height);
+  walkerContext.fillStyle = '#19102e';
+  walkerContext.fillRect(0, 0, width, height);
 
   for (let i = 0; i < walkerCount; i++) {
     walkingCircle(x, y, stepSize, i);
@@ -37,7 +38,7 @@ function walker() {
 
     draw();
 
-    canvas.addEventListener('click', function(event) {
+    walkerCanvas.addEventListener('click', function(event) {
       if (animation == true) {
         animation = false;
       } else if (animation == false) {
@@ -60,10 +61,10 @@ function walker() {
       if (y < 0) y = 0;
       if (y > height) y = height;
 
-      context.beginPath();
-      context.arc(x, y, 3, 0, Math.PI * 2, false);
-      context.fillStyle = colors[color % colors.length];
-      context.fill();
+      walkerContext.beginPath();
+      walkerContext.arc(x, y, 3, 0, Math.PI * 2, false);
+      walkerContext.fillStyle = colors[color % colors.length];
+      walkerContext.fill();
 
       requestAnimationFrame(draw);
     }
