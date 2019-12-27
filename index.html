@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./assets/styles/codemirror.css" />
 
     <script src="https://polyfill.io/v2/polyfill.min.js?features=IntersectionObserver"></script>
+    <script src="https://cdn.rawgit.com/jwagner/simplex-noise.js/87440528bcf8ec89840e974d8f76cfe3da548c37/simplex-noise.min.js"></script>
   </head>
   <body>
     <header>
@@ -23,7 +24,7 @@
           <h1>Canvas Cards</h1>
           <p>
             Canvas Cards is a gallery of card designs created with javasript
-            canvas. Updated weekly, each card includes an editable code block so
+            canvas. Updated every week in 2019, each card includes an editable code block so
             feel free to tweak and make your own designs! Created by
             <a href="https://twitter.com/friendofpixels" target="_blank"
               >Luke Patton</a
@@ -52,24 +53,58 @@
     </header>
 
     <div class="gallery">
-        <div class="gallery-item walker" id="walker-selector">
-            <div class="container">
-              <div class="item">
-                <div class="card front">
-                  <canvas id="walker" data-name="Walker"
-                    >Walker</canvas
-                  >
-                </div>
-              </div>
-              <div class="description">
-                <h2>Walker</h2>
-                <p>
-                  This is the penultimate card of this project, so I figured it was time to break the rules a little bit and make an animated card. This week I read a lot about brownian motion (check it out on wikipedia) and decided to set a bunch of little walkers loose in our canvas. You can stop and start the animation by clicking on the canvas.
-                </p>
-                <pre id="walker-js"></pre>
-              </div>
+      <div class="gallery-item sunset" id="sunset-selector">
+        <div class="container">
+          <div class="item">
+            <div class="card front">
+              <canvas id="sunset" data-name="Sunset">Sunset</canvas>
             </div>
           </div>
+          <div class="description">
+            <h2>Sunset</h2>
+            <p>
+              52 weeks, 52 canvas cards. As we come to the end of our project,
+              I'm breaking the rules one more time by using an external library.
+            </p>
+            <p>
+              We're using a library to generate 2D Simplex noise, a gradient
+              noise algorithm that will produce smoothly random values for our x
+              and y values. We use that randomness to distort a sampling of
+              points along a circle to produce the wavy curves you see to the
+              left. You can alter the frequency and magnitude values to alter
+              how often and drastic the curves are.
+            </p>
+            <p>
+              To achieve the full effect, we just stack a bunch of shrinking,
+              distorted circles on top of each other. Use the Update Preview
+              button to draw a new card!
+            </p>
+            <pre id="sunset-js"></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item walker" id="walker-selector">
+        <div class="container">
+          <div class="item">
+            <div class="card front">
+              <canvas id="walker" data-name="Walker">Walker</canvas>
+            </div>
+          </div>
+          <div class="description">
+            <h2>Walker</h2>
+            <p>
+              This is the penultimate card of this project, so I figured it was
+              time to break the rules a little bit and make an animated card.
+              This week I read a lot about brownian motion (check it out on
+              wikipedia) and decided to set a bunch of little walkers loose in
+              our canvas. You can stop and start the animation by clicking on
+              the canvas.
+            </p>
+            <pre id="walker-js"></pre>
+          </div>
+        </div>
+      </div>
 
       <div class="gallery-item kaleidoscope" id="kaleidoscope-selector">
         <div class="container">

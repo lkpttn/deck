@@ -1,5 +1,5 @@
-// Builder
-var canvas = document.getElementById('card-canvas');
+// Sunset
+var canvas = document.getElementById('sunset');
 var context = canvas.getContext('2d');
 
 // New Retina canvas
@@ -53,30 +53,6 @@ function sunset() {
       colors[i % colors.length],
     );
     current.radius *= 1 - spacing;
-  }
-
-  // FUNCTIONS ************************
-  function drawLineCircle(circle, frequency, magnitude, seed, color) {
-    const samples = Math.floor(circle.radius);
-    for (let j = 0; j < samples + 1; ++j) {
-      const angle = (2 * Math.PI * j) / samples;
-
-      // Figure out the x/y coordinates for the given angle
-      const x = Math.cos(angle);
-      const y = Math.sin(angle);
-
-      // Randomly deform the radius of the circle at this point
-      const deformation =
-        simplex.noise3D(x * frequency, y * frequency, seed) + 1;
-      const radius = circle.radius * (1 + magnitude * deformation);
-
-      // Draw a line to the new point
-      context.strokeStyle = color;
-      context.beginPath();
-      context.moveTo(0, 0);
-      context.lineTo(radius * x, radius * y);
-      context.stroke();
-    }
   }
 
   function drawDeformedCircle(circle, frequency, magnitude, seed, color) {

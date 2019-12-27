@@ -261,6 +261,9 @@ button.update:hover {
 }
 
 /* Covers */
+.sunset {
+  background: #002f40;
+}
 .walker {
   background: #19102e;
 }
